@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package OilVSWind;
+package moteur;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -38,7 +38,16 @@ public class Joueur {
         this. vitesse = 0;    
     }
         
-    
+    /**
+     * Valide un mouvement de jeu d'Echecs.
+     *
+     * @param leDepuisFile File de la pièce à déplacer
+     * @param leDepuisRangée Rangée de la pièce à déplacer
+     * @param leVersFile File de la case de destination
+     * @param leVersRangée Rangée de la case de destination
+     * @return vrai (true) si le mouvement d'échec est valide ou faux (false)
+     * sinon
+     */
     public void MiseAJour () { // méthode miseAJour augmente l’ordonnée/abscisse de 5 pixels à chaque appel donc si la boucle du jeu est exécutée 25 fois par seconde, le joueur va se déplacer vers le bas de 5 pixels tous les 40 ms
         if ( this . gauche ) { 
         x -= 5; // déplacement du perso sur la gauche
