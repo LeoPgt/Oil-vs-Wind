@@ -24,7 +24,7 @@ public class JeuTest {
         System.out.println();
         System.out.println();
         
-        partie.MiseAJour(true);
+        partie.MiseAJour(true, Monde);
     }
     
 }

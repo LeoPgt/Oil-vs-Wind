@@ -16,7 +16,7 @@ public class JouableTest {
     public static void main(String[] args) {
         Carte Map = new Carte();
         Jouable Joueur = new Jouable();
-        //Joueur.localisation(Map);
+        Joueur.localisation(Map);
         Joueur.afficheCoordo();
     }
     

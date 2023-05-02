@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-import clavier.Clavier;
 
 /**
  *
@@ -14,7 +13,7 @@ public class Jeu {
     private int x;// x est le nombre de lignes ? coordonnée nan ?
     private int y; // y est le nombre de colonnes ? Coordoonnée nan ?
     private Carte C;
-    
+    private Jouable Joueur;
     
     public Jeu () {
         this.gauche = false;
@@ -24,6 +23,7 @@ public class Jeu {
 //        this.x=x;
 //        this.y=y;
         this.C = new Carte();
+        this.Joueur= new Jouable();
     }
     
     public void setCoordonne(int[] Localisation){
@@ -36,31 +36,36 @@ public class Jeu {
      * @version 1
      * @return une matrice de 0 et le joueur qui représente le 1
      */   
-    public void MiseAJour(boolean deplacement) {
-        
+    public Carte MiseAJour(boolean deplacement, Carte Bouclage) { // le boolean sera a dégager
+       // Matrice d'initialisation
+       Carte MapMod = Bouclage;
+       int x = this.Joueur.localisation(MapMod)[0]; // localisation du joueur sur la map bouclage
+       int y = this.Joueur.localisation(MapMod)[1]; // Localisation du joueur
         if (this.gauche) {
             if (y > 0 && this.C.getMatrice()[x][y-1] == 0) { // Vérifie si le mouvement est possible
                 this.C.getMatrice()[x][y] = 0; // Efface la position actuelle du 1
                 y--; // Met à jour la position du 1
                 this.C.getMatrice()[x][y] = 1; // Met à jour la nouvelle position du 1  
-                this.C.afficherMatrice(); // appel de la méthode afficherMatrice() après chaque déplacement
-         
+                
+                this.C.afficherMatrice(); // appel de la méthode afficherMatrice() après chaque déplacement             
             }
         } else if (deplacement = true) {
             if (y < this.C.getMatrice()[0].length-1 && this.C.getMatrice()[x][y+1] == 0) { // Vérifie si le mouvement est possible
                 this.C.getMatrice()[x][y] = 0; // Efface la position actuelle du 1
-              //  y++; // Met à jour la position du 1
+                y++;
                 this.C.getMatrice()[x][y] = 1; // Met à jour la nouvelle position du 1
-                this.C.afficherMatrice();
+               // this.C.afficherMatrice();
+               this.C = MapMod;
+                this.Cs.afficherMatrice();
             }
-        } else if (this.haut) {
+        } else if (this.haut){
             if (x > 0 && this.C.getMatrice()[x-1][y] == 0) { // Vérifie si le mouvement est possible
                 this.C.getMatrice()[x][y] = 0; // Efface la position actuelle du 1
                 x--; // Met à jour la position du 1
                 this.C.getMatrice()[x][y] = 1; // Met à jour la nouvelle position du 1
                 this.C.afficherMatrice();
             }
-        } else if (this.bas) {
+        } else if (this.bas){
             if (x < this.C.getMatrice().length-1 && this.C.getMatrice()[x+1][y] == 0) { // Vérifie si le mouvement est possible
                 this.C.getMatrice()[x][y] = 0; // Efface la position actuelle du 1
                 x++; // Met à jour la position du 1
@@ -68,6 +73,7 @@ public class Jeu {
                 this.C.afficherMatrice();
             }
         }
+        return MapMod;
     }
     
 }
