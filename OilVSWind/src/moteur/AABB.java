@@ -10,7 +10,7 @@ package moteur;
  */
 
 public class AABB { // AABB terme commun pour parler des boites de collisions
-    private float xMin, xMax, yMin, yMax, zMin, zMax;
+    private float xMin, xMax, yMin, yMax;
 
     public AABB(float xMin, float xMax, float yMin, float yMax) {
         this.xMin = xMin;

@@ -15,5 +15,24 @@ package moteur;
      * @return déplace le joueur de 5 à gauche ou à droite sur l'axe des abscisses / ordonnées 
      */
 public class Baril extends Jouable {
+       private int x;
+    private int y;
     
+    public Baril(){
+        this.x=0;
+        this.y=0;
+        // condition pour spawn random que pour le mouton
+    }
+    
+    
+   public boolean Capturable (boolean collisionLoupMouton,boolean capturable){
+       boolean capture;
+       if(collisionLoupMouton == true & capturable == true){
+           capture=true;
+       }
+       else{
+           capture=false;
+       }
+    return capture;
+   }
 }

@@ -8,7 +8,7 @@ import moteur.AABB;
  *
  * @author rmorel
  */
-public class Regle_Loup extends Joueur{
+public class Runner extends Joueur{
    // un private avec l'élement distinguant le loup private int vitesse;
    // besoin de l'envoie de la calsse Perso
     private int vitesseLoup;
@@ -16,7 +16,7 @@ public class Regle_Loup extends Joueur{
     private int y;
    // les coordonnées x,y seront différentes pour les spawns
     // constructeur Règle loup
-    public Regle_Loup(int vitesseLoup,int x, int y){
+    public Runner(int vitesseLoup,int x, int y){
         
         this.vitesseLoup=vitesseLoup;
         this.x=x;

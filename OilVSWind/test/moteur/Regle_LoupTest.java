@@ -43,7 +43,7 @@ public class Regle_LoupTest {
     public void testSetVitesse() {
         System.out.println("setVitesse");
         int newVitesse = 0;
-        Regle_Loup instance = new Regle_Loup();
+        Runner instance = new Runner();
         instance.setVitesse(newVitesse);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -55,7 +55,7 @@ public class Regle_LoupTest {
     @Test
     public void testGetVitesse() {
         System.out.println("getVitesse");
-        Regle_Loup instance = new Regle_Loup();
+        Runner instance = new Runner();
         int expResult = 0;
         int result = instance.getVitesse();
         assertEquals(expResult, result);
@@ -70,7 +70,7 @@ public class Regle_LoupTest {
     public void testCapturePossible() {
         System.out.println("capturePossible");
         boolean Attrapé = false;
-        Regle_Loup instance = new Regle_Loup();
+        Runner instance = new Runner();
         boolean expResult = false;
         boolean result = instance.capturePossible(Attrapé);
         assertEquals(expResult, result);
