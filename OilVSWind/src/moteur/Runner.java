@@ -3,12 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-import moteur.AABB;
 /**
  *
  * @author rmorel
  */
-public class Runner extends Joueur{
+public class Runner extends Jouable{
    // un private avec l'élement distinguant le loup private int vitesse;
    // besoin de l'envoie de la calsse Perso
     private int vitesseLoup;
