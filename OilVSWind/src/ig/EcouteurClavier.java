@@ -6,30 +6,64 @@ package ig;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JPanel;
+import java.awt.Graphics;
 
 /**
  *
  * @author tmichel1
  */
 public class EcouteurClavier implements KeyListener {
-
+ private int x = 350; // coordonnée x du dessin
+ private int y = 150; // coordonnée y du dessin
    
-    @Override
-    public void keyPressed(KeyEvent event) {
-        System.out.print("une touche a été appuyée - ");
-        System.out.println("le code de la touche est " + event.getKeyCode());
+
+    
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        switch (keyCode) {
+        case KeyEvent.VK_UP:
+            y -= 10; // déplace le dessin vers le haut
+            break;
+        case KeyEvent.VK_DOWN:
+            y += 10; // déplace le dessin vers le bas
+            break;
+        case KeyEvent.VK_LEFT:
+            x -= 10; // déplace le dessin vers la gauche
+            break;
+        case KeyEvent.VK_RIGHT:
+            x += 10; // déplace le dessin vers la droite
+            break;
+        }
+     
     }
 
-    @Override
-    public void keyTyped(KeyEvent event) {
-        System.out.print("un caractère a été frappé - ");
-        System.out.println("'" + event.getKeyChar() + "'");
+    public void keyReleased(KeyEvent e) {
+        // Ne fait rien
     }
 
-    @Override
-    public void keyReleased(KeyEvent event) {
-        System.out.println("touche relachée : " + event.getKeyCode());
+    public void keyTyped(KeyEvent e) {
+        // Ne fait rien
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    
+   
     }
     
 
