@@ -36,43 +36,60 @@ public class Jeu {
      * @version 1
      * @return une matrice de 0 et le joueur qui représente le 1
      */   
-    public Carte MiseAJour(boolean deplacement, Carte Bouclage) { // le boolean sera a dégager
+    public Carte MiseAJour(int deplacement, Carte Bouclage) { // le boolean sera a dégager
        // Matrice d'initialisation
        Carte MapMod = Bouclage;
        int x = this.Joueur.localisation(MapMod)[0]; // localisation du joueur sur la map bouclage
        int y = this.Joueur.localisation(MapMod)[1]; // Localisation du joueur
-        if (this.gauche) {
+        if (deplacement == 0) {
             if (y > 0 && this.C.getMatrice()[x][y-1] == 0) { // Vérifie si le mouvement est possible
-                this.C.getMatrice()[x][y] = 0; // Efface la position actuelle du 1
+                MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
+//                this.C.getMatrice()[x][y] = 0; 
                 y--; // Met à jour la position du 1
-                this.C.getMatrice()[x][y] = 1; // Met à jour la nouvelle position du 1  
+                MapMod.setMatrice(x, y, 1); // Met à jour la nouvelle position du 1  
+//                this.C.getMatrice()[x][y] = 1; 
                 
-                this.C.afficherMatrice(); // appel de la méthode afficherMatrice() après chaque déplacement             
+//                this.C.afficherMatrice(); // appel de la méthode afficherMatrice() après chaque déplacement             
             }
-        } else if (deplacement = true) {
+        } else if (deplacement == 1) {
             if (y < this.C.getMatrice()[0].length-1 && this.C.getMatrice()[x][y+1] == 0) { // Vérifie si le mouvement est possible
-                this.C.getMatrice()[x][y] = 0; // Efface la position actuelle du 1
+                MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1 Modification du setteur car setter modifie la matrice mais pas ses éléments !!!
+//                this.C.getMatrice()[x][y] = 0; j'ai laissé en commentaire les anciennes parties du programme je les retires après le prochain cours d'info
                 y++;
-                this.C.getMatrice()[x][y] = 1; // Met à jour la nouvelle position du 1
-               // this.C.afficherMatrice();
-               this.C = MapMod;
-                this.Cs.afficherMatrice();
+                MapMod.setMatrice(x, y, 1); //this.C.getMatrice()[x][y] = 1; 
+
+               // this.C.afficherMatrice();j'ai laissé en commentaire les anciennes parties du programme je les retires après le prochain cours d'info
+                
             }
-        } else if (this.haut){
+            else{
+                System.out.print("déplacement impossible vers la droite");
+            }
+            
+        } else if (deplacement == 2){
             if (x > 0 && this.C.getMatrice()[x-1][y] == 0) { // Vérifie si le mouvement est possible
-                this.C.getMatrice()[x][y] = 0; // Efface la position actuelle du 1
+                MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
+//                this.C.getMatrice()[x][y] = 0; 
                 x--; // Met à jour la position du 1
-                this.C.getMatrice()[x][y] = 1; // Met à jour la nouvelle position du 1
-                this.C.afficherMatrice();
+                MapMod.setMatrice(x, y, 1); //this.C.getMatrice()[x][y] = 1; 
+//                this.C.getMatrice()[x][y] = 1; //
+//                this.C.afficherMatrice();
             }
-        } else if (this.bas){
+        } else if (deplacement == 3){
             if (x < this.C.getMatrice().length-1 && this.C.getMatrice()[x+1][y] == 0) { // Vérifie si le mouvement est possible
-                this.C.getMatrice()[x][y] = 0; // Efface la position actuelle du 1
+//                this.C.getMatrice()[x][y] = 0;
+                MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
                 x++; // Met à jour la position du 1
-                this.C.getMatrice()[x][y] = 1; // Met à jour la nouvelle position du 1
-                this.C.afficherMatrice();
+                MapMod.setMatrice(x, y, 1); //this.C.getMatrice()[x][y] = 1; 
+//                this.C.getMatrice()[x][y] = 1;
+//                this.C.afficherMatrice();
             }
         }
+        this.C.afficherMatriceV2(MapMod);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+       // this.C.afficherMatriceV2(Bouclage);
         return MapMod;
     }
     

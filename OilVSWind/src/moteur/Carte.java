@@ -22,6 +22,7 @@ public class Carte {
         matrice = new int[5][5]; // Crée une matrice de 50x50 remplie de 0 (mod 02/05 romain)
         matrice[3][3] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur) // mod ROomain
     }
+    
         
     // Affichge Matrice Validée
     
@@ -37,4 +38,20 @@ public class Carte {
             System.out.println();
         }
     } 
+    
+    // affichage créer pour les maps après déplacement ou futur modification cartographique
+    
+    public void afficherMatriceV2(Carte Map){
+       int[][] carteMatricielle = Map.getMatrice();
+       for (int i = 0; i< carteMatricielle.length; i++){
+           for (int j=0; j< carteMatricielle[i].length;j++){
+               if(carteMatricielle[i][j] == 0){
+                   System.out.print("0");
+               } else{
+                   System.out.print("1");
+               }
+            }
+            System.out.println();
+       }
+    }
 }
