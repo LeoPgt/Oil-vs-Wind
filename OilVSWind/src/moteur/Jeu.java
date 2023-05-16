@@ -11,9 +11,9 @@ package moteur;
 public class Jeu {
     protected boolean gauche, droite, haut, bas;
     private int x;// x est le nombre de lignes ? coordonnée nan ?
-    private int y; // y est le nombre de colonnes ? Coordoonnée nan ?
+    private int y; // y est le nombre de colonnes ? Coordoonnée nan ? //Manal : J'avoue, c'est pas clair, c'est les tailles ?
     private Carte C;
-    private Jouable Joueur;
+    private Jouable Joueur; //Manal : Déclarez plutôt directement Runner ou Baril.
     
     public Jeu () {
         this.gauche = false;
@@ -38,9 +38,9 @@ public class Jeu {
        // Matrice d'initialisation
        Carte MapMod = Bouclage;
        int x = this.Joueur.localisation(MapMod)[0]; // localisation du joueur sur la map bouclage
-       int y = this.Joueur.localisation(MapMod)[1]; // Localisation du joueur
-        if (deplacement == 0) {
-            if (y > 0 && this.C.getMatrice()[x][y-1] == 0) { // Vérifie si le mouvement est possible
+       int y = this.Joueur.localisation(MapMod)[1]; // Localisation du joueur //Manal : Même remarque que dans la classe Jouable, autant définir direct les coordonnées dans la classe.
+        if (deplacement == 0) { //Manal : A quoi correspond "déplacement" ?
+            if (y > 0 && this.C.getMatrice()[x][y-1] == 0) { // Vérifie si le mouvement est possible //Manal: Mettez ça dans une méthode à part, qui vous retourne True si le mouvement est possible.
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
 //                this.C.getMatrice()[x][y] = 0; 
                 y--; // Met à jour la position du 1

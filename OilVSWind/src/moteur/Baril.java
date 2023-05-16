@@ -15,7 +15,7 @@ package moteur;
      */
 public class Baril extends Jouable {
        private int x;
-    private int y;
+    private int y; //Manal : Ces coordonnées peuvent être hérité de Jouable !
     
     public Baril(){
         this.x=0;
@@ -27,7 +27,7 @@ public class Baril extends Jouable {
    public boolean Capturable (boolean collisionLoupMouton,boolean capturable){
        boolean capture;
        if(collisionLoupMouton == true & capturable == true){
-           capture=true;
+           capture=true; //Manal : Ca peut être des attributs du Baril ça non ?
        }
        else{
            capture=false;
