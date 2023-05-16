@@ -20,12 +20,12 @@ public class Carte {
     
     public Carte () {
         matrice = new int[5][5]; // Crée une matrice de 50x50 remplie de 0
-        int nbrObstacle = 2;
-        for (int k=0;k< nbrObstacle;k++){ // Placement des obstacles de manière aléatoires pour le moment productowner !
-            int indexRandom = (int)(Math.random()*(matrice.length));
-            int indexRandom2 = (int)(Math.random()*(matrice.length)); //Manal : Attention aux noms de variables pas claires. Mais ok !
-            matrice[indexRandom][indexRandom2] = 2;
-        }
+//        int nbrObstacle = 2;
+//        for (int k=0;k< nbrObstacle;k++){ // Placement des obstacles de manière aléatoires pour le moment productowner !
+//            int indexRandom = (int)(Math.random()*(matrice.length));
+//            int indexRandom2 = (int)(Math.random()*(matrice.length)); //Manal : Attention aux noms de variables pas claires. Mais ok !
+//            matrice[indexRandom][indexRandom2] = 2;
+//        }
         // Déjà codé l'ajout des autres perso en attente pour faire les divers test !
 //        int Placer = 0;
 //        while (Placer != nbrPerso-1){
@@ -37,6 +37,7 @@ public class Carte {
 //            Placer++;
 //        }
         matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
+        matrice[4][4] = 3;
     }
 
          //Manal : Idem, ça peut être dans un toString ça.
@@ -53,6 +54,9 @@ public class Carte {
                 if(Map.getMatrice()[i][j]==0){
                    System.out.print("0");               
                 }
+                if(Map.getMatrice()[i][j]==3){
+                   System.out.print("3");               
+                }                
             }    
            System.out.println();
         }

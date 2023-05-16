@@ -14,24 +14,39 @@ package moteur;
       déplace le joueur de 5 à gauche ou à droite sur l'axe des abscisses / ordonnées 
      */
 public class Baril extends Jouable {
-    private int x;
-    private int y; //Manal : Ces coordonnées peuvent être hérité de Jouable !
-    
-    public Baril(){
-        this.x=0;
-        this.y=0;
+    private boolean capturable;
+    private boolean capturais;
+            
+    public Baril(int x, int y){
+        super (x , y);
+        this.capturable=true;
+        this.capturais=false;
         // condition pour spawn random que pour le mouton
     }
+
+    public void capturablableSett (boolean modif){ // modif peut etre true ou false selon la situation définie
+        this.capturable=modif;
+    }
     
-    
-   public boolean Capturable (boolean collisionLoupMouton,boolean capturable){
-       boolean capture;
-       if(collisionLoupMouton == true & capturable == true){
-           capture=true; //Manal : Ca peut être des attributs du Baril ça non ?
+    public boolean capturableGet(){
+        return this.capturable;
+    }
+
+    public boolean capturaisGet() {
+        return capturais;
+    }
+
+    public void setCapturais(boolean capturais) {
+        this.capturais = capturais;
+    }
+   
+   public void Capturable (boolean collisionLoupMouton){
+       boolean capturais = false;
+       if(collisionLoupMouton == true & this.capturableGet() == true){
+           this.capturablableSett(true);
        }
        else{
-           capture=false;
+           this.capturablableSett(false);
        }
-    return capture;
    }
 }
