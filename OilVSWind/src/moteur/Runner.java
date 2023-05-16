@@ -12,7 +12,7 @@ public class Runner extends Jouable{
    // besoin de l'envoie de la calsse Perso
     private int vitesseLoup;
     private int x;
-    private int y;
+    private int y; //Manal : Idem que Baril, mettez les coordonnées dans Jouable.
    // les coordonnées x,y seront différentes pour les spawns
     // constructeur Règle loup
     public Runner(int vitesseLoup,int x, int y){

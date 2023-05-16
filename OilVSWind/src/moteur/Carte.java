@@ -23,7 +23,7 @@ public class Carte {
         int nbrObstacle = 2;
         for (int k=0;k< nbrObstacle;k++){ // Placement des obstacles de manière aléatoires pour le moment productowner !
             int indexRandom = (int)(Math.random()*(matrice.length));
-            int indexRandom2 = (int)(Math.random()*(matrice.length));
+            int indexRandom2 = (int)(Math.random()*(matrice.length)); //Manal : Attention aux noms de variables pas claires. Mais ok !
             matrice[indexRandom][indexRandom2] = 2;
         }
         // Déjà codé l'ajout des autres perso en attente pour faire les divers test !
@@ -41,7 +41,7 @@ public class Carte {
     
     // Affichge Matrice Validée plein de conflit pour l'apparition de nouveau éléments
     
-    public void afficherMatrice() {
+    public void afficherMatrice() { //Manal : Idem, ça peut être dans un toString ça.
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
                 if (matrice[i][j] == 1) {
