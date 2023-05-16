@@ -11,10 +11,10 @@ package moteur;
 /**
      * 
      * @version 1 ( la version 2 consistera à mettre la carte dans la boucle avec des requetes lié à la classe joueursqui lui même sera lié à du déplacement sur la carte )
-     * @return déplace le joueur de 5 à gauche ou à droite sur l'axe des abscisses / ordonnées 
+      déplace le joueur de 5 à gauche ou à droite sur l'axe des abscisses / ordonnées 
      */
 public class Baril extends Jouable {
-       private int x;
+    private int x;
     private int y; //Manal : Ces coordonnées peuvent être hérité de Jouable !
     
     public Baril(){
