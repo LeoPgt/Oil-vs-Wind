@@ -81,7 +81,7 @@ public class Jeu {
         }
         return collision;
     }
-    
+
     /**
      * A voir a quoi sert ce programme (pour l'instant non traité)
      * @version 1
@@ -189,16 +189,30 @@ public class Jeu {
         Bouclage.afficherMatriceV2(MapMod);
         return MapMod;
     }
-    
- /**
-     * A voir
-     * @version 
-     * @return 
-     */  
+
+        /**
+         * Permet de transformer les infos du moteur avec x et y en termes de pixels pour l'interface graphique
+         * @version 1
+         * @return les infos en pixels
+         * */
+        public int convertirEnPixelssurX(int x) {
+            return x * this.tailleCase;
+         }
+        public int convertirEnPixelssurY(int y) {
+            return y * this.tailleCase;
+        }
+
+
+        /**
+         * A voir
+         * @version
+         * @return
+         */
     public void partie(){
         Carte Map = new Carte(); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Jouable Joueur = new Jouable(2,2); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-//        Baril Baril = new Baril(4,4);
+        Jouable Joueur = new Jouable(2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Baril Baril = new Baril(4,4);
+        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
         Map.afficherMatriceV2(Map);
         int bouclage = 10;
         int essai = 0;
@@ -207,19 +221,10 @@ public class Jeu {
             int unEntier = Clavier.getInt();
             Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
             Map = MapMod;
+            this.deplacementCapture(this.collisionLoupMouton());
+            Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
         }
     }
-    
-    /**
-     * Permet de transformer les infos du moteur avec x et y en termes de pixels pour l'interface graphique
-     * @version 1
-     * @return les infos en pixels
-     */  
 
-    public int convertirEnPixelssurX(int x) {
-        return x * this.tailleCase;
-    }
-    public int convertirEnPixelssurY(int y) {
-        return y * this.tailleCase;
-    }
 }
+
