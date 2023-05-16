@@ -4,7 +4,7 @@
  */
 package moteur;
 /**
- * Le but de cette classe sera de traduire la carte en termes de 0 = vide ,1 = joueur , 2 = obstacle
+ * Le but de cette classe sera de traduire la carte en termes de 0 = vide ,1 = joueur , 2 = obstacle, 3= moutonA , 4 = moutonB , 5 = moutonC
  * @author mleconte
  */
 public class Carte {
