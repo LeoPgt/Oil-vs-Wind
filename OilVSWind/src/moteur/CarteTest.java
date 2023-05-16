@@ -14,10 +14,14 @@ public class CarteTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Carte Monde = new Carte();
+       Carte Monde = new Carte(5,3,2);
        Monde.getMatrice();
-       //Monde.afficherMatrice();
-        
+    //   Monde.afficherMatrice();
+    Monde.afficherMatriceV2(Monde);
+    Monde.spwan(Monde, 3);
+    System.out.print("------------");
+    System.out.println();
+
     }
     
 }

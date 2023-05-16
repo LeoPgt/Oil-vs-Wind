@@ -23,6 +23,7 @@ public class JeuTest {
 //        System.out.println();
 //        System.out.println();
 //        System.out.println();
+// 0 haut 1 droite 2 gauche 3 bas
   partie.MiseAJour(1, Monde);
 //        System.out.println();
 //        System.out.println();

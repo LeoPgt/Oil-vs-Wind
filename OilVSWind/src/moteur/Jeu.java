@@ -20,9 +20,7 @@ public class Jeu {
         this.droite = false;
         this.haut = false;
         this.bas = false;
-//        this.x=x;
-//        this.y=y;
-        this.C = new Carte();
+     //   this.C = new Carte();
         this.Joueur= new Jouable();
     }
     
@@ -47,9 +45,11 @@ public class Jeu {
 //                this.C.getMatrice()[x][y] = 0; 
                 y--; // Met à jour la position du 1
                 MapMod.setMatrice(x, y, 1); // Met à jour la nouvelle position du 1  
-//                this.C.getMatrice()[x][y] = 1; 
-                
+//                this.C.getMatrice()[x][y] = 1;               
 //                this.C.afficherMatrice(); // appel de la méthode afficherMatrice() après chaque déplacement             
+            }
+            else{
+                System.out.print("déplacement impossible vers la gauche");
             }
         } else if (deplacement == 1) {
             if (y < this.C.getMatrice()[0].length-1 && this.C.getMatrice()[x][y+1] == 0) { // Vérifie si le mouvement est possible
@@ -57,14 +57,11 @@ public class Jeu {
 //                this.C.getMatrice()[x][y] = 0; j'ai laissé en commentaire les anciennes parties du programme je les retires après le prochain cours d'info
                 y++;
                 MapMod.setMatrice(x, y, 1); //this.C.getMatrice()[x][y] = 1; 
-
-               // this.C.afficherMatrice();j'ai laissé en commentaire les anciennes parties du programme je les retires après le prochain cours d'info
-                
+               // this.C.afficherMatrice();j'ai laissé en commentaire les anciennes parties du programme je les retires après le prochain cours d'info   
             }
             else{
-                System.out.print("déplacement impossible vers la droite");
-            }
-            
+                System.out.print("déplacement impossible vers le haut");
+            }         
         } else if (deplacement == 2){
             if (x > 0 && this.C.getMatrice()[x-1][y] == 0) { // Vérifie si le mouvement est possible
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
@@ -74,6 +71,10 @@ public class Jeu {
 //                this.C.getMatrice()[x][y] = 1; //
 //                this.C.afficherMatrice();
             }
+            else{
+                System.out.print("déplacement impossible vers la gauche");
+            }
+            
         } else if (deplacement == 3){
             if (x < this.C.getMatrice().length-1 && this.C.getMatrice()[x+1][y] == 0) { // Vérifie si le mouvement est possible
 //                this.C.getMatrice()[x][y] = 0;
@@ -83,13 +84,11 @@ public class Jeu {
 //                this.C.getMatrice()[x][y] = 1;
 //                this.C.afficherMatrice();
             }
+            else{
+                System.out.print("déplacement impossible vers la droite");
+            }
         }
         this.C.afficherMatriceV2(MapMod);
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-       // this.C.afficherMatriceV2(Bouclage);
         return MapMod;
     }
     

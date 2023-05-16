@@ -20,8 +20,7 @@ public class Jouable {
     
     public int [] localisation(Carte carteDeJeu){
         int [] Coordo = new int[2];
-        Carte MapDeJeu = new Carte();    
-        int [][] matrice = MapDeJeu.getMatrice();
+        int [][] matrice = carteDeJeu.getMatrice();
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
                 if (matrice[i][j] == 1) {
