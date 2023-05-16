@@ -13,8 +13,8 @@ import java.io.InputStreamReader;
  */
 public class Jeu {
     protected boolean gauche, droite, haut, bas;
-    private int x;
-    private int y;
+    private int x;// indice de ligne de la case
+    private int y;// indice de colonne de la case
     private int xR;
     private int yR;
     private int xB;
@@ -23,15 +23,18 @@ public class Jeu {
     private Jouable Joueur; //Manal : Déclarez plutôt directement Runner ou Baril.
     private Runner runner;
     private Baril barrilJoueur;
+    private int tailleCase;
     
-    public Jeu () {
+    public Jeu (int taillecase) {
         this.gauche = false;
         this.droite = false;
         this.haut = false;
         this.bas = false;
         this.Joueur= new Jouable( x,  y);
-//        this.runner = new Runner(xR,yR,2);
+
+        this.runner = new Runner(xR,yR,2);
         this.barrilJoueur = new Baril(xB,yB);
+        this.tailleCase = taillecase;
     }
         static public long getLong() {
         long retourLong = 0;
@@ -146,4 +149,14 @@ public class Jeu {
             Map = MapMod;
         }
     }
+    
+    // Création du programme qui permet de transformeer les infos moteur en termes de pixels
+    public int convertirEnPixelssurX(int x) {
+        return x * this.tailleCase;
+    }
+    public int convertirEnPixelssurY(int y) {
+        return y * this.tailleCase;
+    }
 }
+
+   //testgithub
