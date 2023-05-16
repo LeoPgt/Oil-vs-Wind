@@ -15,18 +15,13 @@ public class Runner extends Jouable{
     private int y; //Manal : Idem que Baril, mettez les coordonnées dans Jouable.
    // les coordonnées x,y seront différentes pour les spawns
     // constructeur Règle loup
-    public Runner(int vitesseLoup,int x, int y){
-        
+    public Runner(int vitesseLoup,int x, int y){        
         this.vitesseLoup=vitesseLoup;
         this.x=x;
         this.y=y;
         // spawn a côté de l'éolienne à définir
     }
-
-    
-
-    
-          
+      
    //setteur de reférence
     public void setVitesse(int newVitesse){
         this.vitesseLoup = newVitesse;

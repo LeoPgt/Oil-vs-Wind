@@ -38,23 +38,8 @@ public class Carte {
 //        }
         matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
     }
-    
-    // Affichge Matrice Validée plein de conflit pour l'apparition de nouveau éléments
-    
-    public void afficherMatrice() { //Manal : Idem, ça peut être dans un toString ça.
-        for (int i = 0; i < matrice.length; i++) {
-            for (int j = 0; j < matrice[i].length; j++) {
-                if (matrice[i][j] == 1) {
-                    System.out.print("0");
-                } else {
-                    System.out.print("1");
-                }
-            }
-            System.out.println();
-        }
-    }   
-    // affichage créer pour les maps après déplacement ou futur modification cartographique obstacle apparait ! 
-    
+
+         //Manal : Idem, ça peut être dans un toString ça.
     public void afficherMatriceV2(Carte Map){
        int[][] carteMatricielle = Map.getMatrice();
        for (int i = 0; i< carteMatricielle.length; i++){
@@ -73,3 +58,4 @@ public class Carte {
         }
     }
 }
+    // Affichge Matrice Validée plein de conflit pour l'apparition de nouveau éléments
