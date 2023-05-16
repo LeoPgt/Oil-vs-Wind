@@ -13,17 +13,19 @@ import java.io.InputStreamReader;
  */
 public class Jeu {
     protected boolean gauche, droite, haut, bas;
-    private int x;// x est le nombre de lignes ? coordonnée nan ?
-    private int y; // y est le nombre de colonnes ? Coordoonnée nan ? //Manal : J'avoue, c'est pas clair, c'est les tailles ?
+    private int x;// indice de ligne de la case
+    private int y; // indice de colonne de la case //Manal : J'avoue, c'est pas clair, c'est les tailles ?
     private Carte C;
     private Jouable Joueur; //Manal : Déclarez plutôt directement Runner ou Baril.
+    private int tailleCase;
     
-    public Jeu () {
+    public Jeu (int taillecase) {
         this.gauche = false;
         this.droite = false;
         this.haut = false;
         this.bas = false;
         this.Joueur= new Jouable( x,  y);
+        this.tailleCase = taillecase;
     }
     
     public void setCoordonne(int[] Localisation){
@@ -114,5 +116,13 @@ public class Jeu {
         int unEntier = Clavier.getInt();
         this.MiseAJour(unEntier, Map);
         }
+    }
+    
+    // Création du programme qui permet de transformeer les infos moteur en termes de pixels
+    public int convertirEnPixelssurX(int x) {
+        return x * this.tailleCase;
+    }
+    public int convertirEnPixelssurY(int y) {
+        return y * this.tailleCase;
     }
 }
