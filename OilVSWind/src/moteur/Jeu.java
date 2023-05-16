@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
+import clavier.Clavier;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -20,7 +23,6 @@ public class Jeu {
         this.droite = false;
         this.haut = false;
         this.bas = false;
-     //   this.C = new Carte();
         this.Joueur= new Jouable();
     }
     
@@ -40,7 +42,7 @@ public class Jeu {
        int x = this.Joueur.localisation(MapMod)[0]; // localisation du joueur sur la map bouclage
        int y = this.Joueur.localisation(MapMod)[1]; // Localisation du joueur
         if (deplacement == 0) {
-            if (y > 0 && this.C.getMatrice()[x][y-1] == 0) { // Vérifie si le mouvement est possible
+            if (y > 0 && Bouclage.getMatrice()[x][y-1] == 0) { // Vérifie si le mouvement est possible
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
 //                this.C.getMatrice()[x][y] = 0; 
                 y--; // Met à jour la position du 1
@@ -50,9 +52,10 @@ public class Jeu {
             }
             else{
                 System.out.print("déplacement impossible vers la gauche");
+                System.out.println();
             }
         } else if (deplacement == 1) {
-            if (y < this.C.getMatrice()[0].length-1 && this.C.getMatrice()[x][y+1] == 0) { // Vérifie si le mouvement est possible
+            if (y < Bouclage.getMatrice()[0].length-1 && Bouclage.getMatrice()[x][y+1] == 0) { // Vérifie si le mouvement est possible
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1 Modification du setteur car setter modifie la matrice mais pas ses éléments !!!
 //                this.C.getMatrice()[x][y] = 0; j'ai laissé en commentaire les anciennes parties du programme je les retires après le prochain cours d'info
                 y++;
@@ -61,9 +64,10 @@ public class Jeu {
             }
             else{
                 System.out.print("déplacement impossible vers le haut");
+                System.out.println();
             }         
         } else if (deplacement == 2){
-            if (x > 0 && this.C.getMatrice()[x-1][y] == 0) { // Vérifie si le mouvement est possible
+            if (x > 0 && Bouclage.getMatrice()[x-1][y] == 0) { // Vérifie si le mouvement est possible
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
 //                this.C.getMatrice()[x][y] = 0; 
                 x--; // Met à jour la position du 1
@@ -73,10 +77,11 @@ public class Jeu {
             }
             else{
                 System.out.print("déplacement impossible vers la gauche");
+                System.out.println();
             }
             
         } else if (deplacement == 3){
-            if (x < this.C.getMatrice().length-1 && this.C.getMatrice()[x+1][y] == 0) { // Vérifie si le mouvement est possible
+            if (x < Bouclage.getMatrice().length-1 && Bouclage.getMatrice()[x+1][y] == 0) { // Vérifie si le mouvement est possible
 //                this.C.getMatrice()[x][y] = 0;
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
                 x++; // Met à jour la position du 1
@@ -86,10 +91,39 @@ public class Jeu {
             }
             else{
                 System.out.print("déplacement impossible vers la droite");
+                System.out.println();
             }
         }
-        this.C.afficherMatriceV2(MapMod);
+        Bouclage.afficherMatriceV2(MapMod);
         return MapMod;
     }
     
+    static public long getLong() {
+        long retourLong = 0;
+        boolean saisieOk = false;
+        while (saisieOk == false) {
+            try {
+                BufferedReader inr = new BufferedReader(new InputStreamReader(System.in));
+                String s = inr.readLine();
+                retourLong = Long.parseLong(s);
+                saisieOk = true;
+            } catch (Exception e) {
+                System.out.println(" Erreur de saisie : veuiller entrer un entier ");
+            }
+        }
+        return retourLong;
+    }
+    
+    public void partie(){
+        Carte Map = new Carte();
+        Map.afficherMatriceV2(Map);
+        boolean resultat = false;
+        int bouclage = 5;
+        int essai = 0;
+        while (essai != bouclage){
+        System.out.print("selectionner une direction");
+        int unEntier = Clavier.getInt();
+        this.MiseAJour(unEntier, Map);
+        }
+    }
 }

@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-import java.util.Random;
 /**
  * Le but de cette classe sera de traduire la carte en termes de 0 = vide ,1 = joueur , 2 = obstacle
  * @author mleconte
@@ -19,34 +18,27 @@ public class Carte {
         this.matrice[i][j] = valeur;
     }
     
-    public Carte (int taille, int nbrObstacle, int nbrPerso) {
-        matrice = new int[taille][taille]; // Crée une matrice de 50x50 remplie de 0 (mod 02/05 romain)
+    public Carte () {
+        matrice = new int[5][5]; // Crée une matrice de 50x50 remplie de 0
+        int nbrObstacle = 2;
         for (int k=0;k< nbrObstacle;k++){ // Placement des obstacles de manière aléatoires pour le moment productowner !
             int indexRandom = (int)(Math.random()*(matrice.length));
             int indexRandom2 = (int)(Math.random()*(matrice.length));
             matrice[indexRandom][indexRandom2] = 2;
         }
-        int Placer = 0;
-        while (Placer != nbrPerso-1){
-            for (int k=0; k<nbrPerso;k++ ){
-                int index1Joueurk = (int)(Math.random()*(matrice.length));
-                int index2Joueurk = (int)(Math.random()*(matrice.length));
-                matrice[index1Joueurk][index2Joueurk]=1;
-            }
-            Placer++;
-        }
-  //  matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur) futur gestion de ce dernier
+        // Déjà codé l'ajout des autres perso en attente pour faire les divers test !
+//        int Placer = 0;
+//        while (Placer != nbrPerso-1){
+//            for (int k=0; k<nbrPerso;k++ ){
+//                int index1Joueurk = (int)(Math.random()*(matrice.length));
+//                int index2Joueurk = (int)(Math.random()*(matrice.length));
+//                matrice[index1Joueurk][index2Joueurk]=1;
+//            }
+//            Placer++;
+//        }
+        matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
     }
     
-    public void spwan(Carte Map, int nbrJoueur){
-        matrice = Map.getMatrice();
-        for (int k=0; k<nbrJoueur;k++ ){
-            int index1Joueurk = (int)(Math.random()*(matrice.length));
-            int index2Joueurk = (int)(Math.random()*(matrice.length));
-            while (matrice[index1Joueurk][index2Joueurk] == 1)    
-                k=k-1;
-            }
-    }
     // Affichge Matrice Validée plein de conflit pour l'apparition de nouveau éléments
     
     public void afficherMatrice() {
@@ -60,9 +52,7 @@ public class Carte {
             }
             System.out.println();
         }
-    }
-       
-    
+    }   
     // affichage créer pour les maps après déplacement ou futur modification cartographique obstacle apparait ! 
     
     public void afficherMatriceV2(Carte Map){

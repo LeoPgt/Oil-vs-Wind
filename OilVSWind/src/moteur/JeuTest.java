@@ -17,20 +17,18 @@ public class JeuTest {
     public static void main(String[] args) {
         Carte Monde = new Carte();
         Jeu partie = new Jeu();
-        //Monde.afficherMatrice();
+        //Monde.afficherMatrice();0
         //partie.MiseAJourCourte(true);
 //        System.out.println();
+//        System.out.println();// 0 haut 1 droite 2 gauche 3 bas
+//partie.MiseAJour(1, Monde);
 //        System.out.println();
 //        System.out.println();
 //        System.out.println();
-// 0 haut 1 droite 2 gauche 3 bas
-  partie.MiseAJour(1, Monde);
-//        System.out.println();
-//        System.out.println();
-//        System.out.println();
-//        System.out.println();
-//        System.out.println();
- //       partie.MiseAJour(1, partie.MiseAJour(1, Monde));
+      // partie.MiseAJour(1, partie.MiseAJour(1, Monde));
+        partie.partie();
+ 
+ 
     }
     
 }
