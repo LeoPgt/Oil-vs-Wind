@@ -23,7 +23,7 @@ public class Jeu {
         this.droite = false;
         this.haut = false;
         this.bas = false;
-        this.Joueur= new Jouable();
+        this.Joueur= new Jouable( x,  y);
     }
     
     public void setCoordonne(int[] Localisation){
@@ -39,19 +39,13 @@ public class Jeu {
     public Carte MiseAJour(int deplacement, Carte Bouclage) { // le boolean sera a dégager
        // Matrice d'initialisation
        Carte MapMod = Bouclage;
-       int x = this.Joueur.localisation(MapMod)[0]; // localisation du joueur sur la map bouclage
-       int y = this.Joueur.localisation(MapMod)[1]; // Localisation du joueur
-        if (deplacement == 0) {
-            if (y > 0 && Bouclage.getMatrice()[x][y-1] == 0) { // Vérifie si le mouvement est possible
-       int y = this.Joueur.localisation(MapMod)[1]; // Localisation du joueur //Manal : Même remarque que dans la classe Jouable, autant définir direct les coordonnées dans la classe.
+       int x = this.Joueur.localisation()[0]; // localisation du joueur sur la map en x
+       int y = this.Joueur.localisation()[1]; // Localisation du joueur sur la map en y
         if (deplacement == 0) { //Manal : A quoi correspond "déplacement" ?
             if (y > 0 && this.C.getMatrice()[x][y-1] == 0) { // Vérifie si le mouvement est possible //Manal: Mettez ça dans une méthode à part, qui vous retourne True si le mouvement est possible.
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
-//                this.C.getMatrice()[x][y] = 0; 
                 y--; // Met à jour la position du 1
-                MapMod.setMatrice(x, y, 1); // Met à jour la nouvelle position du 1  
-//                this.C.getMatrice()[x][y] = 1;               
-//                this.C.afficherMatrice(); // appel de la méthode afficherMatrice() après chaque déplacement             
+                MapMod.setMatrice(x, y, 1); // Met à jour la nouvelle position du 1             
             }
             else{
                 System.out.print("déplacement impossible vers la gauche");
@@ -60,10 +54,8 @@ public class Jeu {
         } else if (deplacement == 1) {
             if (y < Bouclage.getMatrice()[0].length-1 && Bouclage.getMatrice()[x][y+1] == 0) { // Vérifie si le mouvement est possible
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1 Modification du setteur car setter modifie la matrice mais pas ses éléments !!!
-//                this.C.getMatrice()[x][y] = 0; j'ai laissé en commentaire les anciennes parties du programme je les retires après le prochain cours d'info
                 y++;
                 MapMod.setMatrice(x, y, 1); //this.C.getMatrice()[x][y] = 1; 
-               // this.C.afficherMatrice();j'ai laissé en commentaire les anciennes parties du programme je les retires après le prochain cours d'info   
             }
             else{
                 System.out.print("déplacement impossible vers le haut");
@@ -72,11 +64,8 @@ public class Jeu {
         } else if (deplacement == 2){
             if (x > 0 && Bouclage.getMatrice()[x-1][y] == 0) { // Vérifie si le mouvement est possible
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
-//                this.C.getMatrice()[x][y] = 0; 
                 x--; // Met à jour la position du 1
                 MapMod.setMatrice(x, y, 1); //this.C.getMatrice()[x][y] = 1; 
-//                this.C.getMatrice()[x][y] = 1; //
-//                this.C.afficherMatrice();
             }
             else{
                 System.out.print("déplacement impossible vers la gauche");
@@ -85,12 +74,9 @@ public class Jeu {
             
         } else if (deplacement == 3){
             if (x < Bouclage.getMatrice().length-1 && Bouclage.getMatrice()[x+1][y] == 0) { // Vérifie si le mouvement est possible
-//                this.C.getMatrice()[x][y] = 0;
                 MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
                 x++; // Met à jour la position du 1
                 MapMod.setMatrice(x, y, 1); //this.C.getMatrice()[x][y] = 1; 
-//                this.C.getMatrice()[x][y] = 1;
-//                this.C.afficherMatrice();
             }
             else{
                 System.out.print("déplacement impossible vers la droite");
@@ -100,7 +86,7 @@ public class Jeu {
         Bouclage.afficherMatriceV2(MapMod);
         return MapMod;
     }
-    
+        
     static public long getLong() {
         long retourLong = 0;
         boolean saisieOk = false;
