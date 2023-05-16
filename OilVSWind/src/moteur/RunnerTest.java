@@ -8,14 +8,15 @@ package moteur;
  *
  * @author rmorel
  */
-public class JouableTest {
+public class RunnerTest {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Jouable test = new Jouable(3,2);
-        System.out.print(test.getX());
+        // TODO code application logic here
+        Runner coureur = new Runner(1,1,2);
+        coureur.getX();
     }
     
 }

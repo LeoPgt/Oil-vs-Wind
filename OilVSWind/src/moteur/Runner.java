@@ -9,41 +9,34 @@ package moteur;
  */
 public class Runner extends Jouable{
    // un private avec l'élement distinguant le loup private int vitesse;
-   // besoin de l'envoie de la calsse Perso
     private int vitesseLoup;
-    private int x;
-    private int y; //Manal : Idem que Baril, mettez les coordonnées dans Jouable.
-   // les coordonnées x,y seront différentes pour les spawns
+    private boolean capturePossible;
+   // les coordonnées x,y seront différentes pour les spawns  
     // constructeur Règle loup
-    public Runner(int vitesseLoup,int x, int y){        
+    public Runner(int x, int y, int vitesseLoup){
+        super (x , y);
         this.vitesseLoup=vitesseLoup;
-        this.x=x;
-        this.y=y;
         // spawn a côté de l'éolienne à définir
-    }
-      
-   //setteur de reférence
+    }     
     public void setVitesse(int newVitesse){
         this.vitesseLoup = newVitesse;
     }
-    
     public int getVitesse(){
         return this.vitesseLoup;
     }
-
+    public boolean capturePossibleGet() {
+        return capturePossible;
+    }
+    public void CapturePossibleSet(boolean capturePossible) {
+        this.capturePossible = capturePossible;
+    }
     // Le loup ne peut capture un bidon ssi il n'as pas déjà attrapé un bidon
-   public boolean capturePossible (boolean Attrapé){
-       boolean capturable;
-       if(Attrapé == true){
-           capturable = false;
+   public void capturePossible (){
+        if(this.capturePossibleGet() == true){
+          this.capturePossible = true;
        }
        else{
-           capturable = true;
+           this.capturePossible= false;
        }
-    return capturable;
-   }    
-    
-       
-       
-       
+   }        
 }
