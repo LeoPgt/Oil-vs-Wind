@@ -21,7 +21,7 @@ public class Jeu {
 
     public Jeu() {
         try {
-            this.fond = ImageIO.read(getClass().getClassLoader().getResource("resources/fond.jpg"));
+            this.fond = ImageIO.read(getClass().getClassLoader().getResource("resource/fond.jpg"));
         } catch (IOException ex) {
             Logger.getLogger(Jeu.class.getName()).log(Level.SEVERE, null, ex);
         }

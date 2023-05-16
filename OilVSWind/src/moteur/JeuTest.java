@@ -16,9 +16,9 @@ public class JeuTest {
      */
     public static void main(String[] args) {
         Carte Monde = new Carte();
-        Jeu partie = new Jeu();
+       // Jeu partie = new Jeu();
         System.out.println();
-        partie.partie();
+        //partie.partie();
  
  
     }

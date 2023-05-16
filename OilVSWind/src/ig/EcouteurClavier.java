@@ -29,6 +29,12 @@ public class EcouteurClavier implements KeyListener {
         if (evt.getKeyCode() == evt.VK_LEFT) {
             this.jeu.joueur.setGauche(true);
         }
+        if (evt.getKeyCode() == evt.VK_UP) {
+            this.jeu.joueur.setHaut(true);
+        }
+        if (evt.getKeyCode() == evt.VK_DOWN) {
+            this.jeu.joueur.setBas(true);
+        }
     }
 
     @Override
@@ -38,6 +44,12 @@ public class EcouteurClavier implements KeyListener {
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
             this.jeu.joueur.setGauche(false);
+        }
+        if (evt.getKeyCode() == evt.VK_UP) {
+            this.jeu.joueur.setHaut(false);
+        }
+        if (evt.getKeyCode() == evt.VK_DOWN) {
+            this.jeu.joueur.setBas(false);
         }
     }
     
