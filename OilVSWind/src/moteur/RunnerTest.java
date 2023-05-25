@@ -15,7 +15,7 @@ public class RunnerTest {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Runner coureur = new Runner(1,1,2);
+        Runner coureur = new Runner(4,1,1,2);
         coureur.getX();
     }
     

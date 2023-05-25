@@ -87,14 +87,16 @@ public class Jeu {
      * @version 1
      * @return 
      */  
-    public int[] deplacementCapture(){
-        int [] coordoCapture = new int[2];
-        if(this.collisionLoupMouton()==true){
-           barrilJoueur.setX(J.getX()+1);
-           barrilJoueur.setY(J.getY()+1);
-        }
-        return coordoCapture;
-    }
+//    public int[] deplacementCapture(){
+//        int [] coordoCapture = new int[2];
+//        if(this.collisionLoupMouton()==true){
+//           barrilJoueur.setX(J.getX()+1);
+//           barrilJoueur.setY(J.getY()+1);
+//        }
+//        return coordoCapture;
+//    }
+//    
+    
     
      /**
      * Verification si le déplacement est possible pour un jouable
@@ -209,9 +211,9 @@ public class Jeu {
          * @return
          */
     public void partie(){
-        Carte Map = new Carte(); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Jouable Joueur = new Jouable(2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Baril Baril = new Baril(4,4);
+        Carte Map = new Carte(5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Jouable Joueur = new Jouable(01,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Baril Baril = new Baril(2,4,4);
         Map.setMatrice(Baril.getX(), Baril.getY(), 3);
         Map.afficherMatriceV2(Map);
         int bouclage = 10;
@@ -219,10 +221,10 @@ public class Jeu {
         while (essai != bouclage){
             System.out.print("selectionner une direction");
             int unEntier = Clavier.getInt();
-            Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-            Map = MapMod;
-            this.deplacementCapture(this.collisionLoupMouton());
-            Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
+         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+         // Map = MapMod;
+         //  this.deplacementCapture(this.collisionLoupMouton());
+         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
         }
     }
 
