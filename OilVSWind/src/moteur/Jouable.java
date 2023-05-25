@@ -10,13 +10,15 @@ package moteur;
  * @author mleconte
  */
 
+ //1 = joueur , 2 = obstacle, 3= moutonA , 4 = moutonB , 5 = moutonC
+
 public class Jouable {
-    protected int joueur ;
+    private int ID;
     private int x;
     private int y;
     
-    public Jouable (int x, int y) {
-        this.joueur = 1;
+    public Jouable (int ID, int x, int y) {
+        this.ID = ID;
         this.x = x;
         this.y = y;
     }
@@ -45,8 +47,7 @@ public class Jouable {
 
     @Override
     public String toString() {
-        return "Jouable{" + "Le joueur se trouve en" + joueur + ", x=" + x + ", y=" + y + '}';
+        return "Jouable{" + "Le joueur se trouve en" + this.ID + ", x=" + this.x + ", y=" + this.y + '}';
     }
-  
-    // je faisdes modifs pour push
+    
 }

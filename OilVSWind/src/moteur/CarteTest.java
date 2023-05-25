@@ -14,7 +14,7 @@ public class CarteTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Carte Monde = new Carte();
+       Carte Monde = new Carte(5);
        Monde.getMatrice();
     //   Monde.afficherMatrice();
     //Monde.Spawn(4, 4, 3);

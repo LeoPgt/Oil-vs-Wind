@@ -17,8 +17,8 @@ public class Baril extends Jouable {
     private boolean capturable;
     private boolean capturais;
             
-    public Baril(int x, int y){
-        super (x , y);
+    public Baril(int ID, int x, int y){
+        super (ID, x , y);
         this.capturable=true;
         this.capturais=false;
         // condition pour spawn random que pour le mouton
