@@ -37,7 +37,6 @@ public class Carte {
 //            Placer++;
 //        }
         matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
-        matrice[4][4] = 3;
     }
 
          //Manal : Idem, ça peut être dans un toString ça.
