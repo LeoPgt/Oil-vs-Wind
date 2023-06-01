@@ -4,6 +4,11 @@
  */
 package moteur;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -18,6 +23,52 @@ public class Jouable extends Element {
     public Jouable (int ID, int x, int y) {
         super (x, y);
         this.ID = ID;
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    
+    
+    
+    public void set_jouable_x(String[] args) {
+
+        try {
+
+            Connection connexion = DriverManager.getConnection("jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind", "etudiant", "YTDTvj9TR3CDYCmP");
+
+            PreparedStatement requete = connexion.prepareStatement("UPDATE Joueur SET Coordonée_X = ? WHERE Id = ?");
+            requete.setInt(1,this.ID );
+            requete.setInt(2, this.x );
+            System.out.println(requete);
+            int nombreDeModifications = requete.executeUpdate();
+            System.out.println(nombreDeModifications + " enregistrement(s) modifie(s)");
+
+            requete.close();  
+            connexion.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    
+    
+    
+    
+    public void setY(int y) {
+        this.y = y;
+
     }
     
     @Override

@@ -20,14 +20,14 @@ public class Select_OVSW {
 
             Connection connexion = DriverManager.getConnection("jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind", "etudiant", "YTDTvj9TR3CDYCmP");
 
-         PreparedStatement requete = connexion.prepareStatement("SELECT Id, Pseudo FROM Joueur ");
+         PreparedStatement requete = connexion.prepareStatement("SELECT Id,Coordonée_X ,Coordonée_Y   FROM Joueur ");
             System.out.println(requete);
             ResultSet resultat = requete.executeQuery();
             while (resultat.next()) {
                 int Id = resultat.getInt("Id");
-                String Pseudo = resultat.getString("Pseudo");
-                
-                System.out.println( Id + ", " + Pseudo  );
+                int Coordonée_X = resultat.getInt("Coordonée_X");
+                int Coordonée_Y = resultat.getInt("Coordonée_Y");
+                System.out.println( Id + ", " + Coordonée_X + "," + Coordonée_Y );
             }
 
             requete.close();
@@ -120,6 +120,14 @@ public class Select_OVSW {
      
  }
  
+   
+     
+ 
+  
+  
+  
+  
+  
  }    
      
      
