@@ -74,21 +74,21 @@ private void moveCharacter(int dx, int dy) {
     int newCharacterX = characterX + dx;
     int newCharacterY = characterY + dy;
 
-    // Vérifiez si la nouvelle position est valide (à l'intérieur des limites de la carte)
-    if (isValidPosition(newCharacterX, newCharacterY)) {
-        // Mettez à jour la position du personnage
+//    // Vérifiez si la nouvelle position est valide (à l'intérieur des limites de la carte)
+//    if (isValidPosition(newCharacterX, newCharacterY)) {
+//        // Mettez à jour la position du personnage
         CHARACTER_POSITIONS[activeCharacter][0] = newCharacterX;
         CHARACTER_POSITIONS[activeCharacter][1] = newCharacterY;
-
-        // Appelez repaint() pour redessiner l'affichage avec les nouvelles positions des personnages
+//
+//        // Appelez repaint() pour redessiner l'affichage avec les nouvelles positions des personnages
         repaint();
     }
 }
-
-private boolean isValidPosition(int x, int y) {
-    // Vérifiez si les coordonnées (x, y) sont à l'intérieur des limites de la carte
-    return x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT;
-}
-
- 
-}
+//
+//private boolean isValidPosition(int x, int y) {
+//    // Vérifiez si les coordonnées (x, y) sont à l'intérieur des limites de la carte
+//    return x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT;
+//}
+//
+// 
+//}

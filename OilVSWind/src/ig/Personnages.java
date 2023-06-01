@@ -6,6 +6,11 @@ package ig;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -17,14 +22,11 @@ public class Personnages {
     protected double x, y;
     private boolean gauche, droite, haut, bas;
     private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
-  
+    private BufferedImage[] characterSprites;
+    private BufferedImage tileset;
 
     public Personnages() {
-        try {
-            this.sprite = ImageIO.read(getClass().getClassLoader().getResource("resource/baril.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(Joueurs.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         this.x = 100;
         this.y = 150;
         this.gauche = false;
@@ -75,7 +77,15 @@ public class Personnages {
         contexte.drawImage(this.sprite, (int) x, (int) y, null);
     }
 
-    characterSprites = new BufferedImage[NUM_CHARACTER_SPRITES];
+    
+           private void loadTiles() {
+//            int numTiles = tileset.getWidth() / TILE_SIZE;
+//            tiles = new BufferedImage[numTiles];
+//            for (int i = 0; i < numTiles; i++) {
+//                tiles[i] = tileset.getSubimage(i * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE);
+//            }
+    
+            characterSprites = new BufferedImage[NUM_CHARACTER_SPRITES];
             try {
                 characterSprites[0] = ImageIO.read(new File("perso.png")); // Chargement du sprite du personnage 
             } catch (IOException ex) {
@@ -96,6 +106,8 @@ public class Personnages {
             } catch (IOException ex) {
                 Logger.getLogger(DisplayMap.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+        }
 
         
 }

@@ -4,6 +4,7 @@
  */
 package ig;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,16 +13,20 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+
 /**
  *
  * @author tmichel1
  */
-public class DisplayMap {
+public abstract class DisplayMap implements ActionListener {
   private static final int TILE_SIZE = 40; // Taille des tuiles en pixels
    private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
    private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
    private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
+   private EcouteurClavier1 keyL;
+   private Timer timer;
    private static final int[][] MAP_DATA = {
+       
        
         
         
@@ -59,7 +64,7 @@ public class DisplayMap {
     };
     
     private static final int[][] CHARACTER_POSITIONS = {
-        {2, 2}, // Position du personnage 
+        {1, 2}, // Position du personnage 
         {5, 5},  // Position du baril rouge
         {8, 8},  // Position du baril jaune
         {12, 12}  // Position du baril bleu
@@ -131,6 +136,9 @@ public class DisplayMap {
 
         }
         
+        public void convetisseur_tuile_en_pixel(){
+            
+        }
 
         @Override
 protected void paintComponent(Graphics g) {
@@ -165,6 +173,17 @@ protected void paintComponent(Graphics g) {
     }
 }
         }
+
+    public DisplayMap() {
+         //Ajout du listener ici
+        this.keyL = new EcouteurClavier1(); //Of course on le met APRES avoir déclaré Jeu()....
+//        this.addKeyListener(this.keyL);
+    
+     // Creation du Timer qui appelle this.actionPerformed() tous les 40 ms
+        this.timer = new Timer(40, this);
+        this.timer.start();
+    }
+    
     
     }
 
