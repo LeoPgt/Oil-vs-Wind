@@ -4,25 +4,21 @@
  */
 package moteur;
 
-
 /**
  *
  * @author mleconte
  */
- 
- //1 = Runner , 2 = Mur, 3= BarilB1 , 4 = BarilB2 , 5 = BarilB3
-
-public class Jouable extends Element {
-    private int ID;
+public class Decor extends Element {
+    private int numero;
     
-    public Jouable (int ID, int x, int y) {
+    public Decor (int numero, int x, int y) {
         super (x, y);
-        this.ID = ID;
+        this.numero = numero;
     }
     
     @Override
     public String toString() {
-        return "Jouable{" + "Le jouable a comme id" + this.ID + '}';
+        return "Decor{" + "Le décor a comme numero" + this.numero + '}';
     }
     
 }

@@ -105,7 +105,7 @@ public class Jeu {
      */  
     public boolean deplacementEstPossible(Jouable J, int deplacement){
         if (J.getX() <= C.getSize() && J.getX() >= 0){
-            if(deplacement == 0){ // ceci changera avec un this.gauche
+            if(this.gauche){ // ceci changera avec un deplacement == 0
                 if (C.getMatrice()[J.getX()-1][J.getY()] == 2 ){
                     return false;
                 }
@@ -113,7 +113,7 @@ public class Jeu {
                     return true;
                 }
             }
-            if(deplacement == 1){ // ceci changera avec un this.droite
+            if(this.droite){ // ceci changera avec un deplacement == 1
                 if (C.getMatrice()[J.getX()+1][J.getY()] == 2 ){
                     return false;
                 }
@@ -121,7 +121,7 @@ public class Jeu {
                     return true;
                 }
             }
-            if(deplacement == 2){ // ceci changera avec un this.haut
+            if(this.haut){ // ceci changera avec un deplacement == 2
                 if (C.getMatrice()[J.getX()][J.getY()-1] == 2 ){
                     return false;
                 }
@@ -129,7 +129,7 @@ public class Jeu {
                     return true;
                 }
             }
-             if(deplacement == 3){ // ceci changera avec un this.bas
+             if(this.bas){ // ceci changera avec un deplacement == 3
                 if (C.getMatrice()[J.getX()][J.getY()+1] == 2 ){
                     return false;
                 }

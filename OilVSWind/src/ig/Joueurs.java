@@ -61,10 +61,10 @@ public class Joueurs {
             x += 5;
         }
         if (this.haut) {
-            this.y += 5;
+            y += 5;
         }
         if (this.bas) {
-            this.y -= 5;
+            y -= 5;
         }
         if (x > 607-52) {
             x = 607-52;
