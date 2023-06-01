@@ -8,6 +8,7 @@ package moteur;
  * @author mleconte
  */
 public class Carte {
+    int size;
     private int[][] matrice; 
 
     public int[][] getMatrice() {
@@ -18,8 +19,9 @@ public class Carte {
         this.matrice[i][j] = valeur;
     }
     
-    public Carte () {
-        matrice = new int[5][5]; // Crée une matrice de 50x50 remplie de 0
+    public Carte (int size) {
+        this.size = size;
+        this.matrice = new int[size][size]; // Crée une matrice
 //        int nbrObstacle = 2;
 //        for (int k=0;k< nbrObstacle;k++){ // Placement des obstacles de manière aléatoires pour le moment productowner !
 //            int indexRandom = (int)(Math.random()*(matrice.length));
@@ -36,8 +38,12 @@ public class Carte {
 //            }
 //            Placer++;
 //        }
-        matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
-        matrice[4][4] = 3;
+        this.matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
+        this.matrice[4][4] = 3;
+    }
+
+    public int getSize() {
+        return size;
     }
 
          //Manal : Idem, ça peut être dans un toString ça.

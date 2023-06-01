@@ -13,8 +13,8 @@ public class Runner extends Jouable{
     private boolean capturePossible;
    // les coordonnées x,y seront différentes pour les spawns  
     // constructeur Règle loup
-    public Runner(int x, int y, int vitesseLoup){
-        super (x , y);
+    public Runner(int ID, int x, int y, int vitesseLoup){
+        super (ID, x , y);
         this.vitesseLoup=vitesseLoup;
         // spawn a côté de l'éolienne à définir
     }     

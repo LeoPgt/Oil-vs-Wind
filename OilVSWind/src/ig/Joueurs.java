@@ -20,12 +20,11 @@ public class Joueurs {
 
     private BufferedImage sprite;
     protected double x, y;
-    private boolean gauche, droite;
+    private boolean gauche, droite, haut, bas;
 
     public Joueurs() {
         try {
-//            this.sprite = ImageIO.read(getClass().getClassLoader().getResource("ressources/baril.jpg"));
-            this.sprite = ImageIO.read(getClass().getClassLoader().getResource("ressources/baril.jpg"));
+            this.sprite = ImageIO.read(getClass().getClassLoader().getResource("resource/baril.png"));
         } catch (IOException ex) {
             Logger.getLogger(Joueurs.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -33,6 +32,9 @@ public class Joueurs {
         this.y = 150;
         this.gauche = false;
         this.droite = false;
+        this.haut = false;
+        this.bas = false;
+        
     }
     
     public void setGauche(boolean gauche) {
@@ -42,6 +44,14 @@ public class Joueurs {
     public void setDroite(boolean droite) {
         this.droite = droite;
     }
+    
+    public void setHaut(boolean haut) {
+        this.haut = haut;
+    }
+    
+    public void setBas(boolean bas) {
+        this.bas = bas;
+    }
 
     public void miseAJour() {
         if (this.gauche) {
@@ -49,6 +59,12 @@ public class Joueurs {
         }
         if (this.droite) {
             x += 5;
+        }
+        if (this.haut) {
+            this.y += 5;
+        }
+        if (this.bas) {
+            this.y -= 5;
         }
         if (x > 607-52) {
             x = 607-52;
