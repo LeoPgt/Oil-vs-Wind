@@ -15,7 +15,7 @@ public class JeuTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Carte Monde = new Carte(5);
+        Carte Monde = new Carte(5,5);
        // Jeu partie = new Jeu();
         Jeu partie = new Jeu(2);
         System.out.println();

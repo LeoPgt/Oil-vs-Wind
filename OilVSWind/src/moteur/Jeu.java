@@ -12,9 +12,9 @@ import java.util.ArrayList;
  *
  * @author mleconte
  */
-public class Jeu {// Renommé toute la classe miseAJour
+public class Jeu {// Renommé toute la classe miseAJour / regle jeu
     protected boolean gauche, droite, haut, bas;  
-//    private Carte C;
+    private Carte C;
     private Runner runner;
     private ArrayList<Baril> barrilJoueur;
     private int tailleCase; //Manal : N'est pas sensé etre ici (mais on le laisse pour l'instant)
@@ -24,7 +24,8 @@ public class Jeu {// Renommé toute la classe miseAJour
         this.droite = false;
         this.haut = false;
         this.bas = false;
-        int carteSize = C.getSize();// map n'exite pas pas donc nécessaire de la créer !!!
+        this.C = new Carte(5,5);
+        int carteSize = C.getSize();
         this.runner = new Runner(1,0,0,1);
         //BARIL
         this.barrilJoueur = new ArrayList<Baril>();
@@ -39,6 +40,26 @@ public class Jeu {// Renommé toute la classe miseAJour
         
         this.tailleCase = taillecase;
     }
+
+    // setteur pour modifier le true false de la direction
+    public void setGauche(boolean gauche) {
+        this.gauche = gauche;
+    }
+
+    public void setDroite(boolean droite) {
+        this.droite = droite;
+    }
+
+    public void setHaut(boolean haut) {
+        this.haut = haut;
+    }
+
+    public void setBas(boolean bas) {
+        this.bas = bas;
+    }
+    
+    
+    
     
         static public long getLong() {
         long retourLong = 0;
@@ -103,9 +124,9 @@ public class Jeu {// Renommé toute la classe miseAJour
      * @version 1
      * @return des true ou false suivant si c'est possible ou pas 
      */  
-    public boolean deplacementEstPossible(Jouable J, int deplacement){
+    public boolean deplacementEstPossible(Jouable J,boolean direction){
         if (J.getX() <= C.getSize() && J.getX() >= 0){
-            if(this.gauche){ // ceci changera avec un deplacement == 0
+            if(this.gauche == true){ // ceci changera avec un deplacement == 0
                 if (C.getMatrice()[J.getX()-1][J.getY()] == 2 ){
                     return false;
                 }
@@ -113,7 +134,7 @@ public class Jeu {// Renommé toute la classe miseAJour
                     return true;
                 }
             }
-            if(this.droite){ // ceci changera avec un deplacement == 1
+            if(this.droite == true){ // ceci changera avec un deplacement == 1
                 if (C.getMatrice()[J.getX()+1][J.getY()] == 2 ){
                     return false;
                 }
@@ -121,7 +142,7 @@ public class Jeu {// Renommé toute la classe miseAJour
                     return true;
                 }
             }
-            if(this.haut){ // ceci changera avec un deplacement == 2
+            if(this.haut == true){ // ceci changera avec un deplacement == 2
                 if (C.getMatrice()[J.getX()][J.getY()-1] == 2 ){
                     return false;
                 }
@@ -129,7 +150,7 @@ public class Jeu {// Renommé toute la classe miseAJour
                     return true;
                 }
             }
-             if(this.bas){ // ceci changera avec un deplacement == 3
+             if(this.bas == true){ // ceci changera avec un deplacement == 3
                 if (C.getMatrice()[J.getX()][J.getY()+1] == 2 ){
                     return false;
                 }
@@ -152,7 +173,7 @@ public class Jeu {// Renommé toute la classe miseAJour
         Carte MapMod = Bouclage;
         int x = J.getX(); // localisation du jouable sur la map en x
         int y = J.getY(); // Localisation du jouable sur la map en y
-        if (deplacementEstPossible(J,0)) { //j'utilise le programme d'avant pour savoir si le déplacement est possible
+        if (deplacementEstPossible(J,gauche)) { //j'utilise le programme d'avant pour savoir si le déplacement est possible
             MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
             y--; // Met à jour la position du 1
             MapMod.setMatrice(x, y, 1); // Met à jour la nouvelle position du 1 dans la matrice
@@ -161,7 +182,7 @@ public class Jeu {// Renommé toute la classe miseAJour
         else{
             System.out.print("déplacement impossible vers la gauche");
         }
-        if (deplacementEstPossible(J,1)) {
+        if (deplacementEstPossible(J,droite)) {
             MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1 Modification du setteur car setter modifie la matrice mais pas ses éléments !!!
             y++;
             MapMod.setMatrice(x, y, 1);
@@ -170,7 +191,7 @@ public class Jeu {// Renommé toute la classe miseAJour
         else{
             System.out.print("déplacement impossible vers la droite");
         }
-        if (deplacementEstPossible(J,2)){
+        if (deplacementEstPossible(J,haut)){
             MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
             x--; // Met à jour la position du 1
             MapMod.setMatrice(x, y, 1);
@@ -179,7 +200,7 @@ public class Jeu {// Renommé toute la classe miseAJour
         else{
             System.out.print("déplacement impossible vers le haut");
         } 
-        if (deplacementEstPossible(J,3)){
+        if (deplacementEstPossible(J,bas)){
             MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
             x++; // Met à jour la position du 1
             MapMod.setMatrice(x, y, 1); 
@@ -211,7 +232,7 @@ public class Jeu {// Renommé toute la classe miseAJour
          * @return
          */
     public void partie(){
-        Carte Map = new Carte(5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Jouable Joueur = new Jouable(01,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Baril Baril = new Baril(2,4,4);
         Map.setMatrice(Baril.getX(), Baril.getY(), 3);
@@ -221,7 +242,7 @@ public class Jeu {// Renommé toute la classe miseAJour
         while (essai != bouclage){
             System.out.print("selectionner une direction");
             int unEntier = Clavier.getInt();
-         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
          // Map = MapMod;
          //  this.deplacementCapture(this.collisionLoupMouton());
          //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      

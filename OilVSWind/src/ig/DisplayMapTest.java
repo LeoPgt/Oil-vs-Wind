@@ -16,12 +16,12 @@ import javax.swing.*;
  *
  * @author tmichel1
  */
-public class DisplayMapTest {
+public class DisplayMapTest {// a modifier en une vrai classe test
   private static final int TILE_SIZE = 40; // Taille des tuiles en pixels
-   private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
-   private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
-   private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
-   private static final int[][] MAP_DATA = {
+  private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
+  private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
+  private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
+  private static final int[][] MAP_DATA = {
        
         
         

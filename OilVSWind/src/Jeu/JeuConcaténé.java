@@ -13,6 +13,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import moteur.Runner;
+import moteur.Jeu;
+import moteur.Jouable;
+import ig.InterfaceClavier;
 
 
 /**
@@ -21,17 +24,21 @@ import moteur.Runner;
  */
 public class JeuConcaténé {
 
-        protected boolean gauche, droite, haut, bas;  
-//    private Carte C;
+    protected boolean gauche, droite, haut, bas;
+    private Carte C;
+    private InterfaceClavier Clavier;
+    //private mapTitle trouvé un moyen de récuper la maptitle !!
     private Runner runner;
     private ArrayList<Baril> barrilJoueur;
     private int tailleCase; //Manal : N'est pas sensé etre ici (mais on le laisse pour l'instant)
     
-    public JeuConcaténé (int taillecase, int tailleMap) {
+    public JeuConcaténé (int taillecase) {
         this.gauche = false;
         this.droite = false;
         this.haut = false;
         this.bas = false;
+        this.C = new Carte(5,5);
+        int carteSize = C.getSize();
         this.runner = new Runner(1,0,0,1);
         //BARIL
         this.barrilJoueur = new ArrayList<Baril>();
@@ -47,216 +54,28 @@ public class JeuConcaténé {
         this.tailleCase = taillecase;
     }
     
-        static public long getLong() {// Je sais pas ce que c'est
-        long retourLong = 0;
-        boolean saisieOk = false;
-        while (saisieOk == false) {
-            try {
-                BufferedReader inr = new BufferedReader(new InputStreamReader(System.in));
-                String s = inr.readLine();
-                retourLong = Long.parseLong(s);
-                saisieOk = true;
-            } catch (Exception e) {
-                System.out.println(" Erreur de saisie : veuiller entrer un entier ");
-            }
-        }
-        return retourLong;
-    }
-    
-     /**
-     * Ce programme permet de savoir si le barril et le runner sont entrées en collision
-     * @version 2
-     * @return un boolean de si oui ou non ils sont rentrés en collision
-     */  
-        // Méthode donnée par Manal
-//        if (A.getClass().equals(Element.getClass()) && B.getClass().equals(Element.getClass())){
-//            A.getCoord() en collision avec B.getCoord();
-//        }
-        // QUESTION : Si on fait le programme ci dessous, est il vraiment nécessaire de prendre en paramètres deux objets A et B et faire une comparaison equals etc ?
-        
-    public boolean collisionLoupMouton(){
-        boolean collision = false;
-        for (int i = 0; i<3; i++){
-            if(this.barrilJoueur.get(i).getX()== this.runner.getX()){
-                collision = true;
-            }
-        }
-        for (int j = 0; j<3; j++){
-            if(this.barrilJoueur.get(j).getY()== this.runner.getY()){
-                collision = true;
-            }
-        }
-        return collision;
-    }
 
-    /**
-     * A voir a quoi sert ce programme (pour l'instant non traité)
-     * @version 1
-     * @return 
-     */  
-//    public int[] deplacementCapture(){
-//        int [] coordoCapture = new int[2];
-//        if(this.collisionLoupMouton()==true){
-//           barrilJoueur.setX(J.getX()+1);
-//           barrilJoueur.setY(J.getY()+1);
-//        }
-//        return coordoCapture;
-//    }
-//    
-    
-    
-     /**
-     * Verification si le déplacement est possible pour un jouable
-     * @version 1
-     * @return des true ou false suivant si c'est possible ou pas 
-     */  
-    public boolean deplacementEstPossible(Jouable J, int deplacement){
-        if (J.getX() <= C.getSize() && J.getX() >= 0){
-            if(this.gauche){ // ceci changera avec un deplacement == 0
-                if (C.getMatrice()[J.getX()-1][J.getY()] == 2 ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }
-            if(this.droite){ // ceci changera avec un deplacement == 1
-                if (C.getMatrice()[J.getX()+1][J.getY()] == 2 ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }
-            if(this.haut){ // ceci changera avec un deplacement == 2
-                if (C.getMatrice()[J.getX()][J.getY()-1] == 2 ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }
-             if(this.bas){ // ceci changera avec un deplacement == 3
-                if (C.getMatrice()[J.getX()][J.getY()+1] == 2 ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-     /**
-     * Déplace le jouable sur la carte suivant les infos qu'il obtient du programme le déplacement est possible
-     * @version 3
-     * @return la matrice modifié avec le déplacement du jouable
-     */  
-        
-    public Carte MiseAJour(Jouable J, Carte Bouclage) {
-       // Matrice d'initialisation
-        Carte MapMod = Bouclage;
-        int x = J.getX(); // localisation du jouable sur la map en x
-        int y = J.getY(); // Localisation du jouable sur la map en y
-        if (deplacementEstPossible(J,0)) { //j'utilise le programme d'avant pour savoir si le déplacement est possible
-            MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
-            y--; // Met à jour la position du 1
-            MapMod.setMatrice(x, y, 1); // Met à jour la nouvelle position du 1 dans la matrice
-            J.setY(y);
-        }
-        else{
-            System.out.print("déplacement impossible vers la gauche");
-        }
-        if (deplacementEstPossible(J,1)) {
-            MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1 Modification du setteur car setter modifie la matrice mais pas ses éléments !!!
-            y++;
-            MapMod.setMatrice(x, y, 1);
-            J.setY(y);
-        }
-        else{
-            System.out.print("déplacement impossible vers la droite");
-        }
-        if (deplacementEstPossible(J,2)){
-            MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
-            x--; // Met à jour la position du 1
-            MapMod.setMatrice(x, y, 1);
-            J.setX(x);
-        }
-        else{
-            System.out.print("déplacement impossible vers le haut");
-        } 
-        if (deplacementEstPossible(J,3)){
-            MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
-            x++; // Met à jour la position du 1
-            MapMod.setMatrice(x, y, 1); 
-            J.setX(x);
-        }
-        else{
-            System.out.print("déplacement impossible vers le bas");
-        }
-        Bouclage.afficherMatriceV2(MapMod);
-        return MapMod;
-    }
-
-        /**
-         * Permet de transformer les infos du moteur avec x et y en termes de pixels pour l'interface graphique
-         * @version 1
-         * @return les infos en pixels
-         * */
-        public int convertirEnPixelssurX(int x) {
-            return x * this.tailleCase;
-         }
-        public int convertirEnPixelssurY(int y) {
-            return y * this.tailleCase;
-        }
-
-
-        /**
-         * A voir
-         * @version
-         * @return
-         */
     public void partie(){
-        Carte Map = new Carte(5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Jeu règle = new Jeu(2);
+        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Jouable Joueur = new Jouable(01,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Baril Baril = new Baril(2,4,4);
-        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
-        Map.afficherMatriceV2(Map);
+//      Map.afficherMatriceV2(Map);
         int bouclage = 10;
         int essai = 0;
         while (essai != bouclage){
-            System.out.print("selectionner une direction");
-            int unEntier = Clavier.getInt();
-         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-         // Map = MapMod;
-         //  this.deplacementCapture(this.collisionLoupMouton());
-         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
+            this.bas = this.Clavier.isBas();
+            this.haut = this.Clavier.isHaut();
+            this.droite = this.Clavier.isDroite();
+            this.gauche = this.Clavier.isGauche();
+            Carte MapMod = règle.MiseAJour(Joueur, Map);// début du bouclage de la mj
+            Map = MapMod;
+            this.gauche = false;
+            this.droite = false;
+            this.haut = false;
+            this.bas = false;            
         }
     }
 
 }
-
-    
-        public void partie(){
-        Carte Map = new Carte(5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Jouable Joueur = new Jouable(01,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Baril Baril = new Baril(2,4,4);
-        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
-        Map.afficherMatriceV2(Map);
-        int bouclage = 10;
-        int essai = 0;
-        while (essai != bouclage){
-            System.out.print("selectionner une direction");
-            int unEntier = Clavier.getInt();
-         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-         // Map = MapMod;
-         //  this.deplacementCapture(this.collisionLoupMouton());
-         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
-        }
-    }
-    
-    
-    
-    
-}
+  
