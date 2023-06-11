@@ -14,3 +14,6 @@ package moteur;
 public class Bonus extends Decor {
     
 }
+public class Bonus extends Decor {
+    
+}

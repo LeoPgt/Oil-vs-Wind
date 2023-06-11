@@ -4,9 +4,6 @@
  */
 package ig;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -24,11 +21,6 @@ public class Aessaia {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("OIL VS WIND");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            try {
-                frame.getContentPane().add(new Aessai());
-            } catch (IOException ex) {
-                Logger.getLogger(Aessaia.class.getName()).log(Level.SEVERE, null, ex);
-            }
             frame.getContentPane().add(new Aessai());
             frame.pack();
             frame.setLocationRelativeTo(null);

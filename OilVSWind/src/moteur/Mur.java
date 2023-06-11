@@ -17,10 +17,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
+
 /**
  *
  * @author mleconte
  */
 public class Mur extends Decor {
+
+}
+    
 }
 
