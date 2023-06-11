@@ -19,9 +19,8 @@ public class Carte {
         this.matrice[i][j] = valeur;
     }
     
-    public Carte (int size) {
-        this.size = size;
-        this.matrice = new int[size][size]; // Crée une matrice
+    public Carte (int hauteur,int largeur) {
+        this.matrice = new int[hauteur][largeur]; // Crée une matrice
 //        int nbrObstacle = 2;
 //        for (int k=0;k< nbrObstacle;k++){ // Placement des obstacles de manière aléatoires pour le moment productowner !
 //            int indexRandom = (int)(Math.random()*(matrice.length));

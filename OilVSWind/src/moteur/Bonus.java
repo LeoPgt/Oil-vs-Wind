@@ -13,7 +13,9 @@ package moteur;
 //}
 public class Bonus extends Decor {
     
-}
-public class Bonus extends Decor {
+    public Bonus(int numero, int x, int y) {
+        super(numero, x, y);
+    }
     
 }
+

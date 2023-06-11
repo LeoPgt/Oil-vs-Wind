@@ -2,29 +2,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package moteur;
+package Jeu;
+
+import clavier.Clavier;
+import moteur.Baril;
+import moteur.Carte;
+import moteur.Jouable;
 import clavier.Clavier;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import moteur.Runner;
+
 
 /**
  *
- * @author mleconte
+ * @author rmorel
  */
-public class Jeu {// Renommé toute la classe miseAJour
-    protected boolean gauche, droite, haut, bas;  
+public class JeuConcaténé {
+
+        protected boolean gauche, droite, haut, bas;  
 //    private Carte C;
     private Runner runner;
     private ArrayList<Baril> barrilJoueur;
     private int tailleCase; //Manal : N'est pas sensé etre ici (mais on le laisse pour l'instant)
     
-    public Jeu (int taillecase) {
+    public JeuConcaténé (int taillecase, int tailleMap) {
         this.gauche = false;
         this.droite = false;
         this.haut = false;
         this.bas = false;
-        int carteSize = C.getSize();// map n'exite pas pas donc nécessaire de la créer !!!
         this.runner = new Runner(1,0,0,1);
         //BARIL
         this.barrilJoueur = new ArrayList<Baril>();
@@ -40,7 +47,7 @@ public class Jeu {// Renommé toute la classe miseAJour
         this.tailleCase = taillecase;
     }
     
-        static public long getLong() {
+        static public long getLong() {// Je sais pas ce que c'est
         long retourLong = 0;
         boolean saisieOk = false;
         while (saisieOk == false) {
@@ -230,3 +237,26 @@ public class Jeu {// Renommé toute la classe miseAJour
 
 }
 
+    
+        public void partie(){
+        Carte Map = new Carte(5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Jouable Joueur = new Jouable(01,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Baril Baril = new Baril(2,4,4);
+        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
+        Map.afficherMatriceV2(Map);
+        int bouclage = 10;
+        int essai = 0;
+        while (essai != bouclage){
+            System.out.print("selectionner une direction");
+            int unEntier = Clavier.getInt();
+         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+         // Map = MapMod;
+         //  this.deplacementCapture(this.collisionLoupMouton());
+         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
+        }
+    }
+    
+    
+    
+    
+}

@@ -20,7 +20,7 @@ import java.awt.Graphics;
  *
  * @author alaunay
  */
-public class DisplayBis {
+public class DisplayBisTest {
  private static final int TILE_SIZE = 40; // Taille des tuiles en pixels
    private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
    private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
@@ -145,22 +145,22 @@ public class DisplayBis {
             try {
                 characterSprites[0] = ImageIO.read(new File("perso.png")); // Chargement du sprite du personnage
             } catch (IOException ex) {
-                Logger.getLogger(DisplayMap.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DisplayMapTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 characterSprites[1] = ImageIO.read(new File("baril_rouge.png")); // Chargement du sprite du baril rouge
             } catch (IOException ex) {
-                Logger.getLogger(DisplayMap.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DisplayMapTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 characterSprites[2] = ImageIO.read(new File("baril_jaune.png")); // Chargement du sprite du du baril jaune
             } catch (IOException ex) {
-                Logger.getLogger(DisplayMap.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DisplayMapTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 characterSprites[3] = ImageIO.read(new File("baril_bleu.png")); // Chargement du sprite du du baril bleu
             } catch (IOException ex) {
-                Logger.getLogger(DisplayMap.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DisplayMapTest.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

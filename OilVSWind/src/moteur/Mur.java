@@ -22,9 +22,13 @@ package moteur;
  *
  * @author mleconte
  */
-public class Mur extends Decor {
+    public class Mur extends Decor {
+
+    public Mur(int numero, int x, int y) {
+        super(numero, x, y);
+    }
 
 }
     
-}
+
 
