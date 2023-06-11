@@ -17,6 +17,7 @@ public class CarteTest {
        Carte Monde = new Carte(5);
        Monde.getMatrice();
     //   Monde.afficherMatrice();
+    //Monde.Spawn(4, 4, 3);
     Monde.afficherMatriceV2(Monde);
 
     System.out.print("------------");

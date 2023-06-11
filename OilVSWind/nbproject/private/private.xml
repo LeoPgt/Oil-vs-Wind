@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>src/moteur/Collision.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>16</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group/>
         <group>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/CarteTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/JeuTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/RunnerTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/JouableTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Jouable.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Baril.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Runner.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/clavier/Clavier.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/DessinClavier.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/Aessai.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/Aessaia.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/DisplayMap.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/Aurélia_FenetreDeJeu.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/Joueurs.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/EcouteurClavier.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/Personnages.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/MapData.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/DisplayBis.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/Aurelia_Jeu.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/EcouteurClavier1.java</file>
+            <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/MapPanel.java</file>
         </group>
     </open-files>
 </project-private>

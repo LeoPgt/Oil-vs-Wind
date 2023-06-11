@@ -79,7 +79,7 @@ public class AABB { // AABB terme commun pour parler des boites de collisions
        int y2Max = boite2.getyMax();
        // ecriture des test de collision
        
-       if(x1Max=)
+       //if(x1Max=)
        
        return choc;
        

@@ -29,7 +29,7 @@ public class DessinClavier extends JPanel implements ActionListener{
 
 
     public DessinClavier() {
-        this.L = new EcouteurClavier();
+        //this.L = new EcouteurClavier();
         this.x = 350;
         this.y= 150;
         addKeyListener(L);
@@ -45,8 +45,8 @@ public class DessinClavier extends JPanel implements ActionListener{
 //    }
     
     public void actionPerformed(ActionEvent e) {
-            this.x = L.getX();
-            this.y = L.getY();
+            //this.x = L.getX();
+            //this.y = L.getY();
             System.out.println(this.x);
             System.out.println(this.y);
 //            this..repaint();
@@ -93,7 +93,7 @@ public class DessinClavier extends JPanel implements ActionListener{
     public static void main(String[] args) {
         JFrame frame = new JFrame("Dessin Clavier");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.addKeyListener(new EcouteurClavier());
+        //frame.addKeyListener(new EcouteurClavier());
         DessinClavier dessin = new DessinClavier();
         frame.add(dessin);
         frame.setSize(1000, 1000);
