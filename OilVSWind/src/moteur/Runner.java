@@ -8,17 +8,16 @@ package moteur;
  * @author rmorel
  */
 public class Runner extends Jouable{
-   // un private avec l'élement distinguant le runner private int vitesse;
     private int vitesseRunner;
     private boolean capturePossible;
    // les coordonnées x,y seront différentes pour les spawns  
-    public Runner(int ID, int x, int y, int vitesseRunner){
-        super (ID, x , y);
+    public Runner(int x, int y, int vitesseRunner){
+        super (1, x , y); // le numéro de Runner sera 1 en terme de matrice.
         this.vitesseRunner = vitesseRunner;
         // spawn a côté de l'éolienne à définir
     }     
-    public void setVitesse(int newVitesse){
-        this.vitesseRunner = newVitesse;
+    public void setVitesse(){
+        this.vitesseRunner = vitesseRunner*2; // Augmente sa vitesse * 2 
     }
     public int getVitesse(){
         return this.vitesseRunner;
@@ -31,11 +30,6 @@ public class Runner extends Jouable{
     }
     // Le Runner ne peut capturer un baril s'il n'est pas sur la même case que la baril
    public void capturePossible (){
-        if(this.capturePossibleGet() == true){
-          this.capturePossible = true;
-       }
-       else{
-           this.capturePossible= false;
-       }
+       this.capturePossible = this.capturePossibleGet() == true;
    }        
 }

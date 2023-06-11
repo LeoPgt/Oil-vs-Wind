@@ -10,7 +10,7 @@ package moteur;
  * @author mleconte
  */
  
- //1 = Runner , 2 = Mur, 3= BarilB1 , 4 = BarilB2 , 5 = BarilB3
+ //1 = Runner, 3= BarilB1 , 4 = BarilB2 , 5 = BarilB3
 
 public class Jouable extends Element {
     private int ID;
