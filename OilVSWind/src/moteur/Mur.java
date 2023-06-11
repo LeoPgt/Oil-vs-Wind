@@ -22,9 +22,12 @@ package moteur;
  *
  * @author mleconte
  */
-public class Mur extends Decor {
 
-}
+// Le numéro de mur est 2 en terme de matrice.
+public class Mur extends Decor {
     
+    public Mur(int x, int y){
+        super(2, x, y);
+    }
 }
 

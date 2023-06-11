@@ -5,15 +5,22 @@
 package moteur;
 
 /**
- *
  * @author mleconte
  */
-//public class Bonus extends Decor {
-//    
-//}
 public class Bonus extends Decor {
+    private boolean capturable;
     
-}
-public class Bonus extends Decor {
+    public Bonus(int numero, int x, int y) {
+        super(numero, x, y);
+        this.capturable=true;
+    }
+    
+    public void capturableSet (boolean modif){ // modif peut etre true ou false selon la situation définie
+        this.capturable=modif;
+    }
+    
+    public boolean capturableGet(){
+        return this.capturable;
+    }
     
 }

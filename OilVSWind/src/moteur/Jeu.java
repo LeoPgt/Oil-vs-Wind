@@ -15,8 +15,6 @@ import java.util.ArrayList;
 public class Jeu {
     protected boolean gauche, droite, haut, bas;  
     private Carte C;
-    private Runner runner;
-    private ArrayList<Baril> barrilJoueur;
     private int tailleCase; //Manal : N'est pas sensé etre ici (mais on le laisse pour l'instant)
     
     public Jeu (int taillecase) {
@@ -24,19 +22,6 @@ public class Jeu {
         this.droite = false;
         this.haut = false;
         this.bas = false;
-        int carteSize = C.getSize();
-        this.runner = new Runner(1,0,0,1);
-        //BARIL
-        this.barrilJoueur = new ArrayList<Baril>();
-        Baril B1 = new Baril(3, 1, 1);
-        this.barrilJoueur.add(B1);
-        Baril B2 = new Baril(4, 2, 2);
-        this.barrilJoueur.add(B2);
-        Baril B3 = new Baril(5, 3, 3);
-        this.barrilJoueur.add(B3);
-        //this.barrilJoueur.indexOf(B1); //Retourne indice de B1 donc 0
-        //this.barrilJoueur.get(0); //retourne l'objet d'indice 0 donc B1
-        
         this.tailleCase = taillecase;
     }
     
@@ -55,139 +40,170 @@ public class Jeu {
         }
         return retourLong;
     }
-    
+        
+  // Méthode qui retourne l'élément à la position (x, y)
+  public Element laCaseDeCoordonnees(int x, int y) {
+        int valeur = C.getMatrice()[x][y];
+        
+        switch (valeur) {
+            case 1:
+                return new Runner(x,y,0); 
+                //vitesse à 0 mais on s'en fiche c'est juste pour le rentrer l'array list Case autour
+            case 2:
+                return new Mur(x,y);
+            case 3:
+                return new Baril(3,x,y);
+            case 4:
+                return new Baril(4,x,y);
+            case 5:
+                return new Baril(5,x,y);
+            default:
+                return null; // Retourne null si la case est vide ou n'existe pas
+        }
+    }
+  
+  // Ici On crée une array list des Elements qui sont autour de A
+  public ArrayList<Element> caseAutour(Element A) {
+        ArrayList<Element> T = new ArrayList<>();
+
+        int x = A.getX();
+        int y = A.getY();
+
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                 if (i == x && j == y) {
+                // On ne fait rien car ce sont les coordonnées de l'élément A
+                } else {
+                    Element caseVoisine = laCaseDeCoordonnees(i, j);
+                    if (caseVoisine != null) {
+                        T.add(caseVoisine); // Ajoute l'élément lui-même
+                    }
+                }
+            }
+        }
+    return T;
+    }
+
      /**
-     * Ce programme permet de savoir si le barril et le runner sont entrées en collision
-     * @version 2
+     * Ce programme permet de gérer toutes les collisions
+     * @version 3
      * @return un boolean de si oui ou non ils sont rentrés en collision
      */  
-        // Méthode donnée par Manal
-//        if (A.getClass().equals(Element.getClass()) && B.getClass().equals(Element.getClass())){
-//            A.getCoord() en collision avec B.getCoord();
-//        }
-        // QUESTION : Si on fait le programme ci dessous, est il vraiment nécessaire de prendre en paramètres deux objets A et B et faire une comparaison equals etc ?
-        
-    public boolean collisionLoupMouton(){
-        boolean collision = false;
-        for (int i = 0; i<3; i++){
-            if(this.barrilJoueur.get(i).getX()== this.runner.getX()){
-                collision = true;
-            }
-        }
-        for (int j = 0; j<3; j++){
-            if(this.barrilJoueur.get(j).getY()== this.runner.getY()){
-                collision = true;
-            }
-        }
-        return collision;
-    }
+  
+    public boolean collision(Element A, Element B) {
+    ArrayList<Element> casesAutourA = caseAutour(A);
 
-    /**
-     * A voir a quoi sert ce programme (pour l'instant non traité)
-     * @version 1
-     * @return 
-     */  
-//    public int[] deplacementCapture(){
-//        int [] coordoCapture = new int[2];
-//        if(this.collisionLoupMouton()==true){
-//           barrilJoueur.setX(J.getX()+1);
-//           barrilJoueur.setY(J.getY()+1);
-//        }
-//        return coordoCapture;
-//    }
-//    
-    
-    
+    if (casesAutourA.isEmpty()) {
+        return false; // Aucune collision possible car aucune case autour de A
+    }
+    if (A instanceof Runner && B instanceof Baril && casesAutourA.contains(B)) {
+        // Collision entre le Runner et un Baril
+        Baril baril = (Baril) B;
+        if (baril.capturableGet()) {
+            baril.capturableSet(false);
+            return true; //Collision détecté = Runner attrape baril
+        }
+    } else if (A instanceof Runner && B instanceof Mur) {
+        // Collision entre le Runner et un Mur
+        return true; // Collision détectée
+    } else if (A instanceof Runner && B instanceof Bonus && casesAutourA.contains(B)) {
+        // Collision entre le Runner et un Bonus
+        Bonus bonus = (Bonus) B;
+        if (bonus.capturableGet()) {
+            bonus.capturableSet(false);
+            ((Runner) A).setVitesse(); // le bonus s'applique sur le Runner
+            return true; // Collision détectée = Le runner attrape bonus
+        }
+    } else if (A instanceof Baril && (B instanceof Runner || B instanceof Mur || B instanceof Baril)) {
+        // Collision entre un Baril et Runner ou Mur ou Baril
+        return true; // Collision détectée
+    } else if (A instanceof Baril && B instanceof Bonus && casesAutourA.contains(B)) {
+        // Collision entre un Baril et un Bonus
+        Bonus bonus = (Bonus) B;
+        if (bonus.capturableGet()) {
+            bonus.capturableSet(false);
+            return true; // Collision détectée = Le baril a attrapé un bonus
+        }
+    } else if (!(A instanceof Runner) && !(A instanceof Baril)) {
+        // Si A n'est ni un Runner ni un Baril, on échange les rôles de A et B
+        return collision(B, A);
+    }
+    return false; // Aucune collision détectée
+}
      /**
-     * Verification si le déplacement est possible pour un jouable
-     * @version 1
+     * Verification si le déplacement est possible pour un jouable 
+     * ce qui veut dire soit c'est un 0 et ça avance soit c'est autre chose et c'est traité en collision
+     * @version 3
      * @return des true ou false suivant si c'est possible ou pas 
      */  
-    public boolean deplacementEstPossible(Jouable J, int deplacement){
-        if (J.getX() <= C.getSize() && J.getX() >= 0){
-            if(this.gauche){ // ceci changera avec un deplacement == 0
-                if (C.getMatrice()[J.getX()-1][J.getY()] == 2 ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
+    public boolean deplacementEstPossible(Jouable J) {
+    int x = J.getX();
+    int y = J.getY();
+
+    if (x >= 0 && x < C.getSize() && y >= 0 && y < C.getSize()) {
+        if (this.gauche) {
+            if (x - 1 >= 0 && C.getMatrice()[x - 1][y] == 0) {
+                return true;
             }
-            if(this.droite){ // ceci changera avec un deplacement == 1
-                if (C.getMatrice()[J.getX()+1][J.getY()] == 2 ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
+        } else if (this.droite) {
+            if (x + 1 < C.getSize() && C.getMatrice()[x + 1][y] == 0) {
+                return true;
             }
-            if(this.haut){ // ceci changera avec un deplacement == 2
-                if (C.getMatrice()[J.getX()][J.getY()-1] == 2 ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
+        } else if (this.haut) {
+            if (y - 1 >= 0 && C.getMatrice()[x][y - 1] == 0) {
+                return true;
             }
-             if(this.bas){ // ceci changera avec un deplacement == 3
-                if (C.getMatrice()[J.getX()][J.getY()+1] == 2 ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
+        } else if (this.bas) {
+            if (y + 1 < C.getSize() && C.getMatrice()[x][y + 1] == 0) {
+                return true;
             }
         }
-        return false;
     }
+    return false;
+}
+    
+    /**
+    * Déplace le jouable sur la carte suivant les infos qu'il obtient du programme le déplacement est possible
+    * @version 3
+    * @return la matrice modifié avec le déplacement du jouable
+    */   
 
-     /**
-     * Déplace le jouable sur la carte suivant les infos qu'il obtient du programme le déplacement est possible
-     * @version 3
-     * @return la matrice modifié avec le déplacement du jouable
-     */  
-        
-    public Carte MiseAJour(Jouable J, Carte Bouclage) {
+public Carte MiseAJour(Jouable J, Carte Bouclage) {
        // Matrice d'initialisation
         Carte MapMod = Bouclage;
-        int x = J.getX(); // localisation du jouable sur la map en x
-        int y = J.getY(); // Localisation du jouable sur la map en y
-        if (deplacementEstPossible(J,0)) { //j'utilise le programme d'avant pour savoir si le déplacement est possible
-            MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
-            y--; // Met à jour la position du 1
-            MapMod.setMatrice(x, y, 1); // Met à jour la nouvelle position du 1 dans la matrice
-            J.setY(y);
+        int x = J.getX();
+        int y = J.getY();
+        
+        int valeur = C.getMatrice()[J.getX()][J.getY()];
+        
+        if (deplacementEstPossible(J)) {
+            int newX = x;
+            int newY = y;
+
+            if (this.gauche) {
+                    newX = x - 1;       
+            } else if (this.droite) {
+                    newX = x + 1;
+            } else if (this.haut) {
+                    newY = y - 1;
+            } else if (this.bas) {
+                    newY = y + 1;
+            }
+
+            Element caseDestination = laCaseDeCoordonnees(newX, newY);
+
+            if (caseDestination == null || !collision(J, caseDestination)) {  // Si la case de destination est nulle ou s'il n'y a pas de collision entre J et la case de destination
+                MapMod.setMatrice(x, y, 0); // Efface la position actuelle du jouable
+                MapMod.setMatrice(newX, newY, 1); // Met à jour la nouvelle position du jouable dans la matrice
+                J.setX(newX);
+                J.setY(newY);
+            } else {
+                System.out.println("Déplacement impossible : collision détectée");
+            }
+        } else {
+            System.out.println("Déplacement impossible dans la direction spécifiée");
         }
-        else{
-            System.out.print("déplacement impossible vers la gauche");
-        }
-        if (deplacementEstPossible(J,1)) {
-            MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1 Modification du setteur car setter modifie la matrice mais pas ses éléments !!!
-            y++;
-            MapMod.setMatrice(x, y, 1);
-            J.setY(y);
-        }
-        else{
-            System.out.print("déplacement impossible vers la droite");
-        }
-        if (deplacementEstPossible(J,2)){
-            MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
-            x--; // Met à jour la position du 1
-            MapMod.setMatrice(x, y, 1);
-            J.setX(x);
-        }
-        else{
-            System.out.print("déplacement impossible vers le haut");
-        } 
-        if (deplacementEstPossible(J,3)){
-            MapMod.setMatrice(x, y, 0); // Efface la position actuelle du 1
-            x++; // Met à jour la position du 1
-            MapMod.setMatrice(x, y, 1); 
-            J.setX(x);
-        }
-        else{
-            System.out.print("déplacement impossible vers le bas");
-        }
+
         Bouclage.afficherMatriceV2(MapMod);
         return MapMod;
     }
@@ -212,7 +228,7 @@ public class Jeu {
          */
     public void partie(){
         Carte Map = new Carte(5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Jouable Joueur = new Jouable(01,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Jouable Joueur = new Jouable(1,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Baril Baril = new Baril(2,4,4);
         Map.setMatrice(Baril.getX(), Baril.getY(), 3);
         Map.afficherMatriceV2(Map);

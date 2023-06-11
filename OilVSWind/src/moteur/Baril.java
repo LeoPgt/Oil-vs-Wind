@@ -7,6 +7,8 @@ package moteur;
  *
  * @author mleconte
  */
+
+// Ici capturable veut dire que le baril n'a pas encore été pris par le RUNNER
 public class Baril extends Jouable {
     private boolean capturable;
             
@@ -23,14 +25,4 @@ public class Baril extends Jouable {
     public boolean capturableGet(){
         return this.capturable;
     }
-
-   
-   public void Capturable (boolean collisionLoupMouton){
-       if(collisionLoupMouton == true & this.capturableGet() == true){
-           this.capturableSet(true);
-       }
-       else{
-           this.capturableSet(false);
-       }
-   }
 }
