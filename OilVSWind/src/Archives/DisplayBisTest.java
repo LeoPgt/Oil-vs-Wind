@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package ig;
+package Archives;
+import ig.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,8 +17,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import moteur.Regles;
-import moteur.Jouable;
+
+
 /**
  *
  * @author alaunay
@@ -26,10 +27,12 @@ public class DisplayBisTest {
  private static final int TILE_SIZE = 40; // Taille des tuiles en pixels
    private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
    private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
-   private Regles jeu= new Regles(40);
    private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
    private static final int[][] MAP_DATA = {
-   
+       
+        
+        
+        
         
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
@@ -56,7 +59,10 @@ public class DisplayBisTest {
         {1,2,2,2,2,2,1,2,2,1,2,2,1,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,1,1,1,1,1,1,2,2,2,2,1},
         {1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-               
+        
+        
+        
+            
     };
     
     private static final int[][] CHARACTER_POSITIONS = {
@@ -86,7 +92,7 @@ public class DisplayBisTest {
         private BufferedImage tileset;
         private BufferedImage[] tiles;
         private BufferedImage[] characterSprites;
-        private int speed; // Vitesse du joueur
+//        private int speed; // Vitesse du joueur
 
         
         public MapPanel() {
@@ -184,18 +190,21 @@ protected void paintComponent(Graphics g) {
     for (int i = 0; i < CHARACTER_POSITIONS.length; i++) {
         int characterX = CHARACTER_POSITIONS[i][0];
         int characterY = CHARACTER_POSITIONS[i][1];
+        
+        
 
         int characterXPos = characterX * TILE_SIZE;
         int characterYPos = characterY * TILE_SIZE;
         
+
         // Dessiner le sprite du personnage à la position spécifiée
         BufferedImage characterSprite = characterSprites[i];
         g.drawImage(characterSprite, characterXPos, characterYPos,  null);
     }
 }
-
   private void movePlayer(int keyCode, int playerIndex) {
      // L'index du joueur à déplacer (ici, le personnage principal)
+
     int playerX = CHARACTER_POSITIONS[playerIndex][0];
     int playerY = CHARACTER_POSITIONS[playerIndex][1];
 
@@ -204,20 +213,16 @@ protected void paintComponent(Graphics g) {
 
     switch (keyCode) {
         case KeyEvent.VK_LEFT:
- //           newPlayerX = playerX - 1;
-            boolean gauche = true; //besoin de boolean pour la mise a jour !!!
+            newPlayerX = playerX - 1;
             break;
         case KeyEvent.VK_RIGHT:
-//            newPlayerX = playerX + 1;
-            boolean droite = true;
+            newPlayerX = playerX + 1;
             break;
         case KeyEvent.VK_UP:
-//            newPlayerY = playerY - 1;
-            boolean haut = true;
+            newPlayerY = playerY - 1;
             break;
         case KeyEvent.VK_DOWN:
- //           newPlayerY = playerY + 1;
-            boolean bas = true;
+            newPlayerY = playerY + 1;
             break;
         default:
             return; // Ignorer les autres touches
