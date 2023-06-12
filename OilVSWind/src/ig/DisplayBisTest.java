@@ -16,8 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import moteur.Jeu;
-import moteur.Jouable;
+//import moteur.Jeu;
+//import moteur.Jouable;
 /**
  *
  * @author alaunay
@@ -26,7 +26,7 @@ public class DisplayBisTest {
  private static final int TILE_SIZE = 40; // Taille des tuiles en pixels
    private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
    private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
-   private Jeu jeu= new Jeu(40);
+//   private Jeu jeu= new Jeu(40);
    private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
    private static final int[][] MAP_DATA = {
    
@@ -99,7 +99,7 @@ public class DisplayBisTest {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                int playerIndex = 0; //int playerIndex= Jeu.ChoixJoueur() qui retourne le numero du joueur choisi par l'utilisateur
+                int playerIndex = 1; //int playerIndex= Jeu.ChoixJoueur() qui retourne le numero du joueur choisi par l'utilisateur
                 movePlayer(keyCode,playerIndex);
         }
     });
