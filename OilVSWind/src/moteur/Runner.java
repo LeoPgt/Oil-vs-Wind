@@ -11,7 +11,7 @@ public class Runner extends Jouable{
     private int vitesseRunner;
     private boolean capturePossible;
    // les coordonnées x,y seront différentes pour les spawns  
-    public Runner(int x, int y, int vitesseRunner){
+    public Runner(int ID, int x, int y, int vitesseRunner){
         super (1, x , y); // le numéro de Runner sera 1 en terme de matrice.
         this.vitesseRunner = vitesseRunner;
         // spawn a côté de l'éolienne à définir
