@@ -1,4 +1,4 @@
-package ig;
+package Archives;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -9,6 +9,7 @@ package ig;
  *
  * @author tmichel1
  */   
+import ig.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;

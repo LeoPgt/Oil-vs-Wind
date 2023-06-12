@@ -102,7 +102,8 @@ public class DisplayBisTest {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                movePlayer(keyCode);
+                int playerIndex = 0;
+                movePlayer(keyCode,playerIndex);
         }
     });
         }
@@ -145,22 +146,22 @@ public class DisplayBisTest {
             try {
                 characterSprites[0] = ImageIO.read(new File("perso.png")); // Chargement du sprite du personnage
             } catch (IOException ex) {
-                Logger.getLogger(DisplayMapTest.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DisplayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 characterSprites[1] = ImageIO.read(new File("baril_rouge.png")); // Chargement du sprite du baril rouge
             } catch (IOException ex) {
-                Logger.getLogger(DisplayMapTest.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DisplayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 characterSprites[2] = ImageIO.read(new File("baril_jaune.png")); // Chargement du sprite du du baril jaune
             } catch (IOException ex) {
-                Logger.getLogger(DisplayMapTest.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DisplayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 characterSprites[3] = ImageIO.read(new File("baril_bleu.png")); // Chargement du sprite du du baril bleu
             } catch (IOException ex) {
-                Logger.getLogger(DisplayMapTest.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DisplayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -198,8 +199,8 @@ protected void paintComponent(Graphics g) {
         g.drawImage(characterSprite, characterXPos, characterYPos,  null);
     }
 }
-  private void movePlayer(int keyCode) {
-    int playerIndex = 0; // L'index du joueur à déplacer (ici, le personnage principal)
+  private void movePlayer(int keyCode, int playerIndex) {
+     // L'index du joueur à déplacer (ici, le personnage principal)
 
     int playerX = CHARACTER_POSITIONS[playerIndex][0];
     int playerY = CHARACTER_POSITIONS[playerIndex][1];
