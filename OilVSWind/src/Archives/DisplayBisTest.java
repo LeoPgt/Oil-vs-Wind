@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package ig;
+package Archives;
+import ig.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,8 +17,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import moteur.Jeu;
-import moteur.Jouable;
+
+
 /**
  *
  * @author alaunay
@@ -26,7 +27,6 @@ public class DisplayBisTest {
  private static final int TILE_SIZE = 40; // Taille des tuiles en pixels
    private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
    private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
-   private Jeu jeu= new Jeu(40);
    private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
    private static final int[][] MAP_DATA = {
        
@@ -92,7 +92,7 @@ public class DisplayBisTest {
         private BufferedImage tileset;
         private BufferedImage[] tiles;
         private BufferedImage[] characterSprites;
-        private int speed; // Vitesse du joueur
+//        private int speed; // Vitesse du joueur
 
         
         public MapPanel() {
