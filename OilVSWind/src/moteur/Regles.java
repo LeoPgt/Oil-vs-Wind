@@ -40,7 +40,7 @@ public class Regles {// Renommé toute la classe miseAJour
         this.tailleCase = taillecase;
     }
     
-        static public long getLong() {
+        static public long getLong() {// ???
         long retourLong = 0;
         boolean saisieOk = false;
         while (saisieOk == false) {
@@ -78,7 +78,7 @@ public class Regles {// Renommé toute la classe miseAJour
   }
   // Ici On crée une array list des Elements qui sont autour de A
   public ArrayList<Element> caseAutour(Element A) {
-        ArrayList<Element> T = new ArrayList<>();
+        ArrayList<Element> alentour = new ArrayList<>();
 
         int x = A.getX();
         int y = A.getY();
@@ -90,12 +90,12 @@ public class Regles {// Renommé toute la classe miseAJour
                 } else {
                     Element caseVoisine = laCaseDeCoordonnees(i, j);
                     if (caseVoisine != null) {
-                        T.add(caseVoisine); // Ajoute l'élément lui-même
+                        alentour.add(caseVoisine); // Ajoute l'élément lui-même
                     }
                 }
             }
         }
-    return T;
+    return alentour;// un vrai nom ???
     }
      /**
      * Ce programme permet de gérer toutes les collisions
