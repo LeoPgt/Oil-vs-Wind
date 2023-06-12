@@ -29,10 +29,7 @@ public class DisplayBisTest {
    private Regles jeu= new Regles(40);
    private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
    private static final int[][] MAP_DATA = {
-       
-        
-        
-        
+   
         
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
@@ -59,10 +56,7 @@ public class DisplayBisTest {
         {1,2,2,2,2,2,1,2,2,1,2,2,1,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,1,1,1,1,1,1,2,2,2,2,1},
         {1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-        
-        
-        
-            
+               
     };
     
     private static final int[][] CHARACTER_POSITIONS = {
@@ -190,21 +184,18 @@ protected void paintComponent(Graphics g) {
     for (int i = 0; i < CHARACTER_POSITIONS.length; i++) {
         int characterX = CHARACTER_POSITIONS[i][0];
         int characterY = CHARACTER_POSITIONS[i][1];
-        
-        
 
         int characterXPos = characterX * TILE_SIZE;
         int characterYPos = characterY * TILE_SIZE;
         
-
         // Dessiner le sprite du personnage à la position spécifiée
         BufferedImage characterSprite = characterSprites[i];
         g.drawImage(characterSprite, characterXPos, characterYPos,  null);
     }
 }
+
   private void movePlayer(int keyCode, int playerIndex) {
      // L'index du joueur à déplacer (ici, le personnage principal)
-
     int playerX = CHARACTER_POSITIONS[playerIndex][0];
     int playerY = CHARACTER_POSITIONS[playerIndex][1];
 
@@ -213,16 +204,20 @@ protected void paintComponent(Graphics g) {
 
     switch (keyCode) {
         case KeyEvent.VK_LEFT:
-            newPlayerX = playerX - 1;
+ //           newPlayerX = playerX - 1;
+            boolean gauche = true; //besoin de boolean pour la mise a jour !!!
             break;
         case KeyEvent.VK_RIGHT:
-            newPlayerX = playerX + 1;
+//            newPlayerX = playerX + 1;
+            boolean droite = true;
             break;
         case KeyEvent.VK_UP:
-            newPlayerY = playerY - 1;
+//            newPlayerY = playerY - 1;
+            boolean haut = true;
             break;
         case KeyEvent.VK_DOWN:
-            newPlayerY = playerY + 1;
+ //           newPlayerY = playerY + 1;
+            boolean bas = true;
             break;
         default:
             return; // Ignorer les autres touches

@@ -2,22 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package Jeu;
-
+package ig;
 
 /**
  *
  * @author rmorel
  */
-public class JeuConcaténéTest {
+public class InterfaceClavierTest {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JeuConcaténé Jeu = new JeuConcaténé(2);
-        System.out.println();
-        Jeu.partie();
+        
+        InterfaceClavier Clavier = new InterfaceClavier();
+        
     }
     
 }
