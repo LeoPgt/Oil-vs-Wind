@@ -24,8 +24,8 @@ package moteur;
  */
     public class Mur extends Decor {
 
-    public Mur(int numero, int x, int y) {
-        super(numero, x, y);
+    public Mur(int x, int y){
+        super(2, x, y);
     }
 
 }
