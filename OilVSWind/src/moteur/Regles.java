@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.TimerTask;
 import sql.Update_OVSW; // lien SQL
 
 /**
@@ -19,7 +21,6 @@ public class Regles {
     private Carte CarteMoteur;
 //    private Runner runner;
 //    private ArrayList<Baril> barrilJoueur;
-    private int tailleCase; //Manal : N'est pas sensé etre ici (mais on le laisse pour l'instant)
 
     public Regles (int taillecase, Carte Maptitle) {
         this.gauche = false;
@@ -29,7 +30,6 @@ public class Regles {
         this.CarteMoteur = Maptitle;
         int carteSize = Maptitle.getSize();// map n'exite pas pas donc nécessaire de la créer !!!
         this.update_OVSW = new Update_OVSW (); // lien SQL
-        this.tailleCase = taillecase;
     }
 
     public void setCarteMoteur(Carte Maptitle) {
@@ -228,41 +228,108 @@ public class Regles {
         return MapMod;
     }
 
-        /**
-         * Permet de transformer les infos du moteur avec x et y en termes de pixels pour l'interface graphique
-         * @version 1
-         * @return les infos en pixels
-         * */
-        public int convertirEnPixelssurX(int x) {
-            return x * this.tailleCase;
-         }
-        public int convertirEnPixelssurY(int y) {
-            return y * this.tailleCase;
-        }
+ 
+//    public void partieMoteur(){
+//        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+//        Jouable Joueur = new Jouable(1,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+//        Baril Baril = new Baril(2,4,4);
+//        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
+////        Map.afficherMatriceV2(Map);
+//        int bouclage = 10;
+//        int essai = 0;
+//        while (essai != bouclage){
+//            System.out.print("selectionner une direction");
+//            int unEntier = Clavier.getInt();
+//         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+//         // Map = MapMod;
+//         //  this.deplacementCapture(this.collisionLoupMouton());
+//         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
+//        }
+//    }
+    
+    // Méthode pour placer les barils aléatoirement dans la carte
+    private void placerBarilsAleatoirement() {
+        int nbBarils = 3; // Nombre de barils à placer
+        Random random = new Random();
         
-        /**
-         * A voir
-         * @version
-         * @return
-         */
-    public void partieMoteur(){
-        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Jouable Joueur = new Jouable(1,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Baril Baril = new Baril(2,4,4);
-        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
-//        Map.afficherMatriceV2(Map);
-        int bouclage = 10;
-        int essai = 0;
-        while (essai != bouclage){
-            System.out.print("selectionner une direction");
-            int unEntier = Clavier.getInt();
-         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-         // Map = MapMod;
-         //  this.deplacementCapture(this.collisionLoupMouton());
-         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
+        while (nbBarils > 0) {
+            int x = random.nextInt(CarteMoteur.getSize());
+            int y = random.nextInt(CarteMoteur.getSize());
+            
+            if (CarteMoteur.getMatrice()[x][y] == 0) {
+                CarteMoteur.setMatrice(x, y, nbBarils + 2); // Valeur de baril (3, 4, 5) correspondant au nombre restant à placer
+                Baril baril =  new Baril(001,"B"+ nbBarils,nbBarils +2,x,y,true); // Création du baril pour l'utiliser dans partieMoteur
+                nbBarils--;
+            }
         }
     }
-
-
+    
+        // Méthode pour mettre fin à la partie
+    private void finPartie(Runner runner, boolean victoire) {
+        if (victoire) {
+            System.out.println("Victoire ! Tous les barils ont été capturés.");
+        } else {
+            System.out.println("Défaite ! Les barils n'ont pas été tous capturés en 3 minutes.");
+        }
+       
+        // Arrêter le timer
+        timer.cancel();
+        timer.purge();
+    }
+    
+    // Méthode pour vérifier si tous les barils ont été capturés
+    private boolean tousBarilsCaptures() {
+        int[][] matrice = CarteMoteur.getMatrice();
+        
+        for (int i = 0; i < matrice.length; i++) {
+            for (int j = 0; j < matrice[i].length; j++) {
+                if (matrice[i][j] == 3 || matrice[i][j] == 4 || matrice[i][j] == 5) {
+                    return false; // Il reste au moins un baril non capturé
+                }
+            }
+        }
+        return true; // Tous les barils ont été capturés
+    }
+            
+   // Méthode pour jouer une partie sans interface graphique
+    public void partieMoteur() {
+        // Création du runner
+        Runner runner = new Runner(1, "Runner", 0, 0, 1); // Exemple de valeurs pour le Runner
+        
+        // Placement aléatoire des barils
+        placerBarilsAleatoirement();
+        
+        // Lancement du timer de 3 minutes
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                finPartie(runner);
+            }
+        }, 3 * 60 * 1000); // 3 minutes
+        
+        // Boucle de jeu
+        while (true) {
+            // Vérification si tous les barils ont été capturés
+            if (tousBarilsCaptures()) {
+                finPartie(runner, true);
+                break;
+            }
+            
+            // Déplacement du Runner
+            MiseAJour(runner, CarteMoteur);
+            
+            // Déplacement des Barils
+            MiseAJour(baril, CarteMoteur);
+            
+            // Pause de 1 seconde entre les mouvements du Runner
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
+    
+
 
