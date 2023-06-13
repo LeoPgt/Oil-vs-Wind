@@ -9,10 +9,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- *
+ * CHANGEMENT, CETTE CLASSE NE SERT PLUS, NOMMER REGLES MAINTENANT
  * @author mleconte
  */
-public class Jeu {// Renommé toute la classe miseAJour / regle jeu
+
+public class Jeu {
     protected boolean gauche, droite, haut, bas;  
     private Carte C;
     private Runner runner;
