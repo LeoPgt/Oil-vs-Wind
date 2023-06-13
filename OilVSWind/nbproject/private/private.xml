@@ -3,24 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/DisplayMapTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/Aurelia_Jeu.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/JouableTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Jouable.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Runner.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/CarteTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/JeuTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeuGUI.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/RunnerTest.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeu.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Baril.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/Jeu/JeuConcaténé.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/clavier/Clavier.java</file>
-            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/DisplayMap.java</file>
-        </group>
-        <group>
             <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
             <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/DispayBisTest.java</file>
             <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
@@ -30,6 +12,17 @@
             <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/Archives/DisplayBisTest.java</file>
             <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/DispayBisTest.java</file>
             <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
+        </group>
+        <group>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/InterfaceClavier.java</file>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/Jeu/JeuConcaténéTest.java</file>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/DisplayBis.java</file>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/ReglesTest.java</file>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/InterfaceClavierTest.java</file>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/DispayBisTest.java</file>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Regles.java</file>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
+            <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/Jeu/JeuConcaténé.java</file>
         </group>
     </open-files>
 </project-private>

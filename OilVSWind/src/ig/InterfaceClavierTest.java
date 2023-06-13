@@ -16,7 +16,14 @@ public class InterfaceClavierTest {
     public static void main(String[] args) {
         
         InterfaceClavier Clavier = new InterfaceClavier();
-        
+        int k =0;
+        while(k<10){
+        boolean test = true;
+        Clavier.keyPressed(e);
+        Clavier.toString();
+        k++;
+        }
+
     }
     
 }

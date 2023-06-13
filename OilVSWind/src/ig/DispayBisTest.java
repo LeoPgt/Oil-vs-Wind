@@ -31,10 +31,9 @@ public class DispayBisTest {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
-        
+       
         
 
-       
     }
     
 }

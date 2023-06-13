@@ -16,18 +16,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-//import moteur.Jeu;
 
 /**
  *
- * @author alaunay
+ * @author rmorel
  */
-public class DisplayBis {
-   private static final int TILE_SIZE = 40; // Taille des tuiles en pixels
-   private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
-   private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
-   private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
-   private static final int[][] MAP_DATA = {
+public class igMethode {
+    private boolean gauche = false;
+    private boolean droite = false;
+    private  boolean haut = false;
+    private boolean bas = false;
+     private static int [][] positionCaractère ={
+    {2, 2}, // Position du personnage
+    {5, 5},  // Position du baril rouge
+    {8, 8},  // Position du baril jaune
+    {12, 12}  // Position du baril bleu  
+    };
+    private static final int TILE_SIZE = 40; // Taille des tuiles en pixels
+    private static final int MAP_WIDTH = 40; // Largeur de la carte en tuiles
+    private static final int MAP_HEIGHT = 25; // Hauteur de la carte en tuiles
+    private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
+    private static final int[][] MAP_DATA = {
         
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
@@ -57,44 +66,72 @@ public class DisplayBis {
         
             
     };
-
-    public static int getMAP_WIDTH() {
-        return MAP_WIDTH;
-    }
-
-    public static int getMAP_HEIGHT() {
-        return MAP_HEIGHT;
-    }
-
-    public static int[][] getMAP_DATA() {
-        return MAP_DATA;
-    }
     
     
-   
+    public void setPosition (int x, int y,int playerIndex){
+        positionCaractère[playerIndex][0] = x;
+        positionCaractère[playerIndex][1] = y;
+    }
+    
+    public boolean movePlayer(int keyCode, int playerIndex, boolean possible) {
+     // L'index du joueur à déplacer (ici, le personnage principal)
+        boolean redessiner = false;
+        int playerX = positionCaractère[playerIndex][0];
+        int playerY = positionCaractère[playerIndex][1];
+
+        int newPlayerX = playerX;
+        int newPlayerY = playerY;
+
+        switch (keyCode) {
+            case KeyEvent.VK_LEFT:
+                
+                newPlayerX = playerX - 1;
+                break;
+            case KeyEvent.VK_RIGHT:
+                newPlayerX = playerX + 1;
+                break;
+            case KeyEvent.VK_UP:
+                newPlayerY = playerY - 1;
+                break;
+            case KeyEvent.VK_DOWN:
+                newPlayerY = playerY + 1;
+                break;
+//            default:
+//                return; // Ignorer les autres touches
+        }
+        // Vérifier si la nouvelle position est valide
+    if (possible) {
+        positionCaractère[playerIndex][0] = newPlayerX;
+        positionCaractère[playerIndex][1] = newPlayerY;
+        redessiner = true;
+    }
+    else{redessiner = false;}
+    return redessiner;
+    }
+
     public static class MapPanel extends JPanel implements KeyListener{
 
-        private BufferedImage tileset;
-        private BufferedImage[] tiles;
-        private BufferedImage[] characterSprites;
-        private int speed; // Vitesse du joueur
+    private BufferedImage tileset;
+    private BufferedImage[] tiles;
+    private BufferedImage[] characterSprites;
+    private int speed; // Vitesse du joueur
 
-        
-        
-        public MapPanel() {
-            loadTileset();
-            loadTiles();
-            setPreferredSize(new Dimension(MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE));
-            setFocusable(true);
-            requestFocusInWindow();
-            addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int keyCode = e.getKeyCode();
-                System.out.println("keyCode=" + keyCode);
-                int playerIndex = 0; //int playerIndex= Jeu.ChoixJoueur() qui retourne le numero du joueur choisi par l'utilisateur
-             movePlayer(keyCode,playerIndex);
-        }
+
+
+    public MapPanel() {
+        loadTileset();
+        loadTiles();
+        setPreferredSize(new Dimension(MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE));
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(new KeyAdapter() {
+        @Override
+
+        public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            System.out.println("keyCode=" + keyCode);
+            int playerIndex = 0; //int playerIndex= Jeu.ChoixJoueur() qui retourne le numero du joueur choisi par l'utilisateur
+    }
     });
         }
         @Override
@@ -154,37 +191,25 @@ public class DisplayBis {
                 Logger.getLogger(DispayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
-        
-private static final int[][] CHARACTER_POSITIONS = {
-        {2, 2}, // Position du personnage
-        {5, 5},  // Position du baril rouge
-        {8, 8},  // Position du baril jaune
-        {12, 12}  // Position du baril bleu
-    };
+        }    
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
 
-        @Override
-protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
+            for (int y = 0; y < MAP_HEIGHT; y++) {
+                for (int x = 0; x < MAP_WIDTH; x++) {
+                    int tileIndex = MAP_DATA[y][x];
+                    BufferedImage tile = tiles[tileIndex];
 
-    for (int y = 0; y < MAP_HEIGHT; y++) {
-        for (int x = 0; x < MAP_WIDTH; x++) {
-            int tileIndex = MAP_DATA[y][x];
-            BufferedImage tile = tiles[tileIndex];
+                    int xPos = x * TILE_SIZE;
+                    int yPos = y * TILE_SIZE;
 
-            int xPos = x * TILE_SIZE;
-            int yPos = y * TILE_SIZE;
-
-            g.drawImage(tile, xPos, yPos, null);
-        }
-    }
-    
-    
-
-    // Dessiner les personnages
-    for (int i = 0; i < CHARACTER_POSITIONS.length; i++) {
-        int characterX = CHARACTER_POSITIONS[i][0];
-        int characterY = CHARACTER_POSITIONS[i][1];
+                    g.drawImage(tile, xPos, yPos, null);
+                }
+            }
+            // Dessiner les personnages
+    for (int i = 0; i < positionCaractère.length; i++) {
+        int characterX = positionCaractère[i][0];
+        int characterY = positionCaractère[i][1];
         
         
 
@@ -195,57 +220,8 @@ protected void paintComponent(Graphics g) {
         // Dessiner le sprite du personnage à la position spécifiée
         BufferedImage characterSprite = characterSprites[i];
         g.drawImage(characterSprite, characterXPos, characterYPos,  null);
-    }
-}
-  private void movePlayer(int keyCode, int playerIndex) {
-     // L'index du joueur à déplacer (ici, le personnage principal)
-
-    int playerX = CHARACTER_POSITIONS[playerIndex][0];
-    int playerY = CHARACTER_POSITIONS[playerIndex][1];
-
-    int newPlayerX = playerX;
-    int newPlayerY = playerY;
-
-    switch (keyCode) {
-        case KeyEvent.VK_LEFT:
-            newPlayerX = playerX - 1;
-            break;
-        case KeyEvent.VK_RIGHT:
-            newPlayerX = playerX + 1;
-            break;
-        case KeyEvent.VK_UP:
-            newPlayerY = playerY - 1;
-            break;
-        case KeyEvent.VK_DOWN:
-            newPlayerY = playerY + 1;
-            break;
-        default:
-            return; // Ignorer les autres touches
+    }    
+        }
     }
 
-    // Vérifier si la nouvelle position est valide
-    if (isValidPosition(newPlayerX, newPlayerY)) {
-        CHARACTER_POSITIONS[playerIndex][0] = newPlayerX;
-        CHARACTER_POSITIONS[playerIndex][1] = newPlayerY;
-        repaint();
-    }
-}
-
-private boolean isValidPosition(int x, int y) {
-    // Vérifier si la position est à l'intérieur de la carte et si elle est traversable (pas un mur, etc.)
-    
-//    if(jeu.deplacementEstPossible(joueur,deplacement)){
-//        return true;
-//    } else {
-//        return false;
-//    }
-    
-    return x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT && MAP_DATA[y][x] != 1;
-}      
-    /**
-     * @param args the command line arguments
-     */
-   
-    
-}
 }
