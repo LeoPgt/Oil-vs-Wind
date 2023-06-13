@@ -68,7 +68,7 @@ public class Select_OVSW {
 
             ResultSet result = requete.executeQuery();
             if (result.next()) {
-                return new Baril(result.getInt("id"), result.getString("pseudo"), result.getInt("x"), result.getInt("y"), result.getBoolean("capturable")); // le numéro est soit 2, 3, 4 en terme de matrice donc là faudrait un petit peu d'aide car je ne sais plus comment faire
+                return new Baril(result.getInt("id"), result.getString("pseudo"),result.getInt("numero"), result.getInt("x"), result.getInt("y"), result.getBoolean("capturable"));
             } else {
                 return null; // Ou lancez une exception si l'id du Baril n'existe pas dans la base de données
             }
