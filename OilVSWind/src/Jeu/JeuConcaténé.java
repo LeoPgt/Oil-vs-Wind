@@ -4,7 +4,6 @@
  */
 package Jeu;
 
-import clavier.Clavier;
 import moteur.Baril;
 import moteur.Carte;
 import moteur.Jouable;
@@ -16,7 +15,7 @@ import moteur.Runner;
 import moteur.Jeu;
 import moteur.Jouable;
 import ig.InterfaceClavier;
-
+import ig.DisplayBis;
 
 /**
  *
@@ -27,7 +26,7 @@ public class JeuConcaténé {
     protected boolean gauche, droite, haut, bas;
     private Carte C;
     private InterfaceClavier Clavier;
-    //private mapTitle trouvé un moyen de récuper la maptitle !!
+    private DisplayBis MapTitle;
     private Runner runner;
     private ArrayList<Baril> barrilJoueur;
     private int tailleCase; //Manal : N'est pas sensé etre ici (mais on le laisse pour l'instant)
@@ -37,9 +36,10 @@ public class JeuConcaténé {
         this.droite = false;
         this.haut = false;
         this.bas = false;
-        this.C = new Carte(5,5);
-        int carteSize = C.getSize();
-        this.runner = new Runner(1,0,0,1);
+        this.MapTitle = MapTitle;
+        this.C = new Carte(this.MapTitle.getMAP_DATA());
+//        int carteSize = C.getSize();   // pas encore vu l'utilité
+        this.runner = new Runner(0,0,1);
         //BARIL
         this.barrilJoueur = new ArrayList<Baril>();
         Baril B1 = new Baril(3, 1, 1);
@@ -58,8 +58,6 @@ public class JeuConcaténé {
     public void partie(){
         Jeu règle = new Jeu(2);
         Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Jouable Joueur = new Jouable(01,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-        Baril Baril = new Baril(2,4,4);
 //      Map.afficherMatriceV2(Map);
         int bouclage = 10;
         int essai = 0;

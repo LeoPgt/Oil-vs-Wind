@@ -40,7 +40,7 @@ public class Regles {// Renommé toute la classe miseAJour
         this.tailleCase = taillecase;
     }
     
-        static public long getLong() {
+        static public long getLong() {// ???
         long retourLong = 0;
         boolean saisieOk = false;
         while (saisieOk == false) {
@@ -80,7 +80,7 @@ public class Regles {// Renommé toute la classe miseAJour
   }
   // Ici On crée une array list des Elements qui sont autour de A
   public ArrayList<Element> caseAutour(Element A) {
-        ArrayList<Element> T = new ArrayList<>();
+        ArrayList<Element> alentour = new ArrayList<>();
 
         int x = A.getX();
         int y = A.getY();
@@ -92,12 +92,12 @@ public class Regles {// Renommé toute la classe miseAJour
                 } else {
                     Element caseVoisine = laCaseDeCoordonnees(i, j);
                     if (caseVoisine != null) {
-                        T.add(caseVoisine); // Ajoute l'élément lui-même
+                        alentour.add(caseVoisine); // Ajoute l'élément lui-même
                     }
                 }
             }
         }
-    return T;
+    return alentour;// un vrai nom ???
     }
      /**
      * Ce programme permet de gérer toutes les collisions
@@ -240,11 +240,11 @@ public class Regles {// Renommé toute la classe miseAJour
          * @return
          */
     public void partie(){
-        Carte Map = new Carte(5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Jouable Joueur = new Jouable(1,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Baril Baril = new Baril(2,4,4);
         Map.setMatrice(Baril.getX(), Baril.getY(), 3);
-        Map.afficherMatriceV2(Map);
+//        Map.afficherMatriceV2(Map);
         int bouclage = 10;
         int essai = 0;
         while (essai != bouclage){

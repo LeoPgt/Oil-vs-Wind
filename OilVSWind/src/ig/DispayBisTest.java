@@ -4,6 +4,11 @@
  */
 package ig;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -17,7 +22,7 @@ public class DispayBisTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("OIL VS WIND");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,6 +31,10 @@ public class DispayBisTest {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
+        
+        
+
+       
     }
     
 }

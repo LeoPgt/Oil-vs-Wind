@@ -27,7 +27,7 @@ public class Jeu {
         this.bas = false;
         this.C = new Carte(5,5);
         int carteSize = C.getSize();
-        this.runner = new Runner(1,0,0,1);
+        this.runner = new Runner(0,0,1);
         //BARIL
         this.barrilJoueur = new ArrayList<Baril>();
         Baril B1 = new Baril(3, 1, 1);
