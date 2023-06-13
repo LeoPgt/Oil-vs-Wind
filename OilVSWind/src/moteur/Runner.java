@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
+
 /**
  *
  * @author rmorel
@@ -10,12 +11,19 @@ package moteur;
 public class Runner extends Jouable{
     private int vitesseRunner;
     private boolean capturePossible;
+    private int idSQL;
+    
    // les coordonnées x,y seront différentes pour les spawns  
-    public Runner(int x, int y, int vitesseRunner){
-        super (1, x , y); // le numéro de Runner sera 1 en terme de matrice.
+    public Runner(int idSQL, String pseudo, int x, int y, int vitesseRunner){
+        super (pseudo, 1, x , y); // le numéro de Runner sera 1 en terme de matrice.
         this.vitesseRunner = vitesseRunner;
+        this.idSQL = idSQL;
         // spawn a côté de l'éolienne à définir
-    }     
+    }   
+    public int getIdSQL(){
+        return idSQL;
+    }
+    
     public void setVitesse(){
         this.vitesseRunner = vitesseRunner*2; // Augmente sa vitesse * 2 
     }
