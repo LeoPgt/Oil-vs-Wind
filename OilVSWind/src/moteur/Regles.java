@@ -238,11 +238,11 @@ public class Regles {// Renommé toute la classe miseAJour
          * @return
          */
     public void partie(){
-        Carte Map = new Carte(5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Jouable Joueur = new Jouable(1,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Baril Baril = new Baril(2,4,4);
         Map.setMatrice(Baril.getX(), Baril.getY(), 3);
-        Map.afficherMatriceV2(Map);
+//        Map.afficherMatriceV2(Map);
         int bouclage = 10;
         int essai = 0;
         while (essai != bouclage){

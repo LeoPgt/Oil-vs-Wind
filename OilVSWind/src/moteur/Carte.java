@@ -24,8 +24,8 @@ public class Carte {
         this.matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
         this.matrice[4][4] = 3; // Initialise une position de départ du Baril B1 (ce sera la place initial du baril B1)
     }
-     public Carte (int [][]Matrice,int x,int y){
-         
+     public Carte (int [][]matrice){
+         this.matrice = matrice;
      }
     public int getSize() {
         return size;

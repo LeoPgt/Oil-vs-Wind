@@ -29,10 +29,6 @@ public class DisplayBis {
 //   private Jeu jeu= new Jeu(40);
    private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
    private static final int[][] MAP_DATA = {
-       
-        
-        
-        
         
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
@@ -60,18 +56,23 @@ public class DisplayBis {
         {1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
         
-        
-        
             
     };
+
+    public static int getMAP_WIDTH() {
+        return MAP_WIDTH;
+    }
+
+    public static int getMAP_HEIGHT() {
+        return MAP_HEIGHT;
+    }
+
+    public static int[][] getMAP_DATA() {
+        return MAP_DATA;
+    }
     
     
-    
-    
-    
-    
-    
-    
+   
     static class MapPanel extends JPanel implements KeyListener{
 
         private BufferedImage tileset;
@@ -79,6 +80,7 @@ public class DisplayBis {
         private BufferedImage[] characterSprites;
         private int speed; // Vitesse du joueur
 
+        
         
         public MapPanel() {
             loadTileset();
