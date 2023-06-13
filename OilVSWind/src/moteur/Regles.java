@@ -3,20 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-import clavier.Clavier;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import sql.Update_OVSW; // lien SQL
 
 /**
  *
  * @author mleconte
  */
-public class Regles {// Renommé toute la classe miseAJour
+public class Regles {
+    private Update_OVSW update_OVSW; // lien SQL
     protected boolean gauche, droite, haut, bas;  
     private Carte C;
-//    private Runner runner;
-//    private ArrayList<Baril> barrilJoueur;
     private int tailleCase; //Manal : N'est pas sensé etre ici (mais on le laisse pour l'instant)
     
     public Regles (int taillecase) {
@@ -24,23 +24,12 @@ public class Regles {// Renommé toute la classe miseAJour
         this.droite = false;
         this.haut = false;
         this.bas = false;
-        int carteSize = C.getSize();// map n'exite pas pas donc nécessaire de la créer !!!
-//        this.runner = new Runner(1,0,0,1);
-//        //BARIL
-//        this.barrilJoueur = new ArrayList<Baril>();
-//        Baril B1 = new Baril(3, 1, 1);
-//        this.barrilJoueur.add(B1);
-//        Baril B2 = new Baril(4, 2, 2);
-//        this.barrilJoueur.add(B2);
-//        Baril B3 = new Baril(5, 3, 3);
-//        this.barrilJoueur.add(B3);
-        //this.barrilJoueur.indexOf(B1); //Retourne indice de B1 donc 0
-        //this.barrilJoueur.get(0); //retourne l'objet d'indice 0 donc B1
-        
+        this.update_OVSW = new Update_OVSW (); // lien SQL
         this.tailleCase = taillecase;
     }
     
-        static public long getLong() {// ???
+    // l'utilité de ça ?
+        static public long getLong() { 
         long retourLong = 0;
         boolean saisieOk = false;
         while (saisieOk == false) {
@@ -104,7 +93,7 @@ public class Regles {// Renommé toute la classe miseAJour
      * @version 3
      * @return un boolean de si oui ou non ils sont rentrés en collision
      */  
-  public boolean collision(Element A, Element B) {
+  public boolean collision(Element A, Element B){ // throws SQLException // LIEN SQL
     ArrayList<Element> casesAutourA = caseAutour(A);
 
     if (casesAutourA.isEmpty()) {
@@ -115,6 +104,7 @@ public class Regles {// Renommé toute la classe miseAJour
         Baril baril = (Baril) B;
         if (baril.capturableGet()) {
             baril.capturableSet(false);
+// LIEN SQL  update_OVSW.updateBaril(baril); 
             return true; //Collision détecté = Runner attrape baril
         }
     } else if (A instanceof Runner && B instanceof Mur && casesAutourA.contains(B)) { 
@@ -123,9 +113,11 @@ public class Regles {// Renommé toute la classe miseAJour
     } else if (A instanceof Runner && B instanceof Bonus && casesAutourA.contains(B)) {
         // Collision entre le Runner et un Bonus
         Bonus bonus = (Bonus) B;
+        Runner runner = (Runner) A;
         if (bonus.capturableGet()) {
             bonus.capturableSet(false);
-            ((Runner) A).setVitesse(); // le bonus s'applique sur le Runner
+            runner.setVitesse(); // le bonus s'applique sur le Runner
+//  LIEN SQL  update_OVSW.updateRunner(runner);  
             return true; // Collision détectée = Le runner attrape bonus
         }
     } else if (A instanceof Baril && (B instanceof Runner || B instanceof Mur || B instanceof Baril)&& casesAutourA.contains(B)) {
@@ -133,9 +125,11 @@ public class Regles {// Renommé toute la classe miseAJour
         return true; // Collision détectée
     } else if (A instanceof Baril && B instanceof Bonus && casesAutourA.contains(B)) {
         // Collision entre un Baril et un Bonus
+        Baril baril = (Baril) A;
         Bonus bonus = (Bonus) B;
         if (bonus.capturableGet()) {
             bonus.capturableSet(false);
+// LIEN SQL  update_OVSW.updateRunner(baril); 
             return true; // Collision détectée = Le baril a attrapé un bonus
         }
     } else if (!(A instanceof Runner) && !(A instanceof Baril)) {
@@ -210,6 +204,11 @@ public class Regles {// Renommé toute la classe miseAJour
                 MapMod.setMatrice(newX, newY, 1); // Met à jour la nouvelle position du jouable dans la matrice
                 J.setX(newX);
                 J.setY(newY);
+//LIEN SQL      if (J instanceof Runner) {
+//                  update_OVSW.updateRunner((Runner) J);
+//              } else if (J instanceof Baril) {
+//                  update_OVSW.updateBaril((Baril) J);
+//              }
             } else {
                 System.out.println("Déplacement impossible : collision détectée");
             }
