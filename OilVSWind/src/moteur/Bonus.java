@@ -14,8 +14,8 @@ package moteur;
 public class Bonus extends Decor {
     private boolean capturable;
     
-    public Bonus(int numero, int x, int y) {
-        super(numero, x, y);
+    public Bonus(int x, int y) {
+        super(6, x, y);
         this.capturable=true;
     }
     

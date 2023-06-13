@@ -90,8 +90,10 @@ public class DisplayBis {
             requestFocusInWindow();
             addKeyListener(new KeyAdapter() {
             @Override
+            
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
+                System.out.println("keyCode=" + keyCode);
                 int playerIndex = 0; //int playerIndex= Jeu.ChoixJoueur() qui retourne le numero du joueur choisi par l'utilisateur
                 movePlayer(keyCode,playerIndex);
         }

@@ -72,6 +72,8 @@ public class Regles {// Renommé toute la classe miseAJour
                 return new Baril(4,x,y);
             case 5:
                 return new Baril(5,x,y);
+            case 6:
+                return new Bonus(x,y);
             default:
                 return null; // Retourne null si la case est vide ou n'existe pas
         }
@@ -108,14 +110,14 @@ public class Regles {// Renommé toute la classe miseAJour
     if (casesAutourA.isEmpty()) {
         return false; // Aucune collision possible car aucune case autour de A
     }
-    if (A instanceof Runner && B instanceof Baril && casesAutourA.contains(B)) {
+    if (A instanceof Runner && B instanceof Baril && casesAutourA.contains(B)) { // Si A est une instance de Runner et Si B est une instance de Baril et si CaseAutour de A contient B)
         // Collision entre le Runner et un Baril
         Baril baril = (Baril) B;
         if (baril.capturableGet()) {
             baril.capturableSet(false);
             return true; //Collision détecté = Runner attrape baril
         }
-    } else if (A instanceof Runner && B instanceof Mur) {
+    } else if (A instanceof Runner && B instanceof Mur && casesAutourA.contains(B)) { 
         // Collision entre le Runner et un Mur
         return true; // Collision détectée
     } else if (A instanceof Runner && B instanceof Bonus && casesAutourA.contains(B)) {
@@ -126,7 +128,7 @@ public class Regles {// Renommé toute la classe miseAJour
             ((Runner) A).setVitesse(); // le bonus s'applique sur le Runner
             return true; // Collision détectée = Le runner attrape bonus
         }
-    } else if (A instanceof Baril && (B instanceof Runner || B instanceof Mur || B instanceof Baril)) {
+    } else if (A instanceof Baril && (B instanceof Runner || B instanceof Mur || B instanceof Baril)&& casesAutourA.contains(B)) {
         // Collision entre un Baril et Runner ou Mur ou Baril
         return true; // Collision détectée
     } else if (A instanceof Baril && B instanceof Bonus && casesAutourA.contains(B)) {
