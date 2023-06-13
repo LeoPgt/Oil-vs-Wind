@@ -4,6 +4,7 @@
  */
 package ig;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 /**
@@ -15,48 +16,30 @@ public class InterfaceClavier {
     private boolean bas = false;
     private boolean droite = false;
     private boolean gauche = false;
+    
 
-    public boolean isHaut() {
-        return haut;
+    public int keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        char keyChar = e.getKeyChar();
+        System.out.println("Key pressed - Key code: " + keyCode + ", Key char: " + keyChar);
+        return keyCode;
     }
 
-    public boolean isBas() {
-        return bas;
+    public int keyReleased(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        char keyChar = e.getKeyChar();
+        System.out.println("Key released - Key code: " + keyCode + ", Key char: " + keyChar);
+        return keyCode;
     }
 
-    public boolean isDroite() {
-        return droite;
-    }
 
-    public boolean isGauche() {
-        return gauche;
+    public int keyTyped(KeyEvent e) {
+        char keyChar = e.getKeyChar();
+        System.out.println("Key typed - Key char: " + keyChar);
+        return keyChar;
     }
     
-    public void keyPressed(KeyEvent e) {
-        // Gérer l'appui d'une touche
-        int keyCode = e.getKeyCode();
 
-        // Exemple de gestion de l'appui des touches de direction
-        if (keyCode == KeyEvent.VK_UP) {
-            // Déplacer le personnage vers le haut
-            this.haut = true;
-        } else if (keyCode == KeyEvent.VK_DOWN) {
-            // Déplacer le personnage vers le bas
-            this.bas = true;
-        } else if (keyCode == KeyEvent.VK_LEFT) {
-            // Déplacer le personnage vers la gauche
-            this.gauche = true;
-        } else if (keyCode == KeyEvent.VK_RIGHT) {
-            // Déplacer le personnage vers la droite
-            this.droite = true;
-        }
-    }
-
-    public void keyTyped(KeyEvent e) {
-        // Gérer la frappe d'une touche (non utilisé dans cet exemple)
-    }
-
-    public void keyReleased(KeyEvent e) {
-        // Gérer le relâchement d'une touche (non utilisé dans cet exemple)
-    }
+    
+}
 

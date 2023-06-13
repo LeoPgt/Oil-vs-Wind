@@ -15,19 +15,27 @@ import sql.Update_OVSW; // lien SQL
  */
 public class Regles {
     private Update_OVSW update_OVSW; // lien SQL
-    protected boolean gauche, droite, haut, bas;  
-    private Carte C;
+    protected boolean gauche, droite, haut, bas;
+    private Carte CarteMoteur;
+//    private Runner runner;
+//    private ArrayList<Baril> barrilJoueur;
     private int tailleCase; //Manal : N'est pas sensé etre ici (mais on le laisse pour l'instant)
-    
-    public Regles (int taillecase) {
+
+    public Regles (int taillecase, Carte Maptitle) {
         this.gauche = false;
         this.droite = false;
         this.haut = false;
         this.bas = false;
+        this.CarteMoteur = Maptitle;
+        int carteSize = Maptitle.getSize();// map n'exite pas pas donc nécessaire de la créer !!!
         this.update_OVSW = new Update_OVSW (); // lien SQL
         this.tailleCase = taillecase;
     }
-    
+
+    public void setCarteMoteur(Carte Maptitle) {
+        this.CarteMoteur = Maptitle;
+    }
+
     // l'utilité de ça ?
         static public long getLong() { 
         long retourLong = 0;
@@ -47,7 +55,7 @@ public class Regles {
     
      // Méthode qui retourne l'élément à la position (x, y)
   public Element laCaseDeCoordonnees(int x, int y) {
-        int valeur = C.getMatrice()[x][y];
+        int valeur = CarteMoteur.getMatrice()[x][y];
         
         switch (valeur) {
             case 1:
@@ -148,21 +156,21 @@ public class Regles {
     int x = J.getX();
     int y = J.getY();
 
-    if (x >= 0 && x < C.getSize() && y >= 0 && y < C.getSize()) {
+    if (x >= 0 && x < CarteMoteur.getSize() && y >= 0 && y < CarteMoteur.getSize()) {
         if (this.gauche) {
-            if (x - 1 >= 0 && C.getMatrice()[x - 1][y] == 0) {
+            if (x - 1 >= 0 && CarteMoteur.getMatrice()[x - 1][y] == 0) {
                 return true;
             }
         } else if (this.droite) {
-            if (x + 1 < C.getSize() && C.getMatrice()[x + 1][y] == 0) {
+            if (x + 1 < CarteMoteur.getSize() && CarteMoteur.getMatrice()[x + 1][y] == 0) {
                 return true;
             }
         } else if (this.droite) {
-            if (x + 1 < C.getSize() && C.getMatrice()[x + 1][y] == 0) {
+            if (x + 1 < CarteMoteur.getSize() && CarteMoteur.getMatrice()[x + 1][y] == 0) {
                 return true;
             }
         } else if (this.bas) {
-            if (y + 1 < C.getSize() && C.getMatrice()[x][y + 1] == 0) {
+            if (y + 1 < CarteMoteur.getSize() && CarteMoteur.getMatrice()[x][y + 1] == 0) {
                 return true;
             }
         }
@@ -181,7 +189,7 @@ public class Regles {
         int x = J.getX();
         int y = J.getY();
         
-        int valeur = C.getMatrice()[J.getX()][J.getY()];
+        int valeur = CarteMoteur.getMatrice()[J.getX()][J.getY()];
         
         if (deplacementEstPossible(J)) {
             int newX = x;
@@ -231,30 +239,30 @@ public class Regles {
         public int convertirEnPixelssurY(int y) {
             return y * this.tailleCase;
         }
+        
+        /**
+         * A voir
+         * @version
+         * @return
+         */
+    public void partieMoteur(){
+        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Jouable Joueur = new Jouable(1,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Baril Baril = new Baril(2,4,4);
+        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
+//        Map.afficherMatriceV2(Map);
+        int bouclage = 10;
+        int essai = 0;
+        while (essai != bouclage){
+            System.out.print("selectionner une direction");
+            int unEntier = Clavier.getInt();
+         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+         // Map = MapMod;
+         //  this.deplacementCapture(this.collisionLoupMouton());
+         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
+        }
+    }
 
-
-//        /**
-//         * A voir
-//         * @version
-//         * @return
-//         */
-//    public void partie(){
-//        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-//        Jouable Joueur = new Jouable(1,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-//        Baril Baril = new Baril(2,4,4);
-//        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
-////        Map.afficherMatriceV2(Map);
-//        int bouclage = 10;
-//        int essai = 0;
-//        while (essai != bouclage){
-//            System.out.print("selectionner une direction");
-//            int unEntier = Clavier.getInt();
-//         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-//         // Map = MapMod;
-//         //  this.deplacementCapture(this.collisionLoupMouton());
-//         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
-//        }
-//    }
 
 }
 

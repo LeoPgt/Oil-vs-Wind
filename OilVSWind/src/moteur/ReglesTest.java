@@ -17,7 +17,7 @@ public class ReglesTest {
     public static void main(String[] args) {
         Carte Monde = new Carte(5,5);
        // Jeu partie = new Jeu();
-        Regles partie = new Regles(2);
+        Regles partieMoteur = new Regles(2,Monde);
         System.out.println();
         //partie.partie();
  

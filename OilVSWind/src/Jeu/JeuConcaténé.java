@@ -4,6 +4,7 @@
  */
 package Jeu;
 
+
 import moteur.Baril;
 import moteur.Carte;
 import moteur.Jouable;
@@ -12,10 +13,25 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import moteur.Runner;
-import moteur.Jeu;
 import moteur.Jouable;
 import ig.InterfaceClavier;
 import ig.DisplayBis;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import ig.igMethode;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+import moteur.Regles;
 
 /**
  *
@@ -56,22 +72,25 @@ public class JeuConcaténé {
     
 
     public void partie(){
-        Jeu règle = new Jeu(2);
-        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Carte Map = this.C; // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
+        Regles règle = new Regles(2,this.C);
+        Jouable Joueur = new Jouable(0,1,1);// id, x , y
+        SwingUtilities.invokeLater(() -> {
+        JFrame frame = new JFrame("OIL VS WIND");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new igMethode.MapPanel());
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        });
 //      Map.afficherMatriceV2(Map);
         int bouclage = 10;
         int essai = 0;
         while (essai != bouclage){
-            this.bas = this.Clavier.isBas();
-            this.haut = this.Clavier.isHaut();
-            this.droite = this.Clavier.isDroite();
-            this.gauche = this.Clavier.isGauche();
+
             Carte MapMod = règle.MiseAJour(Joueur, Map);// début du bouclage de la mj
             Map = MapMod;
-            this.gauche = false;
-            this.droite = false;
-            this.haut = false;
-            this.bas = false;            
+           
         }
     }
 
