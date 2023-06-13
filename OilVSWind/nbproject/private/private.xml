@@ -12,6 +12,30 @@
             <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/Archives/DisplayBisTest.java</file>
             <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/ig/DispayBisTest.java</file>
             <file>file:/Z:/Mes%20documents/VERT%20SYSTEME/Info/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Mur.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Baril.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jouable.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Regles.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Bonus.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Element.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Runner.java</file>
+        </group>
+        <group>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jouable.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Regles.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/Select_OVSW.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/Insert_OVSW.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Element.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/Initialisation_OVSW.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Mur.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Baril.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Bonus.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/Update_OVSW.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Runner.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/Delete_OVSW.java</file>
         </group>
         <group>
             <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/InterfaceClavier.java</file>

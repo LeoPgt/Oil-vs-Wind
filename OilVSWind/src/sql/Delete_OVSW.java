@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import moteur.Baril;
+import moteur.Runner;
 
 /**
  *
@@ -35,6 +37,30 @@ public class Delete_OVSW {
             ex.printStackTrace();
         }
 
+    }
+   
+    private static final String CONNECTION_URL = "jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind";
+    private static final String USERNAME = "etudiant";
+    private static final String PASSWORD = "YTDTvj9TR3CDYCmP";
+    
+    // Supprime un Runner de la base de données
+    public void deleteRunner(Runner runner) throws SQLException {
+        try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+            PreparedStatement requete = connexion.prepareStatement("DELETE FROM Joueur WHERE id = ?");
+            requete.setInt(1, runner.getIdSQL());
+
+            requete.executeUpdate();
+        }
+    }
+    
+    // Baril
+    public void deleteBaril(Baril baril) throws SQLException {
+        try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+            PreparedStatement requete = connexion.prepareStatement("DELETE FROM Joueur WHERE id = ?");
+            requete.setInt(1, baril.getIdSQL());
+
+            requete.executeUpdate();
+        }
     }
 
 }
