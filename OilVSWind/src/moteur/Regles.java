@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
 import java.util.TimerTask;
 import sql.Update_OVSW; // lien SQL
 
@@ -19,6 +20,7 @@ public class Regles {
     private Update_OVSW update_OVSW; // lien SQL
     protected boolean gauche, droite, haut, bas;
     private Carte CarteMoteur;
+    private Timer timer = new Timer(); // Déclaration du timer
 //    private Runner runner;
 //    private ArrayList<Baril> barrilJoueur;
 
@@ -94,7 +96,7 @@ public class Regles {
                 }
             }
         }
-    return alentour;// un vrai nom ???
+    return alentour;
     }
      /**
      * Ce programme permet de gérer toutes les collisions
@@ -248,7 +250,8 @@ public class Regles {
 //    }
     
     // Méthode pour placer les barils aléatoirement dans la carte
-    private void placerBarilsAleatoirement() {
+    private ArrayList<Element> placerBarilsAleatoirement() {
+        ArrayList<Element> listeBarils = new ArrayList<>();
         int nbBarils = 3; // Nombre de barils à placer
         Random random = new Random();
         
@@ -258,10 +261,12 @@ public class Regles {
             
             if (CarteMoteur.getMatrice()[x][y] == 0) {
                 CarteMoteur.setMatrice(x, y, nbBarils + 2); // Valeur de baril (3, 4, 5) correspondant au nombre restant à placer
-                Baril baril =  new Baril(001,"B"+ nbBarils,nbBarils +2,x,y,true); // Création du baril pour l'utiliser dans partieMoteur
+                Baril baril =  new Baril(nbBarils,"B"+nbBarils, nbBarils+2, x, y, true); // Création du baril pour l'utiliser dans partieMoteur
+                listeBarils.add(baril);
                 nbBarils--;
             }
         }
+        return listeBarils;
     }
     
         // Méthode pour mettre fin à la partie
@@ -297,13 +302,12 @@ public class Regles {
         Runner runner = new Runner(1, "Runner", 0, 0, 1); // Exemple de valeurs pour le Runner
         
         // Placement aléatoire des barils
-        placerBarilsAleatoirement();
+        ArrayList<Element> listeBarils = placerBarilsAleatoirement();
         
         // Lancement du timer de 3 minutes
         timer.schedule(new TimerTask() {
-            @Override
             public void run() {
-                finPartie(runner);
+                finPartie(runner, false);
             }
         }, 3 * 60 * 1000); // 3 minutes
         
@@ -319,7 +323,9 @@ public class Regles {
             MiseAJour(runner, CarteMoteur);
             
             // Déplacement des Barils
-            MiseAJour(baril, CarteMoteur);
+            for (int i = 0; i < 3; i++) {
+                MiseAJour((Jouable) listeBarils.get(i), CarteMoteur);
+            }
             
             // Pause de 1 seconde entre les mouvements du Runner
             try {
