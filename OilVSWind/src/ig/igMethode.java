@@ -67,11 +67,17 @@ public class igMethode {
             
     };
     
-    
+    // modifie  les positions des "sprites"
     public void setPosition (int x, int y,int playerIndex){
         positionCaractère[playerIndex][0] = x;
         positionCaractère[playerIndex][1] = y;
     }
+
+    // recupère toutes le s positions pour l'envoie SQL
+    public static int[][] getPositionCaractère() {
+        return positionCaractère;
+    }
+    
     
     public boolean movePlayer(int keyCode, int playerIndex, boolean possible) {
      // L'index du joueur à déplacer (ici, le personnage principal)
