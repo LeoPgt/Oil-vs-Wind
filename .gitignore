@@ -30,3 +30,5 @@ hs_err_pid*
 .idea/.name
 OilVSWind/nbproject/private/private.xml
 .idea/.name
+*.xml
+.idea/.name
