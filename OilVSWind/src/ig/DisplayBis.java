@@ -94,8 +94,8 @@ public class DisplayBis {
                 System.out.println("keyCode=" + keyCode);
                 int playerIndex = 0; //int playerIndex= Jeu.ChoixJoueur() qui retourne le numero du joueur choisi par l'utilisateur
              movePlayer(keyCode,playerIndex);
-        }
-    });
+            }
+            });
         }
         @Override
         public void keyPressed(KeyEvent e) {

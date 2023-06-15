@@ -9,6 +9,7 @@ import moteur.Baril;
 import moteur.Carte;
 import moteur.Jouable;
 import clavier.Clavier;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import moteur.Element;
 import moteur.Regles;
 
 /**
@@ -68,10 +70,47 @@ public class JeuConcaténé {
         //this.barrilJoueur.get(0); //retourne l'objet d'indice 0 donc B1
         
         this.tailleCase = taillecase;
+        addKeyListener(new KeyAdapter() {
+        public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            System.out.println("keyCode=" + keyCode);
+        }
+    });
+    }
+
+    public boolean isGauche() {
+        return gauche;
+    }
+
+    public boolean isDroite() {
+        return droite;
+    }
+
+    public boolean isHaut() {
+        return haut;
+    }
+
+    public boolean isBas() {
+        return bas;
     }
     
-
+    public void setDeplacement(ArrayList<Boolean> GDBH, int placementArayList,boolean vraiOufaux){    
+            GDBH.set(0,this.isGauche());
+            GDBH.set(1,this.isDroite());
+            GDBH.set(2,this.isBas());
+            GDBH.set(3,this.isHaut());
+    }
+    
+    public ArrayList getDeplacement(ArrayList<Boolean> GDBH){
+            GDBH.set(0,this.isGauche());
+            GDBH.set(1,this.isDroite());
+            GDBH.set(2,this.isBas());
+            GDBH.set(3,this.isHaut());
+        return GDBH;
+    }
+//        ArrayList<Boolean> GDBH = new ArrayList<>();
     public void partie(){
+        InterfaceClavier Clavier = new InterfaceClavier();
         Carte Map = this.C; // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Regles règle = new Regles(2,this.C);
         Jouable Joueur = new Jouable("Skylze",0,1,1);// id, x , y
@@ -83,13 +122,20 @@ public class JeuConcaténé {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         });
-//      Map.afficherMatriceV2(Map);
-        int bouclage = 10;
+        int bouclage = 100000000;
         int essai = 0;
         while (essai != bouclage){
-
+//            règle.setBas(Clavier.isBas());
+//            règle.setDroite(Clavier.isDroite());
+//            règle.setGauche(Clavier.isGauche());
+//            règle.setHaut(Clavier.isHaut());
+//            System.out.println(this.haut);
+//            System.out.println(this.bas);
+//            System.out.println(this.droite);
+//            System.out.println(this.gauche);
             Carte MapMod = règle.MiseAJour(Joueur, Map);// début du bouclage de la mj
             Map = MapMod;
+            Clavier.recuperationClavier();
            
         }
     }
