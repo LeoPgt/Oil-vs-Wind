@@ -65,6 +65,23 @@ public class Regles {
         return bas;
     }
 
+//    // l'utilité de ça ?
+//        static public long getLong() { 
+//        long retourLong = 0;
+//        boolean saisieOk = false;
+//        while (saisieOk == false) {
+//            try {
+//                BufferedReader inr = new BufferedReader(new InputStreamReader(System.in));
+//                String s = inr.readLine();
+//                retourLong = Long.parseLong(s);
+//                saisieOk = true;
+//            } catch (Exception e) {
+//                System.out.println(" Erreur de saisie : veuiller entrer un entier ");
+//            }
+//        }
+//        return retourLong;
+//    }
+    
      // Méthode qui retourne l'élément à la position (x, y)
   public Element laCaseDeCoordonnees(int x, int y) {
         int valeur = CarteMoteur.getMatrice()[x][y];
@@ -239,12 +256,6 @@ public class Regles {
         Bouclage.afficherMatriceV2(MapMod);
         return MapMod;
     }
-
-        /**
-         * A voir
-         * @version
-         * @return
-         */
 
     
 //     Méthode pour placer les barils aléatoirement dans la carte
