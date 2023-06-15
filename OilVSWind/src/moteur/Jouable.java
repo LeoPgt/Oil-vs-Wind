@@ -40,10 +40,10 @@ public class Jouable extends Element {
         this.x = x;
     }
 
+      
     
     
-    
-    public void set_jouable_x(String[] args) {
+    public void set_joueur_x(String[] args) {
 
         try {
 

@@ -131,7 +131,7 @@ public class Select_OVSW {
   
   
   
- }    
+     
      
      
      
@@ -147,7 +147,9 @@ public class Select_OVSW {
     private static final String CONNECTION_URL = "jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind";
     private static final String USERNAME = "etudiant";
     private static final String PASSWORD = "YTDTvj9TR3CDYCmP"; 
+        
     // Récupère un Runner depuis la base de données
+        
     public Runner getRunner(int id) throws SQLException {
         try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
             PreparedStatement requete = connexion.prepareStatement("SELECT * FROM Joueur WHERE id = ?");
@@ -161,6 +163,8 @@ public class Select_OVSW {
             }
         }
     }
+        
+        
     //Baril
     public Baril getBaril(int id) throws SQLException {
         try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
@@ -175,6 +179,16 @@ public class Select_OVSW {
             }
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 //CREATE TABLE Joueur (
@@ -187,3 +201,4 @@ public class Select_OVSW {
 //    capturable BOOLEAN
 //);
 
+       
