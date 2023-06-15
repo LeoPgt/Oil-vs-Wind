@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ig;
+package Archives;
 
+import ig.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
@@ -15,9 +16,9 @@ import java.awt.Graphics;
  */
 public class EcouteurClavier implements KeyListener {
     
-     private Jeu jeu;
+     private Aurelia_Jeu jeu;
 
-    public EcouteurClavier(Jeu jeu) {
+    public EcouteurClavier(Aurelia_Jeu jeu) {
         this.jeu = jeu;
     }
     
@@ -29,12 +30,12 @@ public class EcouteurClavier implements KeyListener {
         if (evt.getKeyCode() == evt.VK_LEFT) {
             this.jeu.joueur.setGauche(true);
         }
-        if (evt.getKeyCode() == evt.VK_UP) {
-            this.jeu.joueur.setHaut(true);
-        }
-        if (evt.getKeyCode() == evt.VK_DOWN) {
-            this.jeu.joueur.setBas(true);
-        }
+//        if (evt.getKeyCode() == evt.VK_UP) {
+//            this.jeu.joueur.setHaut(true);
+//        }
+//        if (evt.getKeyCode() == evt.VK_DOWN) {
+//            this.jeu.joueur.setBas(true);
+//        }
     }
 
     @Override
@@ -45,12 +46,12 @@ public class EcouteurClavier implements KeyListener {
         if (evt.getKeyCode() == evt.VK_LEFT) {
             this.jeu.joueur.setGauche(false);
         }
-        if (evt.getKeyCode() == evt.VK_UP) {
-            this.jeu.joueur.setHaut(false);
-        }
-        if (evt.getKeyCode() == evt.VK_DOWN) {
-            this.jeu.joueur.setBas(false);
-        }
+//        if (evt.getKeyCode() == evt.VK_UP) {
+//            this.jeu.joueur.setHaut(false);
+//        }
+//        if (evt.getKeyCode() == evt.VK_DOWN) {
+//            this.jeu.joueur.setBas(false);
+//        }
     }
     
 

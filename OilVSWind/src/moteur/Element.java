@@ -36,7 +36,7 @@ public class Element {
     }
     
     
-    public int [] localisation(){ 
+    public int [] localisationElement(){ 
        int [] Coordo = new int[2];
        Coordo[0]=this.getX();
        Coordo[1]= this.getY();

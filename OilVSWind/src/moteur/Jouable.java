@@ -15,13 +15,15 @@ import java.sql.SQLException;
  * @author mleconte
  */
  
- //1 = Runner , 2 = Mur, 3= BarilB1 , 4 = BarilB2 , 5 = BarilB3
+ //1 = Runner, 3= BarilB1 , 4 = BarilB2 , 5 = BarilB3
 
 public class Jouable extends Element {
-    private int ID;
+    private int numero;
+    private String pseudo;
     
-    public Jouable (int ID, int x, int y) {
+    public Jouable (String pseudo, int numero, int x, int y) {
         super (x, y);
+
         this.ID = ID;
         this.x = x;
         this.y = y;
@@ -69,11 +71,33 @@ public class Jouable extends Element {
     public void setY(int y) {
         this.y = y;
 
+
+        this.numero = numero;
+        this.pseudo = pseudo;
+
     }
+    
+    
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
+    
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+    
     
     @Override
     public String toString() {
-        return "Jouable{" + "Le jouable a comme id" + this.ID + '}';
+        return "Jouable{" + "Le jouable a comme id" + this.numero + '}';
     }
     
 }

@@ -7,15 +7,23 @@ package moteur;
  *
  * @author mleconte
  */
+
+// Ici capturable veut dire que le baril n'a pas encore été pris par le RUNNER
 public class Baril extends Jouable {
     private boolean capturable;
+    private int idSQL;
             
-    public Baril(int ID, int x, int y){
-        super(ID,x,y);
+    public Baril(int idSQL, String pseudo, int numero, int x, int y, boolean capturable){
+        super(pseudo,numero,x,y);
         this.capturable=true;
+        this.idSQL = idSQL;
         // condition pour spawn random que pour le mouton
     }
-
+    
+    public int getIdSQL(){
+        return idSQL;
+    }
+    
     public void capturableSet (boolean modif){ // modif peut etre true ou false selon la situation définie
         this.capturable=modif;
     }
@@ -23,14 +31,4 @@ public class Baril extends Jouable {
     public boolean capturableGet(){
         return this.capturable;
     }
-
-   
-   public void Capturable (boolean collisionLoupMouton){
-       if(collisionLoupMouton == true & this.capturableGet() == true){
-           this.capturableSet(true);
-       }
-       else{
-           this.capturableSet(false);
-       }
-   }
 }

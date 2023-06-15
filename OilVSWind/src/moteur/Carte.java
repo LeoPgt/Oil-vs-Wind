@@ -19,29 +19,14 @@ public class Carte {
         this.matrice[i][j] = valeur;
     }
     
-    public Carte (int size) {
-        this.size = size;
-        this.matrice = new int[size][size]; // Crée une matrice
-//        int nbrObstacle = 2;
-//        for (int k=0;k< nbrObstacle;k++){ // Placement des obstacles de manière aléatoires pour le moment productowner !
-//            int indexRandom = (int)(Math.random()*(matrice.length));
-//            int indexRandom2 = (int)(Math.random()*(matrice.length)); //Manal : Attention aux noms de variables pas claires. Mais ok !
-//            matrice[indexRandom][indexRandom2] = 2;
-//        }
-        // Déjà codé l'ajout des autres perso en attente pour faire les divers test !
-//        int Placer = 0;
-//        while (Placer != nbrPerso-1){
-//            for (int k=0; k<nbrPerso;k++ ){
-//                int index1Joueurk = (int)(Math.random()*(matrice.length));
-//                int index2Joueurk = (int)(Math.random()*(matrice.length));
-//                matrice[index1Joueurk][index2Joueurk]=1;
-//            }
-//            Placer++;
-//        }
+    public Carte (int hauteur,int largeur) {
+        this.matrice = new int[hauteur][largeur]; // Crée une matrice
         this.matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
         this.matrice[4][4] = 3; // Initialise une position de départ du Baril B1 (ce sera la place initial du baril B1)
     }
-
+     public Carte (int [][]matrice){
+         this.matrice = matrice;
+     }
     public int getSize() {
         return size;
     }
