@@ -11,6 +11,7 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import clavier.Clavier;
+import javax.swing.JFrame;
 
 /**
  *
@@ -23,6 +24,8 @@ public class InterfaceClavier {
     private boolean gauche = false;
 
     public InterfaceClavier(){
+    JFrame frame = new JFrame("Capture d'événements clavier");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     addKeyListener(new KeyAdapter() {
     @Override
     public void keyPressed(KeyEvent e) {
@@ -32,43 +35,43 @@ public class InterfaceClavier {
     });
     }
     
+        public void keyPressed(KeyEvent e) {
+             int keyCode = e.getKeyCode();
+             processKeyInput(keyCode);
+}
+        public void processKeyInput(int keyCode) {
+        // Code pour traiter l'entrée de la touche
+    }
+
+
+        public void keyReleased(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            processKeyInput(keyCode);
+    }
     
 
-    public int keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        char keyChar = e.getKeyChar();
-        System.out.println("Key pressed - Key code: " + keyCode + ", Key char: " + keyChar);
-        return keyCode;
-    }
-
-    public int keyReleased(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        char keyChar = e.getKeyChar();
-        System.out.println("Key released - Key code: " + keyCode + ", Key char: " + keyChar);
-        return keyCode;
-    }
-
-
-    public int keyTyped(KeyEvent e) {
-        char keyChar = e.getKeyChar();
-        System.out.println("Key typed - Key char: " + keyChar);
-        return keyChar;
-    }
+        public void keyTyped(KeyEvent e) {
+    // Pas nécessaire pour cette utilisation, mais doit être implémentée en raison de l'interface
+        }
       private void movePlayer(int keyCode) {
      // L'index du joueur à déplacer (ici, le personnage principal)
     
     switch (keyCode) {
         case KeyEvent.VK_LEFT:
             this.gauche = true;
+            System.out.println(this.gauche);
             break;
         case KeyEvent.VK_RIGHT:
             this.droite = true;
+            System.out.println(this.gauche);
             break;
         case KeyEvent.VK_UP:
             this.haut = true;
+            System.out.println(this.gauche);
             break;
         case KeyEvent.VK_DOWN:
             this.bas = true;
+            System.out.println(this.gauche);
             break;
         default:
             return; // Ignorer les autres touches

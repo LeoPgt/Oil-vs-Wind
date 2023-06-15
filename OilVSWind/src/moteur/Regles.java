@@ -3,11 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
+import ig.InterfaceClavier;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import sql.Update_OVSW; // lien SQL
+import ig.InterfaceClavier;
 
 /**
  *
@@ -21,6 +24,8 @@ public class Regles {
     private int size;
     private int Longueur;
     private int Largeur;
+    private InterfaceClavier Clavier;
+    
     public Regles (int taillecase, Carte Maptitle) {
         this.gauche = false;
         this.droite = false;
@@ -28,6 +33,7 @@ public class Regles {
         this.bas = false;
         this.CarteMoteur = Maptitle;
         this.size =  Maptitle.getSize();
+        this.Clavier = new InterfaceClavier();
         
     //    this.update_OVSW = new Update_OVSW (); // lien SQL
     }
