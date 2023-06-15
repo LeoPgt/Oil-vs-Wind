@@ -14,14 +14,16 @@ public class InterfaceClavierTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         InterfaceClavier Clavier = new InterfaceClavier();
         boolean test = true;
         while(test == true){
+            for (int k=0;k<1000;k++){
+                System.out.println(Clavier.toString());
+            }
         System.out.println("Veuillez entrer un booleen : ");
         boolean unBooleen = Clavier.getBoolean();
         System.out.println("Vous avez entre : " + unBooleen);
-        Clavier.toString();
-        System.out.println(Clavier.toString());
         }
 
     }

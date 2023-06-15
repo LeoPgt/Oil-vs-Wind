@@ -8,6 +8,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import clavier.Clavier;
 
 /**
  *
@@ -101,6 +104,29 @@ public class InterfaceClavier {
     public String toString() {
         return "InterfaceClavier{" + "haut=" + haut + ", bas=" + bas + ", droite=" + droite + ", gauche=" + gauche + '}';
     }
-       
+    
+        static public boolean getBoolean() {
+        boolean retourBoolean = false;
+        boolean saisieOk = false;
+        while (saisieOk == false) {
+            try {
+                BufferedReader inr = new BufferedReader(new InputStreamReader(System.in));
+                String s = inr.readLine();
+                if (s.equals("true") || s.equals("vrai") || s.equals("1")) {
+                    retourBoolean = true;
+                    saisieOk = true;
+                } else if (s.equals("false") || s.equals("faux") || s.equals("0")) {
+                    retourBoolean = false;
+                    saisieOk = true;
+                } else {
+                    System.out.println(" Erreur de saisie : veuiller entrer un booleen (vrai/true ou faux/false ou 0/1) ");
+                }
+            } catch (Exception e) {
+                System.out.println(" Erreur de saisie : veuiller entrer un booleen (vrai/true ou faux/false ou 0/1) ");
+            }
+
+        }
+        return retourBoolean;
+    }
 }
 

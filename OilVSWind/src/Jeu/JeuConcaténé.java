@@ -125,14 +125,15 @@ public class JeuConcaténé {
         int bouclage = 100000000;
         int essai = 0;
         while (essai != bouclage){
-//            règle.setBas(Clavier.isBas());
-//            règle.setDroite(Clavier.isDroite());
-//            règle.setGauche(Clavier.isGauche());
-//            règle.setHaut(Clavier.isHaut());
-//            System.out.println(this.haut);
-//            System.out.println(this.bas);
-//            System.out.println(this.droite);
-//            System.out.println(this.gauche);
+            règle.setBas(Clavier.isBas());
+            règle.setDroite(Clavier.isDroite());
+            règle.setGauche(Clavier.isGauche());
+            règle.setHaut(Clavier.isHaut());
+            System.out.println(this.haut);
+            System.out.println(this.bas);
+            System.out.println(this.droite);
+            System.out.println(this.gauche);
+            System.out.println(Clavier.toString());
             Carte MapMod = règle.MiseAJour(Joueur, Map);// début du bouclage de la mj
             Map = MapMod;
             Clavier.recuperationClavier();
