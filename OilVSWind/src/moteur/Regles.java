@@ -18,8 +18,6 @@ public class Regles {
     protected boolean gauche, droite, haut, bas;
     private Carte CarteMoteur;
     private Timer timer = new Timer(); // Déclaration du timer
-//    private Runner runner;
-//    private ArrayList<Baril> barrilJoueur;
 
     public Regles (int taillecase, Carte Maptitle) {
         this.gauche = false;
@@ -331,21 +329,4 @@ public class Regles {
 //                nbBarils--;
 //            }
 //        }
-//    }
-
-    // l'utilité de ça ?
-//        static public long getLong() { 
-//        long retourLong = 0;
-//        boolean saisieOk = false;
-//        while (saisieOk == false) {
-//            try {
-//                BufferedReader inr = new BufferedReader(new InputStreamReader(System.in));
-//                String s = inr.readLine();
-//                retourLong = Long.parseLong(s);
-//                saisieOk = true;
-//            } catch (Exception e) {
-//                System.out.println(" Erreur de saisie : veuiller entrer un entier ");
-//            }
-//        }
-//        return retourLong;
 //    }
