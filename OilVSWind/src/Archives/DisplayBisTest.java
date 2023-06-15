@@ -31,10 +31,6 @@ public class DisplayBisTest {
 //   private Jeu jeu= new Jeu(40);
    private static final int NUM_CHARACTER_SPRITES = 4; // Nombre total de sprites de personnages
    private static final int[][] MAP_DATA = {
-       
-        
-        
-        
         
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
@@ -61,10 +57,7 @@ public class DisplayBisTest {
         {1,2,2,2,2,2,1,2,2,1,2,2,1,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,1,1,1,1,1,1,2,2,2,2,1},
         {1,2,2,2,2,2,1,2,2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-        
-        
-        
-            
+
     };
     
     private static final int[][] CHARACTER_POSITIONS = {
