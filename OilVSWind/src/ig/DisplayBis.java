@@ -178,8 +178,6 @@ protected void paintComponent(Graphics g) {
             g.drawImage(tile, xPos, yPos, null);
         }
     }
-    
-    
 
     // Dessiner les personnages
     for (int i = 0; i < CHARACTER_POSITIONS.length; i++) {

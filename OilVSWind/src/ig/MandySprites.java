@@ -24,7 +24,7 @@ public class MandySprites {
    private BufferedImage[] characterSprites;
    
 // Charge les sprites des personnages à partir de fichiers d'images.
-    private void loadSprites() {
+    private void creerSprites() {
             int numTiles = tileset.getWidth() / TILE_SIZE;
             tiles = new BufferedImage[numTiles];
             for (int i = 0; i < numTiles; i++) {
