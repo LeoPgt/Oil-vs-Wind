@@ -48,6 +48,15 @@ public class Carte {
                 }
                 if(Map.getMatrice()[i][j]==3){
                    System.out.print("3");               
+                }
+                if(Map.getMatrice()[i][j]==4){
+                   System.out.print("4");               
+                }
+                if(Map.getMatrice()[i][j]==5){
+                   System.out.print("5");               
+                }
+                if(Map.getMatrice()[i][j]==6){
+                   System.out.print("6");               
                 }                
             }    
            System.out.println();

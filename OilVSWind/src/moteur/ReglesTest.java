@@ -18,8 +18,11 @@ public class ReglesTest {
         igMethode Maptitle = new igMethode();
         
         Carte Monde = new Carte(Maptitle.getMAP_DATA());
-        Monde.afficherMatriceV2(Monde);
+//        Monde.afficherMatriceV2(Monde);
        Regles partie = new Regles(2,Monde);
+       partie.setLargeur(40);
+       partie.setLongueur(25);
+//       Monde.afficherMatriceV2(Monde);
 //        System.out.println();
         partie.partieMoteurV2();
  

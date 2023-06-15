@@ -18,17 +18,28 @@ public class Regles {
     protected boolean gauche, droite, haut, bas;
     private Carte CarteMoteur;
     private Timer timer = new Timer(); // Déclaration du timer
-
+    private int size;
+    private int Longueur;
+    private int Largeur;
     public Regles (int taillecase, Carte Maptitle) {
         this.gauche = false;
         this.droite = false;
         this.haut = false;
         this.bas = false;
         this.CarteMoteur = Maptitle;
-        int carteSize = Maptitle.getSize();// map n'exite pas pas donc nécessaire de la créer !!!
+        this.size =  Maptitle.getSize();
+        
     //    this.update_OVSW = new Update_OVSW (); // lien SQL
     }
 
+    public void setLongueur(int Longueur) {
+        this.Longueur = Longueur;
+    }
+
+    public void setLargeur(int Largeur) {
+        this.Largeur = Largeur;
+    }
+    
     public void setCarteMoteur(Carte Maptitle) {
         this.CarteMoteur = Maptitle;
     }
@@ -65,22 +76,6 @@ public class Regles {
         return bas;
     }
 
-//    // l'utilité de ça ?
-//        static public long getLong() { 
-//        long retourLong = 0;
-//        boolean saisieOk = false;
-//        while (saisieOk == false) {
-//            try {
-//                BufferedReader inr = new BufferedReader(new InputStreamReader(System.in));
-//                String s = inr.readLine();
-//                retourLong = Long.parseLong(s);
-//                saisieOk = true;
-//            } catch (Exception e) {
-//                System.out.println(" Erreur de saisie : veuiller entrer un entier ");
-//            }
-//        }
-//        return retourLong;
-//    }
     
      // Méthode qui retourne l'élément à la position (x, y)
   public Element laCaseDeCoordonnees(int x, int y) {
@@ -212,14 +207,14 @@ public class Regles {
     * @return la matrice modifié avec le déplacement du jouable
     */   
         
-    public Carte MiseAJour(Jouable J, Carte Bouclage) {
+    public Carte MiseAJour(Jouable J, Carte Bouclage) {// le jouable et le perso que nous sommes entrain de jouer "en solo"
        // Matrice d'initialisation
         Carte MapMod = Bouclage;
         int x = J.getX();
         int y = J.getY();
         
         int valeur = CarteMoteur.getMatrice()[J.getX()][J.getY()];
-        
+        this.CarteMoteur.afficherMatriceV2(CarteMoteur);
         if (deplacementEstPossible(J)) {
             int newX = x;
             int newY = y;
@@ -253,33 +248,39 @@ public class Regles {
             System.out.println("Déplacement impossible dans la direction spécifiée");
         }
 
-        Bouclage.afficherMatriceV2(MapMod);
+//        Bouclage.afficherMatriceV2(MapMod);
         return MapMod;
     }
 
     
 //     Méthode pour placer les barils aléatoirement dans la carte
-    private ArrayList<Element> placerBarilsAleatoirement() {
+    public ArrayList<Element> placerBarilsAleatoirement() {
         ArrayList<Element> listeBarils = new ArrayList<>();
         int nbBarils = 3; // Nombre de barils à placer
         Random random = new Random();
         
         while (nbBarils > 0) {
-            int x = random.nextInt(CarteMoteur.getSize());
-            int y = random.nextInt(CarteMoteur.getSize());
+            int x = random.nextInt(20);// Size ne peut pâs utilisé al taille de la matrice car non carré
+            int y = random.nextInt(20);// Size  ne peut pâs utilisé al taille de la matrice car non carré 
             
-            if (CarteMoteur.getMatrice()[x][y] == 0) {
+            while(CarteMoteur.getMatrice()[x][y] == 0){
                 CarteMoteur.setMatrice(x, y, nbBarils + 2); // Valeur de baril (3, 4, 5) correspondant au nombre restant à placer
                 Baril baril =  new Baril(nbBarils,"B"+nbBarils, nbBarils+2, x, y, true); // Création du baril pour l'utiliser dans partieMoteur
                 listeBarils.add(baril);
-                nbBarils--;
+                nbBarils--;                
             }
+//            if (CarteMoteur.getMatrice()[x][y] == 0) {
+//                CarteMoteur.setMatrice(x, y, nbBarils + 2); // Valeur de baril (3, 4, 5) correspondant au nombre restant à placer
+//                Baril baril =  new Baril(nbBarils,"B"+nbBarils, nbBarils+2, x, y, true); // Création du baril pour l'utiliser dans partieMoteur
+//                listeBarils.add(baril);
+//                nbBarils--;
+//            }
+//        }
         }
-        return listeBarils;
+    return listeBarils;
     }
-    
 //         Méthode pour mettre fin à la partie
-    private void finPartie(Runner runner, boolean victoire) {
+    public void finPartie(Runner runner, boolean victoire) {
         if (victoire) {
             System.out.println("Victoire ! Tous les barils ont été capturés.");
         } else {
@@ -292,7 +293,7 @@ public class Regles {
     }
     
 //     Méthode pour vérifier si tous les barils ont été capturés
-    private boolean tousBarilsCaptures() {
+    public boolean tousBarilsCaptures() {
         int[][] matrice = CarteMoteur.getMatrice();
         
         for (int i = 0; i < matrice.length; i++) {
@@ -309,10 +310,12 @@ public class Regles {
     public void partieMoteurV2() {
         // Création du runner
         Runner runner = new Runner(1, "Runner", 0, 0, 1); // Exemple de valeurs pour le Runner
-        
+        this.CarteMoteur.afficherMatriceV2(CarteMoteur);
 //         Placement aléatoire des barils
         ArrayList<Element> listeBarils = placerBarilsAleatoirement();
-        
+        //placement du runners
+        this.CarteMoteur.setMatrice(1, 1, 1);
+
 //         Lancement du timer de 3 minutes
         timer.schedule(new TimerTask() {
             public void run() {

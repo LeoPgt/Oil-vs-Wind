@@ -113,6 +113,7 @@ public class JeuConcaténé {
         InterfaceClavier Clavier = new InterfaceClavier();
         Carte Map = this.C; // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
         Regles règle = new Regles(2,this.C);
+        règle.partieMoteurV2();
         Jouable Joueur = new Jouable("Skylze",0,1,1);// id, x , y
         SwingUtilities.invokeLater(() -> {
         JFrame frame = new JFrame("OIL VS WIND");
@@ -125,15 +126,6 @@ public class JeuConcaténé {
         int bouclage = 100000000;
         int essai = 0;
         while (essai != bouclage){
-            règle.setBas(Clavier.isBas());
-            règle.setDroite(Clavier.isDroite());
-            règle.setGauche(Clavier.isGauche());
-            règle.setHaut(Clavier.isHaut());
-            System.out.println(this.haut);
-            System.out.println(this.bas);
-            System.out.println(this.droite);
-            System.out.println(this.gauche);
-            System.out.println(Clavier.toString());
             Carte MapMod = règle.MiseAJour(Joueur, Map);// début du bouclage de la mj
             Map = MapMod;
             Clavier.recuperationClavier();
