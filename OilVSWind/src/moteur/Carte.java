@@ -53,5 +53,21 @@ public class Carte {
            System.out.println();
         }
     }
+    
+    public void correctionMatrice(Carte Mapfausse){
+               int[][] carteMatricielle = Mapfausse.getMatrice();
+       for (int i = 0; i< carteMatricielle.length; i++){
+           for (int j=0; j< carteMatricielle[i].length;j++){
+               if(Mapfausse.getMatrice()[i][j]==1){
+                   System.out.print("2,");
+               }
+               if(Mapfausse.getMatrice()[i][j]==2){
+                   System.out.print("0,");
+               }
+            }    
+           System.out.println();
+        }
+    }
+    
 }
     // Affichge Matrice Validée plein de conflit pour l'apparition de nouveau éléments

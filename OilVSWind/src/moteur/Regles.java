@@ -26,14 +26,12 @@ public class Regles {
         this.bas = false;
         this.CarteMoteur = Maptitle;
         int carteSize = Maptitle.getSize();// map n'exite pas pas donc nécessaire de la créer !!!
-        this.update_OVSW = new Update_OVSW (); // lien SQL
+    //    this.update_OVSW = new Update_OVSW (); // lien SQL
     }
 
     public void setCarteMoteur(Carte Maptitle) {
         this.CarteMoteur = Maptitle;
     }
-
-
 
     public void setGauche(boolean gauche) {
         this.gauche = gauche;

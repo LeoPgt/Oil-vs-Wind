@@ -19,9 +19,9 @@ public class ReglesTest {
         
         Carte Monde = new Carte(Maptitle.getMAP_DATA());
         Monde.afficherMatriceV2(Monde);
-       Regles partieMoteur = new Regles(2,Monde);
+       Regles partie = new Regles(2,Monde);
 //        System.out.println();
-//        partieMoteur.partieMoteurV2();
+        partie.partieMoteurV2();
  
  
     }
