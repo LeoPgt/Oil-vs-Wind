@@ -3,12 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-import clavier.Clavier;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
 import java.util.TimerTask;
 import sql.Update_OVSW; // lien SQL
 
@@ -20,8 +17,7 @@ public class Regles {
     private Update_OVSW update_OVSW; // lien SQL
     protected boolean gauche, droite, haut, bas;
     private Carte CarteMoteur;
-//    private Runner runner;
-//    private ArrayList<Baril> barrilJoueur;
+    private Timer timer = new Timer(); // Déclaration du timer
 
     public Regles (int taillecase, Carte Maptitle) {
         this.gauche = false;
@@ -36,6 +32,8 @@ public class Regles {
     public void setCarteMoteur(Carte Maptitle) {
         this.CarteMoteur = Maptitle;
     }
+
+
 
     public void setGauche(boolean gauche) {
         this.gauche = gauche;
@@ -87,7 +85,7 @@ public class Regles {
         }
         return retourLong;
     }
-    
+
      // Méthode qui retourne l'élément à la position (x, y)
   public Element laCaseDeCoordonnees(int x, int y) {
         int valeur = CarteMoteur.getMatrice()[x][y];
@@ -129,7 +127,7 @@ public class Regles {
                 }
             }
         }
-    return alentour;// un vrai nom ???
+    return alentour;
     }
      /**
      * Ce programme permet de gérer toutes les collisions
@@ -262,19 +260,102 @@ public class Regles {
 //        Bouclage.afficherMatriceV2(MapMod);
         return MapMod;
     }
-   
-//    // Méthode pour placer les barils aléatoirement dans la carte
-//    private void placerBarilsAleatoirement() {
-//        int nbBarils = 3; // Nombre de barils à placer
-//        Random random = new Random();
-//    }
 
         /**
          * A voir
          * @version
          * @return
          */
- 
+
+    
+//     Méthode pour placer les barils aléatoirement dans la carte
+    private ArrayList<Element> placerBarilsAleatoirement() {
+        ArrayList<Element> listeBarils = new ArrayList<>();
+        int nbBarils = 3; // Nombre de barils à placer
+        Random random = new Random();
+        
+        while (nbBarils > 0) {
+            int x = random.nextInt(CarteMoteur.getSize());
+            int y = random.nextInt(CarteMoteur.getSize());
+            
+            if (CarteMoteur.getMatrice()[x][y] == 0) {
+                CarteMoteur.setMatrice(x, y, nbBarils + 2); // Valeur de baril (3, 4, 5) correspondant au nombre restant à placer
+                Baril baril =  new Baril(nbBarils,"B"+nbBarils, nbBarils+2, x, y, true); // Création du baril pour l'utiliser dans partieMoteur
+                listeBarils.add(baril);
+                nbBarils--;
+            }
+        }
+        return listeBarils;
+    }
+    
+//         Méthode pour mettre fin à la partie
+    private void finPartie(Runner runner, boolean victoire) {
+        if (victoire) {
+            System.out.println("Victoire ! Tous les barils ont été capturés.");
+        } else {
+            System.out.println("Défaite ! Les barils n'ont pas été tous capturés en 3 minutes.");
+        }
+       
+        // Arrêter le timer
+        timer.cancel();
+        timer.purge();
+    }
+    
+//     Méthode pour vérifier si tous les barils ont été capturés
+    private boolean tousBarilsCaptures() {
+        int[][] matrice = CarteMoteur.getMatrice();
+        
+        for (int i = 0; i < matrice.length; i++) {
+            for (int j = 0; j < matrice[i].length; j++) {
+                if (matrice[i][j] == 3 || matrice[i][j] == 4 || matrice[i][j] == 5) {
+                    return false; // Il reste au moins un baril non capturé
+                }
+            }
+        }
+        return true; // Tous les barils ont été capturés
+    }
+            
+//    Méthode pour jouer une partie sans interface graphique
+    public void partieMoteurV2() {
+        // Création du runner
+        Runner runner = new Runner(1, "Runner", 0, 0, 1); // Exemple de valeurs pour le Runner
+        
+//         Placement aléatoire des barils
+        ArrayList<Element> listeBarils = placerBarilsAleatoirement();
+        
+//         Lancement du timer de 3 minutes
+        timer.schedule(new TimerTask() {
+            public void run() {
+                finPartie(runner, false);
+            }
+        }, 3 * 60 * 1000); // 3 minutes
+        
+        // Boucle de jeu
+        while (true) {
+//             Vérification si tous les barils ont été capturés
+            if (tousBarilsCaptures()) {
+                finPartie(runner, true);
+                break;
+            }
+            
+//             Déplacement du Runner
+            MiseAJour(runner, CarteMoteur);
+            
+//             Déplacement des Barils
+            for (int i = 0; i < 3; i++) {
+                MiseAJour((Jouable) listeBarils.get(i), CarteMoteur);
+            }
+            
+//             Pause de 1 seconde entre les mouvements du Runner
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
 //    public void partieMoteurV1(){
 //        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
 //        int nbBarils = 3;
@@ -412,4 +493,6 @@ public class Regles {
 //        }
 //    }
 }
+
+//    }
 
