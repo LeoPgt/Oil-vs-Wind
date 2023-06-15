@@ -14,34 +14,12 @@ import java.awt.event.KeyEvent;
  * @author rmorel
  */
 public class jefaisdestestmethode {
-    
-     
-    public boolean isHaut() {
-        return haut;
-    }
-
-    public boolean isBas() {
-        return bas;
-    }
-
-    public boolean isDroite() {
-        return droite;
-    }
-
-    public boolean isGauche() {
-        return gauche;
-    }
-
-    @Override
-    public String toString() {
-        return "InterfaceClavier{" + "haut=" + haut + ", bas=" + bas + ", droite=" + droite + ", gauche=" + gauche + '}';
-    }
-    
-    public void test(){
-        for (int k=0; k<10; k++){
-        boolean test = true;
-    }
-    }
+    addKeyListener(new KeyAdapter() {
+        public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            System.out.println("keyCode=" + keyCode);
+        }
+    });
 }
         
 

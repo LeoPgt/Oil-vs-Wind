@@ -6,6 +6,8 @@ package ig;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 /**
  *
@@ -16,6 +18,17 @@ public class InterfaceClavier {
     private boolean bas = false;
     private boolean droite = false;
     private boolean gauche = false;
+
+    public InterfaceClavier(){
+    addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        System.out.println("keyCode=" + keyCode);
+    }
+    });
+    }
+    
     
 
     public int keyPressed(KeyEvent e) {
@@ -75,5 +88,19 @@ public class InterfaceClavier {
         return gauche;
     }
   
+        public ArrayList recuperationClavier(){
+        ArrayList<Boolean> listeClavier = new ArrayList<>();
+            listeClavier.set(0,this.isGauche());
+            listeClavier.set(1,this.isDroite());
+            listeClavier.set(2,this.isBas());
+            listeClavier.set(3,this.isHaut());
+        return listeClavier;
+    }
+
+    @Override
+    public String toString() {
+        return "InterfaceClavier{" + "haut=" + haut + ", bas=" + bas + ", droite=" + droite + ", gauche=" + gauche + '}';
+    }
+       
 }
 

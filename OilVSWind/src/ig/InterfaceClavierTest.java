@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package ig;
-
+import clavier.Clavier;
 /**
  *
  * @author rmorel
@@ -14,14 +14,14 @@ public class InterfaceClavierTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         InterfaceClavier Clavier = new InterfaceClavier();
-        int k =0;
-        while(k<10){
         boolean test = true;
-        Clavier.keyPressed(e);
+        while(test == true){
+        System.out.println("Veuillez entrer un booleen : ");
+        boolean unBooleen = Clavier.getBoolean();
+        System.out.println("Vous avez entre : " + unBooleen);
         Clavier.toString();
-        k++;
+        System.out.println(Clavier.toString());
         }
 
     }
