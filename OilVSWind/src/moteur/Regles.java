@@ -33,8 +33,6 @@ public class Regles {
         this.CarteMoteur = Maptitle;
     }
 
-
-
     public void setGauche(boolean gauche) {
         this.gauche = gauche;
     }
@@ -68,23 +66,22 @@ public class Regles {
     }
 
     
-    
-    // l'utilité de ça ?
-        static public long getLong() { 
-        long retourLong = 0;
-        boolean saisieOk = false;
-        while (saisieOk == false) {
-            try {
-                BufferedReader inr = new BufferedReader(new InputStreamReader(System.in));
-                String s = inr.readLine();
-                retourLong = Long.parseLong(s);
-                saisieOk = true;
-            } catch (Exception e) {
-                System.out.println(" Erreur de saisie : veuiller entrer un entier ");
-            }
-        }
-        return retourLong;
-    }
+//    // l'utilité de ça ?
+//        static public long getLong() { 
+//        long retourLong = 0;
+//        boolean saisieOk = false;
+//        while (saisieOk == false) {
+//            try {
+//                BufferedReader inr = new BufferedReader(new InputStreamReader(System.in));
+//                String s = inr.readLine();
+//                retourLong = Long.parseLong(s);
+//                saisieOk = true;
+//            } catch (Exception e) {
+//                System.out.println(" Erreur de saisie : veuiller entrer un entier ");
+//            }
+//        }
+//        return retourLong;
+//    }
 
      // Méthode qui retourne l'élément à la position (x, y)
   public Element laCaseDeCoordonnees(int x, int y) {
@@ -257,15 +254,9 @@ public class Regles {
             System.out.println("Déplacement impossible dans la direction spécifiée");
         }
 
-//        Bouclage.afficherMatriceV2(MapMod);
+        Bouclage.afficherMatriceV2(MapMod);
         return MapMod;
     }
-
-        /**
-         * A voir
-         * @version
-         * @return
-         */
 
     
 //     Méthode pour placer les barils aléatoirement dans la carte
@@ -355,144 +346,3 @@ public class Regles {
         }
     }
 }
-
-//    public void partieMoteurV1(){
-//        Carte Map = new Carte(5,5); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-//        int nbBarils = 3;
-//        Jouable Joueur = new Jouable("Joueur1",1,2,2);// A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-//        Baril Baril = new Baril(1,"joueur2",2,4,4,false);
-//        Map.setMatrice(Baril.getX(), Baril.getY(), 3);
-////      Map.afficherMatriceV2(Map)
-//        int bouclage = 10;
-//        int essai = 0;
-//        while (essai != bouclage){
-//            System.out.print("selectionner une direction");
-//            int unEntier = Clavier.getInt();
-//         // Carte MapMod = this.MiseAJour(unEntier, Map); // A regarder car il y a PEUT ETRE de nouveaux paramètres dans la fonction
-//         // Map = MapMod;
-//         //  this.deplacementCapture(this.collisionLoupMouton());
-//         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);
-//        while (nbBarils > 0) {
-//            int x = random.nextInt(CarteMoteur.getSize());
-//            int y = random.nextInt(CarteMoteur.getSize());
-//            
-//            if (CarteMoteur.getMatrice()[x][y] == 0) {
-//                CarteMoteur.setMatrice(x, y, nbBarils + 2); // Valeur de baril (3, 4, 5) correspondant au nombre restant à placer
-//                Baril baril =  new Baril(001,"B"+ nbBarils,nbBarils +2,x,y,true); // Création du baril pour l'utiliser dans partieMoteur
-//                nbBarils--;
-//            }
-//        }
-//        }
-//    }
-//    
-//        // Méthode pour mettre fin à la partie
-//    private void finPartie(Runner runner, boolean victoire) {
-//        if (victoire) {
-//            System.out.println("Victoire ! Tous les barils ont été capturés.");
-//        } else {
-//            System.out.println("Défaite ! Les barils n'ont pas été tous capturés en 3 minutes.");
-//        }
-//       
-//        // Arrêter le timer
-//        timer.cancel();
-//        timer.purge();
-//    }
-//    
-//    // Méthode pour vérifier si tous les barils ont été capturés
-//    private boolean tousBarilsCaptures() {
-//        int[][] matrice = CarteMoteur.getMatrice();
-//        
-//        for (int i = 0; i < matrice.length; i++) {
-//            for (int j = 0; j < matrice[i].length; j++) {
-//                if (matrice[i][j] == 3 || matrice[i][j] == 4 || matrice[i][j] == 5) {
-//                    return false; // Il reste au moins un baril non capturé
-//                }
-//            }
-//        }
-//        return true; // Tous les barils ont été capturés
-//    }
-//            
-//   // Méthode pour jouer une partie sans interface graphique
-//    public void partieMoteurV2() {
-//        // Création du runner
-//        Runner runner = new Runner(1, "Runner", 0, 0, 1); // Exemple de valeurs pour le Runner
-//        
-//        // Placement aléatoire des barils
-//        placerBarilsAleatoirement();
-//        
-//        // Lancement du timer de 3 minutes
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                finPartie(runner);
-//            }
-//        }, 3 * 60 * 1000); // 3 minutes
-//        
-//        // Boucle de jeu
-//        while (true) {
-//            // Vérification si tous les barils ont été capturés
-//            if (tousBarilsCaptures()) {
-//                finPartie(runner, true);
-//                break;
-//            }
-//            
-//            // Déplacement du Runner
-//            MiseAJour(runner, CarteMoteur);
-//            
-//            // Déplacement des Barils
-//            MiseAJour(baril, CarteMoteur);
-//            
-//            // Pause de 1 seconde entre les mouvements du Runner
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//         //Map.setMatrice(this.barrilJoueur.getX(),this.barrilJoueur.getY(),3);      
-//       
-//   
-//          
-//   // Méthode pour jouer une partie sans interface graphique
-//    public void partieMoteur() {
-//        // Création du runner
-//        Runner runner = new Runner(1, "Runner", 0, 0, 1); // Exemple de valeurs pour le Runner
-//        
-//        // Placement aléatoire des barils
-//        placerBarilsAleatoirement();
-//        
-//        // Lancement du timer de 3 minutes
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                finPartie(runner);
-//            }
-//        }, 3 * 60 * 1000); // 3 minutes
-//        
-//        // Boucle de jeu
-//        while (true) {
-//            // Vérification si tous les barils ont été capturés
-//            if (tousBarilsCaptures()) {
-//                finPartie(runner, true);
-//                break;
-//            }
-//            
-//            // Déplacement du Runner
-//            MiseAJour(runner, CarteMoteur);
-//            
-//            // Déplacement des Barils
-//            MiseAJour(baril, CarteMoteur);
-//            
-//            // Pause de 1 seconde entre les mouvements du Runner
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-}
-
-//    }
-
