@@ -13,8 +13,8 @@ public class Baril extends Jouable {
     private boolean capturable;
     private int idSQL;
             
-    public Baril(int idSQL, String pseudo, int numero, int x, int y, boolean capturable){
-        super(pseudo,numero,x,y);
+    public Baril(int idSQL, String pseudo, int x, int y, boolean capturable){
+        super(pseudo,"baril",x,y);
         this.capturable=true;
         this.idSQL = idSQL;
         // condition pour spawn random que pour le mouton

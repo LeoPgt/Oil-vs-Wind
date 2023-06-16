@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-//import moteur.Jeu;
+import moteur.*;
 
 /**
  *
@@ -56,7 +56,7 @@ public class DisplayBis {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
         
             
-    };
+    }; // REUSSIR A METTRE LA CARTE FICHIER 
 
     public static int getMAP_WIDTH() {
         return MAP_WIDTH;
@@ -77,10 +77,8 @@ public class DisplayBis {
         private BufferedImage tileset;
         private BufferedImage[] tiles;
         private BufferedImage[] characterSprites;
-        private int speed; // Vitesse du joueur
 
-        
-        
+     
         public MapPanel() {
             loadTileset();
             loadTiles();
@@ -93,7 +91,7 @@ public class DisplayBis {
                 int keyCode = e.getKeyCode();
                 System.out.println("keyCode=" + keyCode);
                 int playerIndex = 0; //int playerIndex= Jeu.ChoixJoueur() qui retourne le numero du joueur choisi par l'utilisateur
-             movePlayer(keyCode,playerIndex);
+             movePlayer(keyCode,playerIndex); //ici faut que ça change
             }
             });
         }
@@ -117,12 +115,13 @@ public class DisplayBis {
         public void keyTyped(KeyEvent e) {
     // Pas nécessaire pour cette utilisation, mais doit être implémentée en raison de l'interface
         }
-    private void loadTileset() {
-            try {
-                tileset = ImageIO.read(new File("brick.jpg"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        
+        private void loadTileset() {
+                try {
+                    tileset = ImageIO.read(new File("brick.jpg"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
 
         private void loadTiles() {

@@ -8,7 +8,7 @@ import ig.igMethode;
  *
  * @author rmorel
  */
-public class ReglesTest {
+public class JeuTest {
 
     /**
      * 
