@@ -17,7 +17,7 @@ public class TestFichier {
     public static void main(String[] args) {
        Carte c = new Carte(25,40);
 
-       Fichier F = new Fichier("src/resources/carte.txt");
+       Fichier F = new Fichier("src/resource/carte.txt");
        F.lireFichier();
        System.out.println(F.getCarte().toString());
        

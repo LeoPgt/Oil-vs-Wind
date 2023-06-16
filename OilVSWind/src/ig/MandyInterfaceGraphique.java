@@ -2,99 +2,71 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ig;
-import java.awt.event.KeyListener;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import moteur.*;
 
-/**
- *
- * @author mleconte
- */
-public class MandyInterfaceGraphique extends Application {
-    private static final String PATH_TO_RESOURCES = "src/resource/";
-    private static final int TILE_SIZE = 40;
-    private static final int MAP_WIDTH = 40;
-    private static final int MAP_HEIGHT = 25;
+public class MandyInterfaceGraphique extends JFrame {
     private Jeu jeu;
-    private Pane root;
-    
-        public void start(Stage primaryStage) {
-            
-        primaryStage.setTitle("Jeu Barils et Runner");
-        jeu = new Jeu(); // Initialiser le jeu
-        root = new Pane();
-        Scene scene = new Scene(root, MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        miseAJourInterfaceGraphique();
+    private BufferedImage backgroundImage;
+    private BufferedImage briqueMurImage;
+    private BufferedImage briqueSableImage;
+    private BufferedImage spotImage;
+    private BufferedImage runnerImage;
+    private BufferedImage baril1Image;
+    private BufferedImage baril2Image;
+    private BufferedImage baril3Image;
+    private JPanel panel;
+    private boolean jeuCommence;
 
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.LEFT) {
-                jeu.setGauche(true);
-            } else if (event.getCode() == KeyCode.RIGHT) {
-                jeu.setDroite(true);
-            } else if (event.getCode() == KeyCode.UP) {
-                jeu.setHaut(true);
-            } else if (event.getCode() == KeyCode.DOWN) {
-                jeu.setBas(true);
-            }
+    public MandyInterfaceGraphique() {
+        setTitle("OIL VS WIND");
+        setSize(1200, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jeuCommence = false;
 
-            jeu.partieMoteurV2(); // mettre à jour le jeu après chaque pression de touche
-            miseAJourInterfaceGraphique(); // mettre à jour l'interface graphique après chaque mise à jour du jeu
-        });
+        try {
+            backgroundImage = ImageIO.read(new File("src/resource/fonddentreedujeu.PNG"));
+            briqueMurImage = ImageIO.read(new File("src/resource/brique_mur.PNG"));
+            briqueSableImage = ImageIO.read(new File("src/resource/brique_sable.PNG"));
+            // Charger les images des personnages
+            runnerImage = ImageIO.read(new File("src/resource/perso.png"));
+            baril1Image = ImageIO.read(new File("src/resource/baril_jaune.png"));
+            baril2Image = ImageIO.read(new File("src/resource/baril_bleu.png"));
+            baril3Image = ImageIO.read(new File("src/resource/baril_rouge.png"));
 
-        scene.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.LEFT) {
-                jeu.setGauche(false);
-            } else if (event.getCode() == KeyCode.RIGHT) {
-                jeu.setDroite(false);
-            } else if (event.getCode() == KeyCode.UP) {
-                jeu.setHaut(false);
-            } else if (event.getCode() == KeyCode.DOWN) {
-                jeu.setBas(false);
-            }
-        });
-    }
-
-    private void miseAJourInterfaceGraphique() {
-        root.getChildren().clear(); // nettoyer l'écran avant de dessiner la nouvelle image
-        for (int i = 0; i < MAP_WIDTH; i++) {
-            for (int j = 0; j < MAP_HEIGHT; j++) {
-                Element element = jeu.laCaseDeCoordonnees(i, j);
-                if (element != null) {
-                    ImageView imageView = new ImageView();
-                    imageView.setFitHeight(TILE_SIZE);
-                    imageView.setFitWidth(TILE_SIZE);
-
-                    String imageFile;
-
-                    if(element instanceof Runner) {
-                        imageFile = PATH_TO_RESOURCES + "perso.png";
-                    } else if(element instanceof Baril) {
-                        imageFile = PATH_TO_RESOURCES + "baril_rouge.png";
-                        imageFile = PATH_TO_RESOURCES + "baril_jaune.png";
-                        imageFile = PATH_TO_RESOURCES + "baril_bleu.png";
-                    } else if(element instanceof Mur) {
-                        imageFile = PATH_TO_RESOURCES + "brick.png";
-                    } else if(element instanceof Bonus) {
-                        imageFile = PATH_TO_RESOURCES + "bonus.png";
-                    } else {
-                        continue; // ignore non-visual elements
-                    }
-
-                    imageView.setImage(new Image(imageFile));
-                    imageView.setX(i * TILE_SIZE);
-                    imageView.setY(j * TILE_SIZE);
-                    root.getChildren().add(imageView);
-                }
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-public void actionPerformed(ActionEvent e) {
+
+        // Configuration du bouton "Joueur"
+        JButton buttonJoueur = new JButton("Jouer");
+        buttonJoueur.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 String pseudo = JOptionPane.showInputDialog("Entrez votre pseudo");
                 jeu = new Jeu();
-                // ici ajoutez le pseudo à votre jeu ou à votre base de données
+                // Ajoutez ici le pseudo à votre jeu ou à votre base de données
+
+                // Masquer le bouton "Joueur"
+                buttonJoueur.setVisible(false);
+
+                // Rafraîchir l'affichage de la fenêtre
+                repaint();
+
+                // Le jeu commence
+                jeuCommence = true;
             }
         });
 
@@ -103,56 +75,115 @@ public void actionPerformed(ActionEvent e) {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP:
-                        jeu.setHaut(true);
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        jeu.setBas(true);
-                        break;
-                    case KeyEvent.VK_LEFT:
-                        jeu.setGauche(true);
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        jeu.setDroite(true);
-                        break;
+                if (jeuCommence) {
+                    switch (e.getKeyCode()) {
+                        case KeyEvent.VK_UP:
+                            jeu.setHaut(true);
+                            break;
+                        case KeyEvent.VK_DOWN:
+                            jeu.setBas(true);
+                            break;
+                        case KeyEvent.VK_LEFT:
+                            jeu.setGauche(true);
+                            break;
+                        case KeyEvent.VK_RIGHT:
+                            jeu.setDroite(true);
+                            break;
+                    }
+                    jeu.partieMoteurV2(); // ou autre méthode pour mettre à jour l'état du jeu
+                    // Rafraîchir l'affichage de la fenêtre
+                    repaint();
                 }
-                jeu.partieMoteurV2(); // ou autre méthode pour mettre à jour l'état du jeu
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP:
-                        jeu.setHaut(false);
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        jeu.setBas(false);
-                        break;
-                    case KeyEvent.VK_LEFT:
-                        jeu.setGauche(false);
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        jeu.setDroite(false);
-                        break;
+                if (jeuCommence) {
+                    switch (e.getKeyCode()) {
+                        case KeyEvent.VK_UP:
+                            jeu.setHaut(false);
+                            break;
+                        case KeyEvent.VK_DOWN:
+                            jeu.setBas(false);
+                            break;
+                        case KeyEvent.VK_LEFT:
+                            jeu.setGauche(false);
+                            break;
+                        case KeyEvent.VK_RIGHT:
+                            jeu.setDroite(false);
+                            break;
+                    }
                 }
             }
         });
 
         // Configuration du panel de dessin
-        JPanel panel = new JPanel() {
+        panel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // ici dessinez votre carte en utilisant les méthodes de Graphics
-                // par exemple, pour dessiner une case mur:
-                // g.drawRect(x, y, largeur, hauteur);
+                if (!jeuCommence) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+                } else {
+                    DessinerCarte(g);
+                // Dessiner les spots
+                try {
+                    dessinerSpots(g);
+                } catch (IOException ex) {
+                    Logger.getLogger(MandyInterfaceGraphique.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
             }
         };
 
         // Ajout des composants à la fenêtre
-        getContentPane().add(buttonJoueur, BorderLayout.NORTH);
+        getContentPane().add(buttonJoueur, BorderLayout.SOUTH);
         getContentPane().add(panel, BorderLayout.CENTER);
     }
+
+    private void DessinerCarte(Graphics g) {
+        int largeurCase = getWidth() / jeu.getCarteMoteur().getLargeur();
+        int hauteurCase = getHeight() / jeu.getCarteMoteur().getHauteur();
+
+        for (int i = 0; i < jeu.getCarteMoteur().getLargeur(); i++) {
+            for (int j = 0; j < jeu.getCarteMoteur().getHauteur(); j++) {
+                Element element = jeu.laCaseDeCoordonnees(i, j);
+
+                if (element instanceof Mur) {
+                    g.drawImage(briqueMurImage, i * largeurCase, j * hauteurCase, largeurCase, hauteurCase, null);
+                } else if (element instanceof Runner) {
+                    g.drawImage(runnerImage, i * largeurCase, j * hauteurCase, largeurCase, hauteurCase, null);
+                } else if (element instanceof Baril) {
+                    g.drawImage(baril1Image, i * largeurCase, j * hauteurCase, largeurCase, hauteurCase, null);
+                } else {
+                    g.drawImage(briqueSableImage, i * largeurCase, j * hauteurCase, largeurCase, hauteurCase, null);
+                }
+            }
+        }  
+    }
+    
+    private void dessinerSpots(Graphics g) throws IOException {
+        int largeurCase = getWidth() / jeu.getCarteMoteur().getLargeur();
+        int hauteurCase = getHeight() / jeu.getCarteMoteur().getHauteur();
+        
+        // Charger l'image du spot
+        spotImage = ImageIO.read(new File("src/resource/brique_spot.PNG"));
+        // Parcourir la liste des spots dans la carte du jeu
+        for (int i = 0; i < jeu.getCarteMoteur().getSpots().size(); i++) {
+            int x_spot = jeu.CarteMoteur.getSpots().get(i).getX();
+            int y_spot = jeu.CarteMoteur.getSpots().get(i).getY();
+
+            // Dessiner l'image du spot à la position correspondante
+            g.drawImage(spotImage, x_spot * largeurCase, y_spot * hauteurCase, null);
+        }
+    }
+
+    public static void main(String[] args) {
+        MandyInterfaceGraphique gui = new MandyInterfaceGraphique();
+        gui.setVisible(true);
+        gui.panel.setFocusable(true);
+    }
+}
+
 

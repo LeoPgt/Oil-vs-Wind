@@ -189,7 +189,7 @@ protected void paintComponent(Graphics g) {
         int characterYPos = characterY * TILE_SIZE;
         
 
-        // Dessiner le sprite du personnage à la position spécifiée
+    // Dessiner le sprite du personnage à la position spécifiée
         BufferedImage characterSprite = characterSprites[i];
         g.drawImage(characterSprite, characterXPos, characterYPos,  null);
     }
@@ -220,29 +220,14 @@ protected void paintComponent(Graphics g) {
             return; // Ignorer les autres touches
     }
 
-    // Vérifier si la nouvelle position est valide
-    if (isValidPosition(newPlayerX, newPlayerY)) {
-        CHARACTER_POSITIONS[playerIndex][0] = newPlayerX;
-        CHARACTER_POSITIONS[playerIndex][1] = newPlayerY;
-        repaint();
+//    // Vérifier si la nouvelle position est valide
+//    if (isValidPosition(newPlayerX, newPlayerY)) {
+//        CHARACTER_POSITIONS[playerIndex][0] = newPlayerX;
+//        CHARACTER_POSITIONS[playerIndex][1] = newPlayerY;
+//        repaint();
+//    }   
+  }
     }
 }
+  
 
-private boolean isValidPosition(int x, int y) {
-    // Vérifier si la position est à l'intérieur de la carte et si elle est traversable (pas un mur, etc.)
-    
-//    if(jeu.deplacementEstPossible(joueur,deplacement)){
-//        return true;
-//    } else {
-//        return false;
-//    }
-    
-    return x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT && MAP_DATA[y][x] != 1;
-}      
-    /**
-     * @param args the command line arguments
-     */
-   
-    
-}
-}

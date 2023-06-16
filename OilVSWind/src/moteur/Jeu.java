@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
+import java.awt.Point;
 import utilitaire.*;
 import java.util.ArrayList;
 import sql.BDDJoueur; // lien SQL
@@ -15,14 +16,15 @@ public class Jeu {
     
     private BDDJoueur BJ;// lien SQL
     protected boolean gauche, droite, haut, bas;
-    private Carte CarteMoteur;
+    public Carte CarteMoteur;
     private Runner runner;
     private ArrayList<Baril> barrilJoueur;
-
+    private ArrayList<Jouable> listeJ; // Déclaration de listeJ
+    
     public Jeu () {
         
         //Initialiser Carte
-        Fichier F = new Fichier("src/resources/carte.txt");
+        Fichier F = new Fichier("src/resource/carte.txt");
         F.lireFichier();
         this.CarteMoteur = F.getCarte();
         this.gauche = false;
@@ -33,7 +35,7 @@ public class Jeu {
         //Ajouter Des Jouables
         this.BJ = new BDDJoueur();
         this.BJ.SelectJoueur();
-        ArrayList<Jouable> listeJ = this.BJ.getListeJoueurs();
+        this.listeJ = this.BJ.getListeJoueurs();
  
         for(int i = 0; i < listeJ.size(); i++ ){
             
@@ -84,6 +86,10 @@ public class Jeu {
         this.bas = bas;
     }
 
+    public Carte getCarteMoteur() {
+        return CarteMoteur;
+    }
+
     public boolean isGauche() {
         return gauche;
     }
@@ -111,7 +117,19 @@ public class Jeu {
         
         return false;
     }
-    
+ 
+    public ArrayList<Point> getCoordonneesSpots() {
+        ArrayList<Point> coordonneesSpots = new ArrayList<>();
+
+        for (Jouable jouable : this.listeJ) {
+            int x = jouable.getX();
+            int y = jouable.getY();
+            Point coordonnees = new Point(x, y);
+            coordonneesSpots.add(coordonnees);
+        }
+
+        return coordonneesSpots;
+    }  
     
  // Méthode qui retourne l'élément à la position (x, y)
     public Element laCaseDeCoordonnees(int x, int y) {
