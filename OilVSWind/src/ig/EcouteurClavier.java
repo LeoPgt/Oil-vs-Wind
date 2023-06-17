@@ -12,7 +12,7 @@ import moteur.*;
  *
  * @author manal.benaissa
  */
-//Ok ! Ici c'est pour écouter votre clavier ! Quand une touche du clavier est appuyé, un "event" est émis. Vous pouvez traiter l'event en question comme suit :
+
 public class EcouteurClavier implements KeyListener {
     
     private JeuIG jeu;
@@ -20,32 +20,43 @@ public class EcouteurClavier implements KeyListener {
     public EcouteurClavier(JeuIG jeu) {
         this.jeu = jeu;
     }
-    
     @Override
-    public void keyPressed(KeyEvent evt) {
-        if (evt.getKeyCode() == evt.VK_RIGHT) {
-            this.jeu.getAvatar().setDroite(true);
-        }
-        if (evt.getKeyCode() == evt.VK_LEFT) {
-            this.jeu.getAvatar().setGauche(true);
+    public void keyTyped(KeyEvent evt) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                jeu.getAvatar().setHaut(true);
+                break;
+            case KeyEvent.VK_DOWN:
+                jeu.getAvatar().setBas(true);
+                break;
+            case KeyEvent.VK_LEFT:
+                jeu.getAvatar().setGauche(true);
+                break;
+            case KeyEvent.VK_RIGHT:
+                jeu.getAvatar().setDroite(true);
+                break;
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent evt) {
-        if (evt.getKeyCode() == evt.VK_RIGHT) {
-            this.jeu.getAvatar().setDroite(false);
-        }
-        if (evt.getKeyCode() == evt.VK_LEFT) {
-            this.jeu.getAvatar().setGauche(false);
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                jeu.getAvatar().setHaut(false);
+                break;
+            case KeyEvent.VK_DOWN:
+                jeu.getAvatar().setBas(false);
+                break;
+            case KeyEvent.VK_LEFT:
+                jeu.getAvatar().setGauche(false);
+                break;
+            case KeyEvent.VK_RIGHT:
+                jeu.getAvatar().setDroite(false);
+                break;
         }
     }
-    
-
-    @Override
-    public void keyTyped(KeyEvent event) {
-        //Nothing to do here !
-    }
-
-
 }

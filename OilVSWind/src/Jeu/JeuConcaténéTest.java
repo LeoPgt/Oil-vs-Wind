@@ -7,7 +7,7 @@ package Jeu;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import ig.igMethode;
+import Archives.igMethode;
 
 
 /**

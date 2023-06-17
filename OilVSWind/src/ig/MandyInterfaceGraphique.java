@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import moteur.*;
 
+
 public class MandyInterfaceGraphique extends JFrame implements ActionListener, KeyListener {
     private Jeu jeu;
     private BufferedImage backgroundImage;

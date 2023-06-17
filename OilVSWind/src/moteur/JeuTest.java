@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package moteur;
-import ig.igMethode;
+import Archives.igMethode;
 /**
  *
  * @author rmorel

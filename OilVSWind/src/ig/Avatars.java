@@ -25,13 +25,16 @@ public class Avatars {
     private BufferedImage spriteBarilJaune;
     private BufferedImage spriteBarilBleu;
     
+    private Jeu jeuMoteur;
+    
     protected double xPersonnage, yPersonnage;
     protected double xBarilRouge, yBarilRouge;
     protected double xBarilJaune, yBarilJaune;
     protected double xBarilBleu, yBarilBleu;
-    private boolean gauche, droite;
+    private boolean gauche, droite, bas, haut;
 
     public Avatars(Jeu J) {
+        this.jeuMoteur = J;
         try {
             this.spritePersonnage = ImageIO.read(getClass().getClassLoader().getResource("perso.png"));
             this.spriteBarilRouge = ImageIO.read(getClass().getClassLoader().getResource("baril_rouge.png"));
@@ -43,7 +46,7 @@ public class Avatars {
         
         //MANAL : Tu peux utiliser ton Jeu moteur là, pour capter les positions initiales de tes joueurs
         //MANAL : (Une arrayList pour les coordonnées de tes barils aurait été cool, ça aurait permis de juste faire une boucle ;)
-        Baril baril_rouge = J.getBarrilJoueur().get(0); //MANAL : Je suis pas sure pour les get(i), t'avais associé un ID à une couleur de baril ?
+        Baril baril_rouge = J.getBarrilJoueur().get(0);
         Baril baril_bleu = J.getBarrilJoueur().get(1);
         Baril baril_jaune = J.getBarrilJoueur().get(2);
         Runner personnage = J.getRunner();
@@ -59,6 +62,8 @@ public class Avatars {
         this.yBarilBleu = baril_bleu.getY(); 
         this.gauche = false;
         this.droite = false;
+        this.haut = false;
+        this.bas = false;
     }
     
     public void setGauche(boolean gauche) {
@@ -69,19 +74,23 @@ public class Avatars {
         this.droite = droite;
     }
 
+    public void setBas(boolean bas) {
+        this.bas = bas;
+    }
+
+    public void setHaut(boolean haut) {
+        this.haut = haut;
+    }
+
     public void miseAJour() {
-        if (this.gauche) {
-            xPersonnage -= 5;
-        }
-        if (this.droite) {
-            xPersonnage += 5;
-        }
-        if (xPersonnage > 607-52) {
-            xPersonnage = 607-52;
-        }
-        if (xPersonnage < 0) {
-            xPersonnage = 0;
-        }
+        this.xPersonnage = jeuMoteur.getRunner().getX();
+        this.yPersonnage = jeuMoteur.getRunner().getY();
+        this.xBarilRouge = jeuMoteur.getBarrilJoueur().get(0).getX();
+        this.yBarilRouge = jeuMoteur.getBarrilJoueur().get(0).getY();
+        this.xBarilJaune = jeuMoteur.getBarrilJoueur().get(1).getX();
+        this.yBarilJaune = jeuMoteur.getBarrilJoueur().get(1).getY();
+        this.xBarilBleu = jeuMoteur.getBarrilJoueur().get(2).getX();
+        this.yBarilBleu = jeuMoteur.getBarrilJoueur().get(2).getY();
     }
 
     public void rendu(Graphics2D contexte) {
