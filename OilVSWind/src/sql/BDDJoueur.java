@@ -31,7 +31,6 @@ public class BDDJoueur {
     
 
     public ArrayList<Jouable> SelectJoueur() {
-        ArrayList<Jouable> listeJoueurs = new ArrayList<>();
         try {
             Connection connexion = SingletonJDBC.getInstance().getConnection();
             PreparedStatement requete = connexion.prepareStatement("SELECT * FROM Joueur");
@@ -58,11 +57,11 @@ public class BDDJoueur {
 
             }
             requete.close();
-
+            connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return listeJoueurs;
+        return this.listeJoueurs;
     }
     
     public void InsertJoueur(Jouable J, String pseudo) {
@@ -82,7 +81,7 @@ public class BDDJoueur {
                 requete.executeUpdate();
            
                 requete.close();
-
+                connexion.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -102,7 +101,7 @@ public class BDDJoueur {
                 requete.executeUpdate();
            
                 requete.close();
-                 
+                connexion.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -121,7 +120,7 @@ public class BDDJoueur {
                 requete.executeUpdate();
 
                 requete.close();
-
+                connexion.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -135,7 +134,7 @@ public class BDDJoueur {
             requete.executeUpdate();
             
             requete.close();
-            
+            connexion.close();
         } catch (SQLException ex) {
                 ex.printStackTrace();
         }
