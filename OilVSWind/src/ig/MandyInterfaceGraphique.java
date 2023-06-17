@@ -113,7 +113,11 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
             repaint();
         } else if (jeuCommence) {
             jeu.partieMoteurV2();
-            repaint();
+            DessinerCarte(contexte);
+        
+            //Ca c'est juste pour appliquer le rendu()
+            this.jLabel1.repaint();
+            
             if (jeu.partieMoteurV2()) {
                 timer.stop();
             }
@@ -198,7 +202,7 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
             }
         }
     }
-    
+
     private void dessinerSpots(Graphics g) throws IOException {
         int largeurCase = getWidth() / jeu.getCarteMoteur().getLargeur();
         int hauteurCase = getHeight() / jeu.getCarteMoteur().getHauteur();
