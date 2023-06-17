@@ -3,11 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-import java.awt.Point;
+
 import utilitaire.*;
 import java.util.ArrayList;
 import sql.BDDJoueur; // lien SQL
-
 /**
  *
  * @author mleconte
@@ -20,7 +19,7 @@ public class Jeu {
     public Runner runner;
     private ArrayList<Baril> barrilJoueur;
     private ArrayList<Jouable> listeJ; // Déclaration de listeJ
-    
+
     public Jeu () {
         
         //Initialiser Carte
@@ -34,7 +33,7 @@ public class Jeu {
         
         // Initialisation de barrilJoueur
         this.barrilJoueur = new ArrayList<>();
-        
+       
         //Ajouter Des Jouables
         this.BJ = new BDDJoueur();
         this.BJ.SelectJoueur();
