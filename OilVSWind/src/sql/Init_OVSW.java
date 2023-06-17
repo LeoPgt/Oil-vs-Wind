@@ -4,13 +4,11 @@
  */
 package sql;
 
-import java.sql.Connection;
+
 import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import moteur.Baril;
-import moteur.Runner;
-import outils.OutilsJDBC;
 
 /**
  *
@@ -51,25 +49,29 @@ public class Init_OVSW {
 //        }
      
      
-     try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+     try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
+      
             PreparedStatement requete = connexion.prepareStatement("DELETE FROM Joueur WHERE id = ? ");
+            
+          
             requete.setInt(1, 1 );
             requete.setInt(2, 2 );
             requete.setInt(3, 3 );
             requete.setInt(4, 4 );
             
             System.out.println(requete);
+       
             
-
           requete.close();
             connexion.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+                }
      
      
-        try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+     
+        try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES(?, ?,? ,? , ? , ? , ? ) ");
             requete.setInt(1, 1);
             requete.setString(2, " Joueur " );
@@ -89,7 +91,7 @@ public class Init_OVSW {
         }
         
         
-        try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+        try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES(?, ?,? ,? , ? , ? , ? )");
             requete.setInt(1, 2);
             requete.setString(2, " Baril 1 " );
@@ -109,7 +111,7 @@ public class Init_OVSW {
         }
         
         
-        try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+        try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES(?, ?,? ,? , ? , ? , ? )");
             requete.setInt(1, 3);
             requete.setString(2, " Baril 2 " );
@@ -129,7 +131,7 @@ public class Init_OVSW {
         }
         
         
-        try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+        try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES(?, ?,? ,? , ? , ? , ? )");
             requete.setInt(1, 4);
             requete.setString(2, " Baril 3 " );
