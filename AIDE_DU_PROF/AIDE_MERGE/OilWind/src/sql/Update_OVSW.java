@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import moteur.Baril;
 import moteur.Runner;
 
+
+
 /**
  *
  * @author bmartine
@@ -39,7 +41,57 @@ public class Update_OVSW {
 
     }
     
-   
+
+    
+    public void set_jouable_x(int user, int x) {
+
+        try {
+
+            Connection connexion = DriverManager.getConnection("jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind", "etudiant", "YTDTvj9TR3CDYCmP");
+
+            PreparedStatement requete = connexion.prepareStatement("UPDATE Joueur SET Coordonée_X = ? WHERE Id = ?");
+            requete.setInt(1, x);
+            requete.setInt(2, user);
+            System.out.println(requete);
+            int nombreDeModifications = requete.executeUpdate();
+            System.out.println(nombreDeModifications + " enregistrement(s) modifie(s)");
+
+            requete.close();  
+            connexion.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    
+    
+    
+//    public void set_jouable_x(String[] args) {
+//
+//        try {
+//
+//            Connection connexion = DriverManager.getConnection("jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind", "etudiant", "YTDTvj9TR3CDYCmP");
+//
+//            PreparedStatement requete = connexion.prepareStatement("UPDATE Joueur SET Coordonée_X = ? WHERE Id = ?");
+//            requete.setString(1,   );
+//            requete.setInt(2, );
+//            System.out.println(requete);
+//            int nombreDeModifications = requete.executeUpdate();
+//            System.out.println(nombreDeModifications + " enregistrement(s) modifie(s)");
+//
+//            requete.close();  
+//            connexion.close();
+//
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//
+//    }
+    
+    
+    
+
     private static final String CONNECTION_URL = "jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind";
     private static final String USERNAME = "etudiant";
     private static final String PASSWORD = "YTDTvj9TR3CDYCmP";
@@ -72,4 +124,5 @@ public class Update_OVSW {
             requete.executeUpdate();
         }
     }
+
 }

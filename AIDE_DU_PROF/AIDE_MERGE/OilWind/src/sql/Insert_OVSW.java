@@ -12,6 +12,7 @@ import moteur.Baril;
 import moteur.Runner;
 import outils.OutilsJDBC;
 
+
 /**
  *
  * @author bmartine
@@ -24,7 +25,7 @@ public class Insert_OVSW {
             Connection connexion = DriverManager.getConnection("jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind", "etudiant", "YTDTvj9TR3CDYCmP");
 
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ? )");
-            requete.setInt(1, 1000);
+            requete.setInt(1, 1001);
             requete.setString(2, "Scrum" );
             requete.setInt(3, 1 );
             requete.setInt(4, 1 );
@@ -38,7 +39,7 @@ public class Insert_OVSW {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        }  
      }
    
     private static final String CONNECTION_URL = "jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind";

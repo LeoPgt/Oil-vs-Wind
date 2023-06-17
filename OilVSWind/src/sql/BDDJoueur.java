@@ -14,7 +14,7 @@ import moteur.*;
 
 /**
  *
- * @author manal.benaissa
+ * @author mandy.leconte
  */
 public class BDDJoueur {
 
@@ -71,6 +71,7 @@ public class BDDJoueur {
             Runner runner = (Runner) J;
             try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
                 PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?, ?)");
+
                 requete.setInt(1, runner.getIdSQL());
                 requete.setString(2, runner.getPseudo());
                 requete.setInt(3, runner.getX());
@@ -91,6 +92,7 @@ public class BDDJoueur {
             Baril baril = (Baril) J;
             try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
                 PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?, ?)");
+
                 requete.setInt(1, baril.getIdSQL());
                 requete.setString(2, baril.getPseudo()); 
                 requete.setInt(3, baril.getX());
