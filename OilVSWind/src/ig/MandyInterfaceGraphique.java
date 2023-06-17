@@ -6,13 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -38,18 +36,17 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
     public MandyInterfaceGraphique() {
         // Initialisation de la fenêtre
         setTitle("OIL VS WIND");
-        setSize(3240, 1680);
+        // setSize(3240, 1680);
         this.setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jeuCommence = false;
         
         // Configuration du panel de dessin
         jLabel1 = new JLabel();
         this.jLabel1.setPreferredSize(new java.awt.Dimension(1600, 830));
-        this.setContentPane(this.jLabel1);
+        getContentPane().add(jLabel1, BorderLayout.CENTER);
         this.pack();
-        
-        
+
 
         try {
             //charger les images du fond
@@ -87,7 +84,6 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
 
         // Ajout des composants à la fenêtre
         getContentPane().add(buttonJoueur, BorderLayout.SOUTH);
-        getContentPane().add(jLabel1, BorderLayout.CENTER);
     }
     
     public void paintComponent(Graphics g) {
@@ -107,9 +103,9 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
     // Methode appelee par le timer et qui effectue la boucle de jeu
     @Override
     public void actionPerformed(ActionEvent e) {
-        String pseudo = JOptionPane.showInputDialog("Entrez votre pseudo");
         jeu = new Jeu();
-
+        String pseudo = JOptionPane.showInputDialog("Entrez votre pseudo");
+        
         // Vérifier si c'est le premier joueur
         if (jeu.getListeJoueurs().isEmpty()) {
             Runner runner = new Runner(0, pseudo, 0, 0, 0);
