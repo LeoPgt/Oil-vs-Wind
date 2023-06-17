@@ -13,6 +13,7 @@ public class Baril extends Jouable {
     private boolean capturable;
     private int idSQL;
             
+
     public Baril(int idSQL, String pseudo, int x, int y, boolean capturable){
         super(pseudo,"baril",x,y);
         this.capturable=true;
