@@ -40,32 +40,33 @@ public class Jeu {
         this.listeJ = this.BJ.getListeJoueurs();
  
         for(int i = 0; i < listeJ.size(); i++ ){
-            
-            int x_spot = this.CarteMoteur.getSpots().get(i).getX();
-            int y_spot = this.CarteMoteur.getSpots().get(i).getY();
-            
-            if(listeJ.get(i) instanceof Runner){
-                
-                this.runner = (Runner)listeJ.get(i);
-                
-                this.runner.setX(x_spot);
-                this.runner.setX(y_spot);
-                
-                //TODO : Faire le Update SQL pour changer coordonnee !
-                BJ.UpdateJoueur(runner.getIdSQL(), x_spot, y_spot, runner.getVitesse(), false); 
-                
-            }
-            else if(listeJ.get(i) instanceof Baril){
-                Baril B = (Baril)listeJ.get(i);
-                B.setX(x_spot);
-                B.setY(y_spot);
-                this.barrilJoueur.add(B);
-                
-                //TODO : Faire le Update SQL pour changer coordonnee !
-                BJ.UpdateJoueur(B.getIdSQL(), x_spot, y_spot, 10, B.capturableGet());
-            }
-        }    
+            if (i >= 0 && i < this.CarteMoteur.getSpots().size()) {
+                int x_spot = this.CarteMoteur.getSpots().get(i).getX();
+                int y_spot = this.CarteMoteur.getSpots().get(i).getY();
+
+                if(listeJ.get(i) instanceof Runner){
+                    this.runner = (Runner)listeJ.get(i);
+
+                    this.runner.setX(x_spot);
+                    this.runner.setX(y_spot);
+
+                    //TODO : Faire le Update SQL pour changer coordonnee !
+                    BJ.UpdateJoueur(runner.getIdSQL(), x_spot, y_spot, runner.getVitesse(), false); 
+
+                }
+                else if(listeJ.get(i) instanceof Baril){
+                    
+                    Baril B = (Baril)listeJ.get(i);
+                    B.setX(x_spot);
+                    B.setY(y_spot);
+                    this.barrilJoueur.add(B);
+
+                    //TODO : Faire le Update SQL pour changer coordonnee !
+                    BJ.UpdateJoueur(B.getIdSQL(), x_spot, y_spot, 10, B.capturableGet());
+                }
+            }    
         }
+    }
     
     public ArrayList<Jouable> getListeJoueurs() {
         return BJ.getListeJoueurs();

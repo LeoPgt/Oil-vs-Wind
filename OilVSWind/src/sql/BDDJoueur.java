@@ -70,15 +70,14 @@ public class BDDJoueur {
         if(J instanceof Runner){
             Runner runner = (Runner) J;
             try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
-                PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES ( ?, ?, ?, ?, ?, ?)");
 
-                requete.setInt(1, runner.getIdSQL());
-                requete.setString(2, runner.getPseudo());
-                requete.setInt(3, runner.getX());
-                requete.setInt(4, runner.getY());
-                requete.setString(5, "runner");
-                requete.setInt(6, runner.getVitesse());
-                requete.setBoolean(7, false); // Les Runners ne sont pas capturables
+                requete.setString(1, runner.getPseudo());
+                requete.setInt(2, runner.getX());
+                requete.setInt(3, runner.getY());
+                requete.setString(4, "runner");
+                requete.setInt(5, runner.getVitesse());
+                requete.setBoolean(6, false); // Les Runners ne sont pas capturables
 
                 requete.executeUpdate();
            
@@ -91,15 +90,14 @@ public class BDDJoueur {
         else {
             Baril baril = (Baril) J;
             try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
-                PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?)");
 
-                requete.setInt(1, baril.getIdSQL());
-                requete.setString(2, baril.getPseudo()); 
-                requete.setInt(3, baril.getX());
-                requete.setInt(4, baril.getY());
-                requete.setString(5, "baril");
-                requete.setInt(6, 10); // Les Barils n'ont pas de vitesse attribué
-                requete.setBoolean(7, baril.capturableGet());
+                requete.setString(1, baril.getPseudo()); 
+                requete.setInt(2, baril.getX());
+                requete.setInt(3, baril.getY());
+                requete.setString(4, "baril");
+                requete.setInt(5, 10); // Les Barils n'ont pas de vitesse attribué
+                requete.setBoolean(6, baril.capturableGet());
 
                 requete.executeUpdate();
            
@@ -131,7 +129,7 @@ public class BDDJoueur {
     
     public void DeleteJoueur(int ID){
         try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
-            PreparedStatement requete = connexion.prepareStatement("DELETE FROM Joueur WHERE id = ?");
+            PreparedStatement requete = connexion.prepareStatement("DELETE FROM Joueur WHERE ID = ?");
             requete.setInt(1,ID);
 
             requete.executeUpdate();
