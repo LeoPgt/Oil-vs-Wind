@@ -65,43 +65,48 @@ public class BDDJoueur {
     }
     
     public void InsertJoueur(Jouable J, String pseudo) {
+        Connection connexion = null;
+        PreparedStatement requete = null;
+        try {
+            connexion = SingletonJDBC.getInstance().getConnection();
+            if(J instanceof Runner){
+                Runner runner = (Runner) J;
 
-        if(J instanceof Runner){
-            Runner runner = (Runner) J;
-            try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
-                PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES ( ?, ?, ?, ?, ?, ?)");
+                    requete = connexion.prepareStatement("INSERT INTO Joueur VALUES ( ?, ?, ?, ?, ?, ?)");
 
-                requete.setString(1, runner.getPseudo());
-                requete.setInt(2, runner.getX());
-                requete.setInt(3, runner.getY());
-                requete.setString(4, "runner");
-                requete.setInt(5, runner.getVitesse());
-                requete.setBoolean(6, false); // Les Runners ne sont pas capturables
+                    requete.setString(1, runner.getPseudo());
+                    requete.setInt(2, runner.getX());
+                    requete.setInt(3, runner.getY());
+                    requete.setString(4, "runner");
+                    requete.setInt(5, runner.getVitesse());
+                    requete.setBoolean(6, false); // Les Runners ne sont pas capturables
 
-                requete.executeUpdate();
-           
-                requete.close();
-                connexion.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                    requete.executeUpdate();
+
+            } else {
+                Baril baril = (Baril) J;
+                    requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?)");
+
+                    requete.setString(1, baril.getPseudo()); 
+                    requete.setInt(2, baril.getX());
+                    requete.setInt(3, baril.getY());
+                    requete.setString(4, "baril");
+                    requete.setInt(5, 10); // Les Barils n'ont pas de vitesse attribué
+                    requete.setBoolean(6, baril.capturableGet());
+
+                    requete.executeUpdate();
             }
-        }
-        else {
-            Baril baril = (Baril) J;
-            try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
-                PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?)");
-
-                requete.setString(1, baril.getPseudo()); 
-                requete.setInt(2, baril.getX());
-                requete.setInt(3, baril.getY());
-                requete.setString(4, "baril");
-                requete.setInt(5, 10); // Les Barils n'ont pas de vitesse attribué
-                requete.setBoolean(6, baril.capturableGet());
-
-                requete.executeUpdate();
-           
-                requete.close();
-                connexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            // Fermeture des ressources
+            try {
+                if (requete != null) {
+                    requete.close();
+                }
+                if (connexion != null) {
+                    connexion.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -109,8 +114,11 @@ public class BDDJoueur {
     }
     
     public void UpdateJoueur(int ID, int x, int y, int vitesse, boolean capturable){
-            try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
-                PreparedStatement requete = connexion.prepareStatement("UPDATE Joueur SET X = ?, Y = ?, VITESSE = ?, CAPTURABLE = ? WHERE ID = ?");
+        Connection connexion = null;
+        PreparedStatement requete = null;
+            try {
+                connexion = SingletonJDBC.getInstance().getConnection();
+                requete = connexion.prepareStatement("UPDATE Joueur SET X = ?, Y = ?, VITESSE = ?, CAPTURABLE = ? WHERE ID = ?");
                 requete.setInt(1, x);
                 requete.setInt(2, y);
                 requete.setInt(3, vitesse);
@@ -118,12 +126,22 @@ public class BDDJoueur {
                 requete.setInt(5, ID);
 
                 requete.executeUpdate();
-
-                requete.close();
-                connexion.close();
+                
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+            // Fermeture des ressources
+            try {
+                if (requete != null) {
+                    requete.close();
+                }
+                if (connexion != null) {
+                    connexion.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+        }
     }
     
     public void DeleteJoueur(int ID){

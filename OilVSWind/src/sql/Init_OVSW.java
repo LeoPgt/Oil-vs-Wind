@@ -80,13 +80,13 @@ public class Init_OVSW {
                     + "VALUES ( 1, 'Joueur 1', 0, 0, 'joueur', 2, false)");
             
             statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
-                    + "VALUES ( 2, 'Joueur 1', 0, 0, 'baril', 2, false)");
+                    + "VALUES ( 2, 'Joueur 2', 0, 0, 'baril', 2, true)");
             
             statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
-                    + "VALUES ( 3, 'Joueur 1', 0, 0, 'baril', 2, false)");
+                    + "VALUES ( 3, 'Joueur 3', 0, 0, 'baril', 2, true)");
             
             statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
-                    + "VALUES ( 4, 'Joueur 1', 0, 0, 'baril', 2, false)");
+                    + "VALUES ( 4, 'Joueur 4', 0, 0, 'baril', 2, true)");
            
             
             ResultSet resultat = statement.executeQuery("SELECT * FROM Joueur;");
