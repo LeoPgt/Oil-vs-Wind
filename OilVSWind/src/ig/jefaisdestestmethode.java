@@ -8,18 +8,15 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
  * @author rmorel
  */
 public class jefaisdestestmethode {
-    addKeyListener(new KeyAdapter() {
-        public void keyPressed(KeyEvent e) {
-            int keyCode = e.getKeyCode();
-            System.out.println("keyCode=" + keyCode);
-        }
-    });
-}
-        
+     
+
 

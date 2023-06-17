@@ -48,10 +48,35 @@ public class Carte {
                 }
                 if(Map.getMatrice()[i][j]==3){
                    System.out.print("3");               
+                }
+                if(Map.getMatrice()[i][j]==4){
+                   System.out.print("4");               
+                }
+                if(Map.getMatrice()[i][j]==5){
+                   System.out.print("5");               
+                }
+                if(Map.getMatrice()[i][j]==6){
+                   System.out.print("6");               
                 }                
             }    
            System.out.println();
         }
     }
+    
+    public void correctionMatrice(Carte Mapfausse){
+               int[][] carteMatricielle = Mapfausse.getMatrice();
+       for (int i = 0; i< carteMatricielle.length; i++){
+           for (int j=0; j< carteMatricielle[i].length;j++){
+               if(Mapfausse.getMatrice()[i][j]==1){
+                   System.out.print("2,");
+               }
+               if(Mapfausse.getMatrice()[i][j]==2){
+                   System.out.print("0,");
+               }
+            }    
+           System.out.println();
+        }
+    }
+    
 }
     // Affichge Matrice Validée plein de conflit pour l'apparition de nouveau éléments

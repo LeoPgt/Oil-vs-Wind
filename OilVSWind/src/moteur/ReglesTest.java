@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package moteur;
-
+import ig.igMethode;
 /**
  *
  * @author rmorel
@@ -15,11 +15,16 @@ public class ReglesTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Carte Monde = new Carte(5,5);
-       // Jeu partie = new Jeu();
-        Regles partieMoteur = new Regles(2,Monde);
-        System.out.println();
-        //partie.partie();
+        igMethode Maptitle = new igMethode();
+        
+        Carte Monde = new Carte(Maptitle.getMAP_DATA());
+//        Monde.afficherMatriceV2(Monde);
+       Regles partie = new Regles(2,Monde);
+       partie.setLargeur(40);
+       partie.setLongueur(25);
+//       Monde.afficherMatriceV2(Monde);
+//        System.out.println();
+        partie.partieMoteurV2();
  
  
     }
