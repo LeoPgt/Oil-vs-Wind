@@ -75,7 +75,7 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
       
-        this.framebuffer = new BufferedImage(2000, 1200, BufferedImage.TYPE_INT_ARGB);
+        this.framebuffer = new BufferedImage(1200, 800, BufferedImage.TYPE_INT_ARGB);
         this.jLabel1.setIcon(new ImageIcon(framebuffer));
         this.contexte = this.framebuffer.createGraphics();
 
