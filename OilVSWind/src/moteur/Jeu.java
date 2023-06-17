@@ -48,7 +48,7 @@ public class Jeu {
                     this.runner = (Runner)listeJ.get(i);
 
                     this.runner.setX(x_spot);
-                    this.runner.setX(y_spot);
+                    this.runner.setY(y_spot);
 
                     //TODO : Faire le Update SQL pour changer coordonnee !
                     BJ.UpdateJoueur(runner.getIdSQL(), x_spot, y_spot, runner.getVitesse(), false); 
@@ -339,7 +339,7 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
     public boolean partieMoteurV2() {
         boolean jeuTermine = false;
         // Boucle de jeu
-        while (jeuTermine = false) {
+        while (jeuTermine == false) {
             // Vérification si tous les barils ont été capturés
             if (tousBarilsCaptures()) {
                 jeuTermine = true;

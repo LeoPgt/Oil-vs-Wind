@@ -108,14 +108,6 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
         if (e.getSource() == buttonJoueur) {
             String pseudo = JOptionPane.showInputDialog("Entrez votre pseudo");
 
-//            if (jeu.getListeJoueurs().isEmpty()) {
-//                Runner runner = new Runner(0, pseudo, 0, 0, 0);
-//                jeu.InsertJoueur(runner, pseudo);
-//            } else {
-//                Baril baril = new Baril(0, pseudo, 0, 0, false);
-//                jeu.InsertJoueur(baril, pseudo);
-//            }
-
             buttonJoueur.setVisible(false);
             jeuCommence = true;
             repaint();

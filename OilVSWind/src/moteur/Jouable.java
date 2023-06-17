@@ -19,7 +19,6 @@ public class Jouable extends Element {
     
     public Jouable (String pseudo, String nom, int x, int y) {
         super (x, y);
-        this.numero = numero;
         this.nom = nom;
         this.pseudo = pseudo;
     }
