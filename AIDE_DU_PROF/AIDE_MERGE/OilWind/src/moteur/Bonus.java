@@ -3,25 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
+
 /**
  *
  * @author mleconte
  */
-
-// Ici capturable veut dire que le baril n'a pas encore été pris par le RUNNER
-public class Baril extends Jouable {
+//public class Bonus extends Decor {
+//    
+//}
+public class Bonus extends Decor {
     private boolean capturable;
-    private int idSQL;
-            
-    public Baril(int idSQL, String pseudo, int x, int y, boolean capturable){
-        super(pseudo,"baril",x,y);
-        this.capturable=true;
-        this.idSQL = idSQL;
-        // condition pour spawn random que pour le mouton
-    }
     
-    public int getIdSQL(){
-        return idSQL;
+    public Bonus(int x, int y) {
+        super(6, x, y);
+        this.capturable=true;
     }
     
     public void capturableSet (boolean modif){ // modif peut etre true ou false selon la situation définie

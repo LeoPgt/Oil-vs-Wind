@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-//import moteur.Jeu;
+import moteur.*;
 
 /**
  *
@@ -56,7 +56,7 @@ public class DisplayBis {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
         
             
-    };
+    }; // REUSSIR A METTRE LA CARTE FICHIER 
 
     public static int getMAP_WIDTH() {
         return MAP_WIDTH;
@@ -77,10 +77,8 @@ public class DisplayBis {
         private BufferedImage tileset;
         private BufferedImage[] tiles;
         private BufferedImage[] characterSprites;
-        private int speed; // Vitesse du joueur
 
-        
-        
+     
         public MapPanel() {
             loadTileset();
             loadTiles();
@@ -93,7 +91,7 @@ public class DisplayBis {
                 int keyCode = e.getKeyCode();
                 System.out.println("keyCode=" + keyCode);
                 int playerIndex = 0; //int playerIndex= Jeu.ChoixJoueur() qui retourne le numero du joueur choisi par l'utilisateur
-             movePlayer(keyCode,playerIndex);
+             movePlayer(keyCode,playerIndex); //ici faut que ça change
             }
             });
         }
@@ -117,12 +115,13 @@ public class DisplayBis {
         public void keyTyped(KeyEvent e) {
     // Pas nécessaire pour cette utilisation, mais doit être implémentée en raison de l'interface
         }
-    private void loadTileset() {
-            try {
-                tileset = ImageIO.read(new File("brick.jpg"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        
+        private void loadTileset() {
+                try {
+                    tileset = ImageIO.read(new File("brick.jpg"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
 
         private void loadTiles() {
@@ -190,7 +189,7 @@ protected void paintComponent(Graphics g) {
         int characterYPos = characterY * TILE_SIZE;
         
 
-        // Dessiner le sprite du personnage à la position spécifiée
+    // Dessiner le sprite du personnage à la position spécifiée
         BufferedImage characterSprite = characterSprites[i];
         g.drawImage(characterSprite, characterXPos, characterYPos,  null);
     }
@@ -221,29 +220,14 @@ protected void paintComponent(Graphics g) {
             return; // Ignorer les autres touches
     }
 
-    // Vérifier si la nouvelle position est valide
-    if (isValidPosition(newPlayerX, newPlayerY)) {
-        CHARACTER_POSITIONS[playerIndex][0] = newPlayerX;
-        CHARACTER_POSITIONS[playerIndex][1] = newPlayerY;
-        repaint();
+//    // Vérifier si la nouvelle position est valide
+//    if (isValidPosition(newPlayerX, newPlayerY)) {
+//        CHARACTER_POSITIONS[playerIndex][0] = newPlayerX;
+//        CHARACTER_POSITIONS[playerIndex][1] = newPlayerY;
+//        repaint();
+//    }   
+  }
     }
 }
+  
 
-private boolean isValidPosition(int x, int y) {
-    // Vérifier si la position est à l'intérieur de la carte et si elle est traversable (pas un mur, etc.)
-    
-//    if(jeu.deplacementEstPossible(joueur,deplacement)){
-//        return true;
-//    } else {
-//        return false;
-//    }
-    
-    return x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT && MAP_DATA[y][x] != 1;
-}      
-    /**
-     * @param args the command line arguments
-     */
-   
-    
-}
-}

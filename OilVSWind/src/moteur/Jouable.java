@@ -18,11 +18,12 @@ import java.sql.SQLException;
  //1 = Runner, 3= BarilB1 , 4 = BarilB2 , 5 = BarilB3
 
 public class Jouable extends Element {
-    private int numero;
+    private String nom; // soit runner en minuscule soit baril en minuscule
     private String pseudo;
     
-    public Jouable (String pseudo, int numero, int x, int y) {
+    public Jouable (String pseudo, String nom, int x, int y) {
         super (x, y);
+
 
         this.ID = ID;
         this.x = x;
@@ -73,6 +74,9 @@ public class Jouable extends Element {
 
 
         this.numero = numero;
+
+        this.nom = nom;
+
         this.pseudo = pseudo;
 
     }
@@ -86,18 +90,18 @@ public class Jouable extends Element {
         this.pseudo = pseudo;
     }
     
-    public int getNumero() {
-        return numero;
+    public String getNom() {
+        return nom;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
     
     
     @Override
     public String toString() {
-        return "Jouable{" + "Le jouable a comme id" + this.numero + '}';
+        return "Jouable{" + "Le jouable a comme id" + this.nom + '}';
     }
     
 }
