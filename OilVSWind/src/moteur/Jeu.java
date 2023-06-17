@@ -17,7 +17,7 @@ public class Jeu {
     private BDDJoueur BJ;// lien SQL
     protected boolean gauche, droite, haut, bas;
     public Carte CarteMoteur;
-    private Runner runner;
+    public Runner runner;
     private ArrayList<Baril> barrilJoueur;
     private ArrayList<Jouable> listeJ; // Déclaration de listeJ
     
@@ -31,6 +31,9 @@ public class Jeu {
         this.droite = false;
         this.haut = false;
         this.bas = false;
+        
+        // Initialisation de barrilJoueur
+        this.barrilJoueur = new ArrayList<>();
         
         //Ajouter Des Jouables
         this.BJ = new BDDJoueur();
@@ -62,10 +65,16 @@ public class Jeu {
                 //TODO : Faire le Update SQL pour changer coordonnee !
                 BJ.UpdateJoueur(B.getIdSQL(), x_spot, y_spot, 10, B.capturableGet());
             }
+        }    
         }
-            
-        }
-
+    
+    public ArrayList<Jouable> getListeJoueurs() {
+        return BJ.getListeJoueurs();
+    }
+    public void InsertJoueur(Jouable J, String pseudo) {
+        BJ.InsertJoueur(J, pseudo);
+        listeJ.add(J);
+    }
     public void setCarteMoteur(Carte CarteMoteur) {
         this.CarteMoteur = CarteMoteur;
     }
@@ -106,6 +115,10 @@ public class Jeu {
         return bas;
     }
 
+    public ArrayList<Baril> getBarrilJoueur() {
+        return barrilJoueur;
+    }
+     
     public boolean isCasesVide(int x, int y){
         Cases c = CarteMoteur.getMatrice()[x][y];
         if(c.isMur()){
@@ -118,19 +131,7 @@ public class Jeu {
         return false;
     }
  
-    public ArrayList<Point> getCoordonneesSpots() {
-        ArrayList<Point> coordonneesSpots = new ArrayList<>();
 
-        for (Jouable jouable : this.listeJ) {
-            int x = jouable.getX();
-            int y = jouable.getY();
-            Point coordonnees = new Point(x, y);
-            coordonneesSpots.add(coordonnees);
-        }
-
-        return coordonneesSpots;
-    }  
-    
  // Méthode qui retourne l'élément à la position (x, y)
     public Element laCaseDeCoordonnees(int x, int y) {
         Cases c = CarteMoteur.getMatrice()[x][y];
@@ -188,7 +189,7 @@ public class Jeu {
         Baril baril = (Baril) B;
         if (baril.capturableGet()) {
             baril.capturableSet(false);
-// LIEN SQL  update_OVSW.updateBaril(baril); 
+            BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); // lien SQL
             return true; //Collision détecté = Runner attrape baril
         }
     } else if (A instanceof Runner && B instanceof Mur && casesAutourA.contains(B)) { 
@@ -201,7 +202,7 @@ public class Jeu {
         if (bonus.capturableGet()) {
             bonus.capturableSet(false);
             runner.setVitesse(); // le bonus s'applique sur le Runner
-//  LIEN SQL  update_OVSW.updateRunner(runner);  
+            BJ.UpdateJoueur(runner.getIdSQL(), runner.getX(), runner.getY(), runner.getVitesse(), false); // lien SQL
             return true; // Collision détectée = Le runner attrape bonus
         }
     } else if (A instanceof Baril && (B instanceof Runner || B instanceof Mur || B instanceof Baril)&& casesAutourA.contains(B)) {
@@ -213,7 +214,7 @@ public class Jeu {
         Bonus bonus = (Bonus) B;
         if (bonus.capturableGet()) {
             bonus.capturableSet(false);
-// LIEN SQL  update_OVSW.updateRunner(baril); 
+            BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); 
             return true; // Collision détectée = Le baril a attrapé un bonus
         }
     } else if (!(A instanceof Runner) && !(A instanceof Baril)) {
@@ -335,12 +336,13 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
         return true; // Tous les barils ont été capturés
     }
     
-    public void partieMoteurV2() {
+    public boolean partieMoteurV2() {
+        boolean jeuTermine = false;
         // Boucle de jeu
-        while (true) {
+        while (jeuTermine = false) {
             // Vérification si tous les barils ont été capturés
             if (tousBarilsCaptures()) {
-                break;
+                jeuTermine = true;
             }
 
             // Déplacement du Runner
@@ -351,5 +353,6 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
                 CarteMoteur = MiseAJour(baril, CarteMoteur);
             }
         }
+        return jeuTermine;
     }
 }

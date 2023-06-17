@@ -6,7 +6,9 @@ package utilitaire;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import moteur.*;
 
 /**
@@ -23,60 +25,70 @@ public class Fichier {
        
     }
     
-    public void lireFichier(){
-        
+    public void lireFichier() {
         try {
             BufferedReader fichier = new BufferedReader(new FileReader(this.nomfichier));
             int j = 0;
             int largeur = 0;
             int hauteur = 0;
-            while (fichier.ready()){
+            while (fichier.ready()) {
                 String ligne;
                 ligne = fichier.readLine();
-                
-                //Lecture dimension
-                if(j == 0){
-                    largeur = Integer.parseInt(ligne);
-                }
-                
-                if(j == 1){
-                    hauteur = Integer.parseInt(ligne);
-                    this.c = new Carte(largeur, hauteur);
-                }
-                if (j >= 2){
-                    String champs[] = ligne.split( " " );
 
-                    for(int i = 0; i < champs.length; i++){
-                        
-                        Cases cases = new Cases(i, j-2);
-                        c.getMatrice()[i][j-2] = cases;
-                        
-                        if(champs[i].equals("2")){
-                            Mur m = new Mur(i, j-2);
-                            c.getMatrice()[i][j-2].setMur(m);
+                // Lecture dimension
+                if (j == 0) {
+                    try {
+                        largeur = Integer.parseInt(ligne);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        // Gérer l'erreur de conversion ici
+                    }
+                }
+
+                if (j == 1) {
+                    try {
+                        hauteur = Integer.parseInt(ligne);
+                        this.c = new Carte(largeur, hauteur);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        // Gérer l'erreur de conversion ici
+                    }
+                }
+
+                if (j >= 2) {
+                    String champs[] = ligne.split(" ");
+
+                    for (int i = 0; i < champs.length; i++) {
+                        Cases cases = new Cases(i, j - 2);
+                        c.getMatrice()[i][j - 2] = cases;
+
+                        if (champs[i].equals("2")) {
+                            Mur m = new Mur(i, j - 2);
+                            c.getMatrice()[i][j - 2].setMur(m);
                         }
-                        if(champs[i].equals("S")){
-                            c.getSpots().add(new Coordonnee(i, j-2));
+                        if (champs[i].equals("S")) {
+                            c.getSpots().add(new Coordonnee(i, j - 2));
                         }
-                        if(champs[i].equals("6")){
-                            Bonus b = new Bonus(i, j-2);
-                            c.getMatrice()[i][j-2].addBonus(b);
+                        if (champs[i].equals("6")) {
+                            Bonus b = new Bonus(i, j - 2);
+                            c.getMatrice()[i][j - 2].addBonus(b);
                         }
                     }
                 }
-            j++;
+                j++;
             }
-            
             fichier.close();
-        }catch( IOException e) {
-            e.printStackTrace() ;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
-        
     }
+   
 
     public Carte getCarte() {
         return c;
     }
     
+    public void setCarte(Carte c) {
+        this.c = c;
+    } 
 }

@@ -37,10 +37,10 @@ public class BDDJoueur {
     }
     
 
-    public void SelectJoueur() {
-
+    public ArrayList<Jouable> SelectJoueur() {
+        ArrayList<Jouable> listeJoueurs = new ArrayList<>();
         try {
-            Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
+            Connection connexion = SingletonJDBC.getInstance().getConnection();
             PreparedStatement requete = connexion.prepareStatement("SELECT * FROM Joueur");
 
             ResultSet result = requete.executeQuery();
@@ -65,19 +65,18 @@ public class BDDJoueur {
 
             }
             requete.close();
-            connexion.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+        return listeJoueurs;
     }
     
-    public void InsertJoueur(Jouable J){
+    public void InsertJoueur(Jouable J, String pseudo) {
 
         if(J instanceof Runner){
             Runner runner = (Runner) J;
-            try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+            try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
                 PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?)");
                 requete.setInt(1, runner.getIdSQL());
                 requete.setString(2, runner.getPseudo());
@@ -90,7 +89,6 @@ public class BDDJoueur {
                 requete.executeUpdate();
            
                 requete.close();
-                connexion.close();
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -98,7 +96,7 @@ public class BDDJoueur {
         }
         else {
             Baril baril = (Baril) J;
-            try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+            try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
                 PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?)");
                 requete.setInt(1, baril.getIdSQL());
                 requete.setString(2, baril.getPseudo());
@@ -111,7 +109,6 @@ public class BDDJoueur {
                 requete.executeUpdate();
            
                 requete.close();
-                connexion.close();
                  
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -120,7 +117,7 @@ public class BDDJoueur {
     }
     
     public void UpdateJoueur(int ID, int x, int y, int vitesse, boolean capturable){
-            try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+            try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
                 PreparedStatement requete = connexion.prepareStatement("UPDATE Joueur SET X = ?, Y = ?, VITESSE = ?, CAPTURABLE = ? WHERE ID = ?");
                 requete.setInt(1, x);
                 requete.setInt(2, y);
@@ -131,7 +128,6 @@ public class BDDJoueur {
                 requete.executeUpdate();
 
                 requete.close();
-                connexion.close();
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -139,11 +135,14 @@ public class BDDJoueur {
     }
     
     public void DeleteJoueur(int ID){
-        try (Connection connexion = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD)) {
+        try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
             PreparedStatement requete = connexion.prepareStatement("DELETE FROM Joueur WHERE id = ?");
             requete.setInt(1,ID);
 
             requete.executeUpdate();
+            
+            requete.close();
+            
         } catch (SQLException ex) {
                 ex.printStackTrace();
         }
