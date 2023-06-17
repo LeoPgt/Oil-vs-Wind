@@ -36,98 +36,98 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
     public MandyInterfaceGraphique() {
         // Initialisation de la fenêtre
         setTitle("OIL VS WIND");
-        // setSize(3240, 1680);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jeuCommence = false;
-        
-        // Configuration du panel de dessin
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jLabel1 = new JLabel();
-        this.jLabel1.setPreferredSize(new java.awt.Dimension(1600, 830));
-        getContentPane().add(jLabel1, BorderLayout.CENTER);
-        this.pack();
+        jeuCommence = false;
 
+        // Configuration du panel de dessin
+        jLabel1 = new JLabel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (!jeuCommence) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+                } else {
+                    DessinerCarte(g);
+                    // Dessiner les spots
+                    try {
+                        dessinerSpots(g);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MandyInterfaceGraphique.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
 
+        // Charger les images
         try {
-            //charger les images du fond
             backgroundImage = ImageIO.read(new File("src/resource/fonddentreedujeu.PNG"));
             briqueMurImage = ImageIO.read(new File("src/resource/brique_mur.PNG"));
             briqueSableImage = ImageIO.read(new File("src/resource/brique_sable.PNG"));
-            // Charger les images des personnages
             runnerImage = ImageIO.read(new File("src/resource/perso.png"));
             baril1Image = ImageIO.read(new File("src/resource/baril_jaune.png"));
             baril2Image = ImageIO.read(new File("src/resource/baril_bleu.png"));
             baril3Image = ImageIO.read(new File("src/resource/baril_rouge.png"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
-        this.framebuffer = new BufferedImage(this.jLabel1.getWidth(), this.jLabel1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+      
+        this.framebuffer = new BufferedImage(2000, 1200, BufferedImage.TYPE_INT_ARGB);
         this.jLabel1.setIcon(new ImageIcon(framebuffer));
         this.contexte = this.framebuffer.createGraphics();
 
         // Creation du jeu
         this.jeu = new Jeu();
 
-        // Creation du Timer qui appelle this.actionPerformed() tous les 1 s
-        this.timer = new Timer(1000, this);
-        this.timer.start();
-        int x = 42;
-        // Ajout d'un ecouteur clavier
-        this.addKeyListener(this);
-   
-        
         // Configuration du bouton "Joueur"
         buttonJoueur = new JButton("Jouer");
+        buttonJoueur.addActionListener(this);
 
         // Ajout des composants à la fenêtre
         getContentPane().add(buttonJoueur, BorderLayout.SOUTH);
+        getContentPane().add(jLabel1, BorderLayout.CENTER);
+
+        // Configuration du Timer
+        this.timer = new Timer(1000, this);
+        this.timer.start();
+
+        // Ajout d'un écouteur clavier
+        this.addKeyListener(this);
+
+        // Configuration de la fenêtre
+        pack();
+        setVisible(true);
+        jLabel1.setFocusable(true);
     }
-    
-    public void paintComponent(Graphics g) {
-        if (!jeuCommence) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
-        } else {
-            DessinerCarte(g);
-        // Dessiner les spots
-        try {
-            dessinerSpots(g);
-        } catch (IOException ex) {
-            Logger.getLogger(MandyInterfaceGraphique.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-    }
-    
-    // Methode appelee par le timer et qui effectue la boucle de jeu
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        jeu = new Jeu();
-        String pseudo = JOptionPane.showInputDialog("Entrez votre pseudo");
-        
-        // Vérifier si c'est le premier joueur
-        if (jeu.getListeJoueurs().isEmpty()) {
-            Runner runner = new Runner(0, pseudo, 0, 0, 0);
-            jeu.InsertJoueur(runner, pseudo);
-        } else {
-            Baril baril = new Baril(0, pseudo, 0, 0, false);
-            jeu.InsertJoueur(baril, pseudo);
-        }
-        // Masquer le bouton "Joueur"
-        buttonJoueur.setVisible(false);
+        if (e.getSource() == buttonJoueur) {
+            String pseudo = JOptionPane.showInputDialog("Entrez votre pseudo");
 
-        // Le jeu commence
-        jeuCommence = true;
-        
-        // Mettre à jour l'état du jeu
-        this.jeu.partieMoteurV2(); 
-        this.jLabel1.repaint();
-        
-        if (this.jeu.partieMoteurV2()) {
-            this.timer.stop();
+            if (jeu.getListeJoueurs().isEmpty()) {
+                Runner runner = new Runner(0, pseudo, 0, 0, 0);
+                jeu.InsertJoueur(runner, pseudo);
+            } else {
+                Baril baril = new Baril(0, pseudo, 0, 0, false);
+                jeu.InsertJoueur(baril, pseudo);
+            }
+
+            buttonJoueur.setVisible(false);
+            jeuCommence = true;
+            repaint();
+        } else if (jeuCommence) {
+            jeu.partieMoteurV2();
+            repaint();
+            if (jeu.partieMoteurV2()) {
+                timer.stop();
+            }
         }
     }
+
 
     @Override
     public void keyTyped(KeyEvent evt) {
