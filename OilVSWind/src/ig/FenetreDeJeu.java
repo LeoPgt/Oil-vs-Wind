@@ -12,18 +12,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
+import moteur.*;
 
 /**
  * Exemple de fenetre de jeu en utilisant uniquement des commandes
  *
  * @author guillaume.laurent
  */
-public class FenetreDeJeu extends JFrame {
+public class FenetreDeJeu extends JFrame implements ActionListener{
     private HashMap<String, BufferedImage> images;
     private BufferedImage framebuffer;
     private Graphics2D contexte;
     private JLabel jLabel1;
     private JeuIG jeu; // On va prendre le moteur
+    private Jeu jeuMoteur;
     private Timer timer;
     
     //Les Listeners
@@ -50,7 +52,8 @@ public class FenetreDeJeu extends JFrame {
         this.pack();
         
         // Creation du jeu
-        this.jeu = new JeuIG();
+        this.jeuMoteur = new Jeu();
+        this.jeu = new JeuIG(this.jeuMoteur); //MANAL : C'est ici que je fais le lien entre le coté moteur et l'IG précisément !
         
         //Ajout du listener ici
         this.keyL = new EcouteurClavier(jeu); //Of course on le met APRES avoir déclaré Jeu()....

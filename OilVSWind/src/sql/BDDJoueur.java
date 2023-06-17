@@ -19,9 +19,17 @@ import moteur.*;
 public class BDDJoueur {
 
 
+    private String CONNECTION_URL;
+    private String USERNAME;
+    private String PASSWORD;
+
     private ArrayList<Jouable> listeJoueurs;
 
     public BDDJoueur() {
+        this.CONNECTION_URL = "jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind";
+        this.USERNAME = "etudiant";
+        this.PASSWORD = "YTDTvj9TR3CDYCmP";
+
         this.listeJoueurs = new ArrayList<Jouable>();
     }
 
@@ -32,7 +40,7 @@ public class BDDJoueur {
 
     public ArrayList<Jouable> SelectJoueur() {
         try {
-            Connection connexion = SingletonJDBC.getInstance().getConnection();
+            Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
             PreparedStatement requete = connexion.prepareStatement("SELECT * FROM Joueur");
 
             ResultSet result = requete.executeQuery();

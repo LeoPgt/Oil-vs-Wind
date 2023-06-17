@@ -114,6 +114,10 @@ public class Jeu {
     public boolean isBas() {
         return bas;
     }
+    
+    public Runner getRunner(){
+        return this.runner;
+    }
 
     public ArrayList<Baril> getBarrilJoueur() {
         return barrilJoueur;

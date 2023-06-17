@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import moteur.*;
 
 /**
  * Création de la classe Avatars
@@ -18,17 +19,19 @@ import javax.imageio.ImageIO;
  * @author mleconte
  */
 public class Avatars {
+    
     private BufferedImage spritePersonnage;
     private BufferedImage spriteBarilRouge;
     private BufferedImage spriteBarilJaune;
     private BufferedImage spriteBarilBleu;
+    
     protected double xPersonnage, yPersonnage;
     protected double xBarilRouge, yBarilRouge;
     protected double xBarilJaune, yBarilJaune;
     protected double xBarilBleu, yBarilBleu;
     private boolean gauche, droite;
 
-    public Avatars() {
+    public Avatars(Jeu J) {
         try {
             this.spritePersonnage = ImageIO.read(getClass().getClassLoader().getResource("perso.png"));
             this.spriteBarilRouge = ImageIO.read(getClass().getClassLoader().getResource("baril_rouge.png"));
@@ -37,14 +40,23 @@ public class Avatars {
         } catch (IOException ex) {
             Logger.getLogger(Avatars.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.xPersonnage = ;
-        this.yPersonnage = 150;
-        this.xBarilRouge = 200;
-        this.yBarilRouge = 150;
-        this.xBarilJaune = 300;
-        this.yBarilJaune = 150;
-        this.xBarilBleu = 400;
-        this.yBarilBleu = 150;
+        
+        //MANAL : Tu peux utiliser ton Jeu moteur là, pour capter les positions initiales de tes joueurs
+        //MANAL : (Une arrayList pour les coordonnées de tes barils aurait été cool, ça aurait permis de juste faire une boucle ;)
+        Baril baril_rouge = J.getBarrilJoueur().get(0); //MANAL : Je suis pas sure pour les get(i), t'avais associé un ID à une couleur de baril ?
+        Baril baril_bleu = J.getBarrilJoueur().get(1);
+        Baril baril_jaune = J.getBarrilJoueur().get(2);
+        Runner personnage = J.getRunner();
+        
+        //MANAL : Et là tu vois, on se sert bien du moteur ! :)
+        this.xPersonnage = personnage.getX();
+        this.yPersonnage = personnage.getY();
+        this.xBarilRouge = baril_rouge.getX();
+        this.yBarilRouge = baril_rouge.getY();
+        this.xBarilJaune = baril_jaune.getX();
+        this.yBarilJaune = baril_jaune.getY();
+        this.xBarilBleu = baril_bleu.getX();
+        this.yBarilBleu = baril_bleu.getY(); 
         this.gauche = false;
         this.droite = false;
     }

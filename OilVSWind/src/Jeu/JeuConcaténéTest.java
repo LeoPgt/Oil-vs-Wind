@@ -20,9 +20,9 @@ public class JeuConcaténéTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JeuConcaténé Jeu = new JeuConcaténé(2);
+        //JeuConcaténé Jeu = new JeuConcaténé(2);
         System.out.println();
-        Jeu.partie();
+        //Jeu.partie();
 
 
     }

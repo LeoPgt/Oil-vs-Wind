@@ -183,8 +183,9 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
                     g.drawImage(briqueMurImage, i * largeurCase, j * hauteurCase, largeurCase, hauteurCase, null);
                 } else if (element instanceof Runner) { // Dessiner l'image du runner à la position correspondante
                     g.drawImage(runnerImage, jeu.runner.getX() * largeurCase, jeu.runner.getY() * hauteurCase, largeurCase, hauteurCase, null);
-                } else if (element instanceof Baril baril) {
-                    int index = jeu.getBarrilJoueur().indexOf(baril);
+                } else if (element instanceof Baril) {
+                    Baril baril_element = (Baril)element;
+                    int index = jeu.getBarrilJoueur().indexOf(baril_element); 
                     switch (index) {
                         case 0:
                             g.drawImage(baril1Image, jeu.getBarrilJoueur().get(index).getX() * largeurCase, jeu.getBarrilJoueur().get(index).getY()  * hauteurCase, largeurCase, hauteurCase, null); // dessiner l'image du barril à la position correspondante

@@ -26,7 +26,7 @@ public class FenetreDeJeuGUI extends javax.swing.JFrame implements ActionListene
         initComponents();
 
         // Creation du jeu
-        this.jeu = new JeuIG();
+        //this.jeu = new JeuIG();
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
         this.framebuffer = new BufferedImage(this.jLabel1.getWidth(), this.jLabel1.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -117,19 +117,19 @@ public class FenetreDeJeuGUI extends javax.swing.JFrame implements ActionListene
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            this.jeu.avatar.setDroite(true);
+            this.jeu.getAvatar().setDroite(true);
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            this.jeu.avatar.setGauche(true);
+            this.jeu.getAvatar().setGauche(true);
         }
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            this.jeu.avatar.setDroite(false);
+            this.jeu.getAvatar().setDroite(false);
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            this.jeu.avatar.setGauche(false);
+            this.jeu.getAvatar().setGauche(false);
         }
     }//GEN-LAST:event_formKeyReleased
 

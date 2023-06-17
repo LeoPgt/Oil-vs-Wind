@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import moteur.*;
 
 /**
  * C'est la classe Jeu mais coté INTERFACE GRAPHIQUE ! 
@@ -17,17 +18,23 @@ import javax.imageio.ImageIO;
 public class JeuIG {
 
     private BufferedImage fond;
-    public Avatars avatar;
+    private Avatars avatar;
+    private Jeu JeuMoteur;
+    
 
-    public JeuIG() {
+    public JeuIG(Jeu J) {
+        this.JeuMoteur = J;
         try {
             this.fond = ImageIO.read(getClass().getClassLoader().getResource("resources/fond.jpg"));
         } catch (IOException ex) {
             Logger.getLogger(JeuIG.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.avatar = new Avatars();
+        this.avatar = new Avatars(this.JeuMoteur);
     }
-
+    
+    public Avatars getAvatar(){
+        return this.avatar;
+    }
     /**
     * Cette méthode est importante, c'est cool si vous respectez d'ailleurs ce format 
     * avec une méthode MiseàJour() et une méthode rendu(). 
