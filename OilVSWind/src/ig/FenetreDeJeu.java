@@ -38,16 +38,27 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
     private EcouteurClavier keyL;
 
     public FenetreDeJeu() {
+        jeuCommence = false;
         // Initialisation de la fenêtre
         this.setTitle("OIL VS WIND");
         this.setSize(1200, 800);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        this.jLabel1 = new JLabel();
-        this.jLabel1.setPreferredSize(new java.awt.Dimension(607, 380));
-        this.setContentPane(this.jLabel1);
-        this.pack();
+        // Configuration du panel de dessin
+        jLabel1 = new JLabel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (!jeuCommence) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+                } else {
+                    BufferedImage imageCarte = jeu.getImageCarte(); // Récupérer l'image de la carte depuis JeuIG
+                }if (imageCarte != null) {
+                    g.drawImage(imageCarte, 0, 0, getWidth(), getHeight(), null);
+                }   
+            }
+        };
         // Charger les images
         try {
             backgroundImage = ImageIO.read(new File("src/resource/fonddentreedujeu.PNG"));
@@ -63,7 +74,7 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
         this.addKeyListener(this.keyL);
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
-        this.framebuffer = new BufferedImage(this.jLabel1.getWidth(), this.jLabel1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        this.framebuffer = new BufferedImage(1200, 800, BufferedImage.TYPE_INT_ARGB);
         this.jLabel1.setIcon(new ImageIcon(framebuffer));
         this.contexte = this.framebuffer.createGraphics();
 
@@ -76,12 +87,16 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
         buttonJoueur.addActionListener(this);
 
         // Ajout des composants à la fenêtre
-        getContentPane().add(buttonJoueur, BorderLayout.SOUTH);
-        getContentPane().add(jLabel1, BorderLayout.CENTER);
+        this.add(buttonJoueur, BorderLayout.SOUTH);
+        this.add(jLabel1, BorderLayout.CENTER);
         
         //carte crée dans JeuIG
         this.imageCarte = null;
 
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
     }
   
     // Methode appelee par le timer et qui effectue la boucle de jeu
@@ -96,15 +111,15 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
             repaint();
          } else if (jeuCommence) {
             jeuMoteur.partieMoteurV2();
-            
+
             //Ca c'est juste pour appliquer le rendu()
             this.jLabel1.repaint();
-            
+
         }else if (jeuMoteur.partieMoteurV2()) {
             timer.stop();
         }
     }
-    
+
     
     /**
      * @param args the command line arguments

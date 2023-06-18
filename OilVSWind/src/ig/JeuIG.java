@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import moteur.*;
-import javax.swing.JPanel;
 
 /**
  * C'est la classe Jeu mais coté INTERFACE GRAPHIQUE ! 
@@ -15,7 +14,7 @@ import javax.swing.JPanel;
  * @author mandy
  */
 
-public class JeuIG extends JPanel {
+public class JeuIG {
     private BufferedImage backgroundImage;
     private BufferedImage briqueMurImage;
     private BufferedImage briqueSableImage;
@@ -40,15 +39,21 @@ public class JeuIG extends JPanel {
         this.carteImage = DessinerCarte(); // Appel de DessinerCarte() et stockage de l'image de la carte
     }
     
+    public BufferedImage getImageCarte() {
+        return carteImage;
+    }
     public Avatars getAvatar(){
         return this.avatar;
     }
-
-    public BufferedImage DessinerCarte() {
-        int largeurCase = getWidth() / JeuMoteur.getCarteMoteur().getLargeur();
-        int hauteurCase = getHeight() / JeuMoteur.getCarteMoteur().getHauteur();
+  
+    public final BufferedImage DessinerCarte() {
+        int largeurCase = 1216  / JeuMoteur.getCarteMoteur().getLargeur();
+        int hauteurCase = 865 / JeuMoteur.getCarteMoteur().getHauteur();
         
-        BufferedImage imageCarte = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        // Ajouter la ligne de débogage ici
+        // System.out.println("Width: " + getWidth() + ", Height: " + getHeight());
+        
+        BufferedImage imageCarte = new BufferedImage(1216, 865, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = imageCarte.createGraphics();
 
         for (int i = 0; i < JeuMoteur.getCarteMoteur().getLargeur(); i++) {

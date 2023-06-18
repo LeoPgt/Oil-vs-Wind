@@ -175,7 +175,10 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
     private void DessinerCarte(Graphics g) {
         int largeurCase = getWidth() / jeu.getCarteMoteur().getLargeur();
         int hauteurCase = getHeight() / jeu.getCarteMoteur().getHauteur();
-
+        
+        // Ajouter la ligne de débogage ici
+        System.out.println("Width: " + getWidth() + ", Height: " + getHeight());
+        
         for (int i = 0; i < jeu.getCarteMoteur().getLargeur(); i++) {
             for (int j = 0; j < jeu.getCarteMoteur().getHauteur(); j++) {
                 Element element = jeu.laCaseDeCoordonnees(i, j);
