@@ -83,7 +83,7 @@ public class Avatars {
         this.haut = haut;
     }
 
-    public void miseAJour() {
+    public void miseAJourRunner() {
         // Pixel de déplacement.
         double vitesse = 20; // peut être à changer, je ne sais pas si c'est assez rapide
 
@@ -100,8 +100,81 @@ public class Avatars {
         if (this.gauche) {
             this.xPersonnage -= vitesse;
         }
+        // Mettre à jour les coordonnées du personnage dans la classe Jeu
+        jeuMoteur.getRunner().setX((int) xPersonnage);
+        jeuMoteur.getRunner().setY((int) yPersonnage);
+
     }
     
+    public void miseAJourBarilRouge() {
+        // Pixel de déplacement.
+        double vitesse = 20; // peut être à changer, je ne sais pas si c'est assez rapide
+
+        // Mettre à jour la position du personnage en fonction des touches pressées.
+        if (this.haut) {
+            this.yBarilRouge -= vitesse;
+        }
+        if (this.bas) {
+            this.yBarilRouge += vitesse;
+        }
+        if (this.droite) {
+            this.xBarilRouge+= vitesse;
+        }
+        if (this.gauche) {
+            this.xBarilRouge -= vitesse;
+        }
+        // Mettre à jour les coordonnées du personnage dans la classe Jeu
+        jeuMoteur.getBarrilJoueur().get(0).setX((int) xBarilRouge);
+        jeuMoteur.getBarrilJoueur().get(0).setY((int) yBarilRouge);
+
+    }
+        
+    public void miseAJourBarilBleu() {
+        // Pixel de déplacement.
+        double vitesse = 20; // peut être à changer, je ne sais pas si c'est assez rapide
+
+        // Mettre à jour la position du personnage en fonction des touches pressées.
+        if (this.haut) {
+            this.yBarilBleu -= vitesse;
+        }
+        if (this.bas) {
+            this.yBarilBleu += vitesse;
+        }
+        if (this.droite) {
+            this.xBarilBleu+= vitesse;
+        }
+        if (this.gauche) {
+            this.xBarilBleu -= vitesse;
+        }
+        // Mettre à jour les coordonnées du personnage dans la classe Jeu
+        jeuMoteur.getBarrilJoueur().get(1).setX((int) xBarilBleu);
+        jeuMoteur.getBarrilJoueur().get(1).setY((int) yBarilBleu);
+
+    }
+    
+        public void miseAJourBarilJaune() {
+        // Pixel de déplacement.
+        double vitesse = 20; // peut être à changer, je ne sais pas si c'est assez rapide
+
+        // Mettre à jour la position du personnage en fonction des touches pressées.
+        if (this.haut) {
+            this.yBarilJaune -= vitesse;
+        }
+        if (this.bas) {
+            this.yBarilJaune += vitesse;
+        }
+        if (this.droite) {
+            this.xBarilJaune+= vitesse;
+        }
+        if (this.gauche) {
+            this.xBarilJaune -= vitesse;
+        }
+        // Mettre à jour les coordonnées du personnage dans la classe Jeu
+        jeuMoteur.getBarrilJoueur().get(2).setX((int) xBarilJaune);
+        jeuMoteur.getBarrilJoueur().get(2).setY((int) yBarilJaune);
+
+    }
+        
     public void rendu(Graphics2D contexte) {
         contexte.drawImage(this.spritePersonnage, (int) xPersonnage, (int) yPersonnage, null);
         contexte.drawImage(this.spriteBarilRouge, (int) xBarilRouge, (int) yBarilRouge, null);

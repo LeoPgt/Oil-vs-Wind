@@ -50,7 +50,7 @@ public class JeuIG {
         int largeurCase = 1216  / JeuMoteur.getCarteMoteur().getLargeur();
         int hauteurCase = 865 / JeuMoteur.getCarteMoteur().getHauteur();
         
-        // Ajouter la ligne de débogage ici
+        // Ajout d'une ligne pour comprendre
         // System.out.println("Width: " + getWidth() + ", Height: " + getHeight());
         
         BufferedImage imageCarte = new BufferedImage(1216, 865, BufferedImage.TYPE_INT_ARGB);
@@ -82,15 +82,13 @@ public class JeuIG {
     
 
     public void miseAJour() {
-        this.avatar.miseAJour();
+        this.avatar.miseAJourRunner();
+        this.avatar.miseAJourBarilRouge();
+        this.avatar.miseAJourBarilBleu();
+        this.avatar.miseAJourBarilJaune();
     }
 
     public void rendu(Graphics2D contexte) {
-        if (!jeuCommence) {
-            contexte.drawImage(backgroundImage, 0, 0, null);
-        } else {
-            contexte.drawImage(carteImage, 0, 0, null);
-        }
         this.avatar.rendu(contexte);
     }
 }

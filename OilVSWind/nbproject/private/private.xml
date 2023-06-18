@@ -9,35 +9,6 @@
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/RunnerTest.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jouable.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
-            <file>file:/Z:/Bureau/Oil-vs-Wind/OilVSWind/src/sql/Select_OVSW.java</file>
-            <file>file:/Z:/Bureau/Oil-vs-Wind/OilVSWind/src/sql/Update_OVSW.java</file>
-            <file>file:/Z:/Bureau/Oil-vs-Wind/OilVSWind/src/sql/Insert_OVSW.java</file>
-            <file>file:/Z:/Bureau/Oil-vs-Wind/OilVSWind/src/sql/Init_OVSW.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/utilitaire/TestFichier.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jouable.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/Fenetre.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/utilitaire/Fichier.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Cases.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/JeuIG.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/EcouteurClavier.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/DisplayBis.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/BDDJoueur.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Baril.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/utilitaire/Coordonnee.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/DispayBisTest.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/Avatars.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeu.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Runner.java</file>
-        </group>
-        <group>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/InterfaceClavier.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/Jefaisdestest.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/jefaisdestestmethode.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/RunnerTest.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jouable.java</file>
-            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/utilitaire/Fichier.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Element.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/InterfaceClavierTest.java</file>
@@ -157,6 +128,29 @@
             <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/Jeu/JeuConcaténé.java</file>
             <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
             <file>file:/Z:/Mes%20documents/GitHub/Oil-vs-Wind/OilVSWind/src/ig/MandyInterfaceGraphique.java</file>
+        </group>
+        <group>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/AvatarsTest.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/JeuIGTest.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Carte.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/Archives/DisplayBis.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/JeuIG.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Cases.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/EcouteurClavier.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/JouableTest.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/BDDJoueur.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/Archives/Joueurs.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/SingletonJDBC.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/Archives/FenetreDeJeu.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Bonus.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/Avatars.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/Archives/Jeu.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeuGUI.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/JeuTest.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/MandyInterfaceGraphique.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeu.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/Archives/igMethode.java</file>
         </group>
     </open-files>
 </project-private>

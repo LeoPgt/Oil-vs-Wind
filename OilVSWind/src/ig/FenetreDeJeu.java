@@ -18,9 +18,8 @@ import javax.swing.Timer;
 import moteur.*;
 
 /**
- * Exemple de fenetre de jeu en utilisant uniquement des commandes
  *
- * @author guillaume.laurent
+ * @author mandy.leconte
  */
 public class FenetreDeJeu extends JFrame implements ActionListener{
     private BufferedImage framebuffer;
@@ -56,7 +55,7 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
                     BufferedImage imageCarte = jeu.getImageCarte(); // Récupérer l'image de la carte depuis JeuIG
                     if (imageCarte != null) {
                         g.drawImage(imageCarte, 0, 0, getWidth(), getHeight(), null);
-                        jeu.getAvatar().rendu((Graphics2D) g); // Afficher les personnages sur la carte
+                        jeu.rendu((Graphics2D) g); // Afficher les personnages sur la carte
                     }
                 }
             }
@@ -112,13 +111,17 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
             imageCarte = jeu.DessinerCarte(); // Chargez l'image de la carte
             repaint();
          } else if (jeuCommence) {
-            jeuMoteur.partieMoteurV2();
+            boolean jeuTermine = jeuMoteur.partieMoteurV2();
 
-            //Ca c'est juste pour appliquer le rendu()
-            this.jLabel1.repaint();
+            // Mettre à jour les positions des personnages
+            jeu.miseAJour();
+            // Redessiner l'affichage
+            repaint();
 
-        }else if (jeuMoteur.partieMoteurV2()) {
-            timer.stop();
+            // Vérifier si la partie est terminée
+            if (jeuTermine) {
+                timer.stop();
+            }
         }
     }
 

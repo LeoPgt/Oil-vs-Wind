@@ -54,7 +54,10 @@ public class AvatarsTest extends JPanel implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             avatars.setBas(true);
         }
-        avatars.miseAJour();
+        avatars.miseAJourRunner();
+        avatars.miseAJourBarilRouge();
+        avatars.miseAJourBarilJaune();
+        avatars.miseAJourBarilBleu();
         repaint();
     }
 
@@ -69,7 +72,10 @@ public class AvatarsTest extends JPanel implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             avatars.setBas(false);
         }
-        avatars.miseAJour();
+        avatars.miseAJourRunner();
+        avatars.miseAJourBarilRouge();
+        avatars.miseAJourBarilJaune();
+        avatars.miseAJourBarilBleu();
         repaint();
     }
 

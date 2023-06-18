@@ -38,11 +38,11 @@ public class Jeu {
 //        this.BJ = new BDDJoueur();
 //        this.BJ.SelectJoueur();
 //        this.listeJ = this.BJ.getListeJoueurs();
-          this.listeJ = new ArrayList<Jouable>();
-          this.listeJ.add(new Runner(011, "runner", 120, 40, 1));
-          this.listeJ.add(new Baril(012, "baril1", 200, 100, true));
-          this.listeJ.add(new Baril(013, "baril2", 16, 9, true));
-          this.listeJ.add(new Baril(014, "baril3", 566, 845, true));
+        this.listeJ = new ArrayList<Jouable>();
+        this.listeJ.add(new Runner(011, "runner", 120, 40, 1));
+        this.listeJ.add(new Baril(012, "baril1", 200, 100, true));
+        this.listeJ.add(new Baril(013, "baril2", 16, 9, true));
+        this.listeJ.add(new Baril(014, "baril3", 566, 845, true));
           
         for(int i = 0; i < listeJ.size(); i++ ){
             if (i >= 0 && i < this.CarteMoteur.getSpots().size()) {
@@ -363,7 +363,7 @@ public class Jeu {
 
    
 // Méthode pour vérifier si tous les barils ont été capturés
-    private boolean tousBarilsCaptures() {
+    public boolean tousBarilsCaptures() {
         Cases[][] matrice = CarteMoteur.getMatrice();
 
         for (int i = 0; i < matrice.length; i++) {
