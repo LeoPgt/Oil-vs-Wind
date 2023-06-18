@@ -54,9 +54,11 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
                 } else {
                     BufferedImage imageCarte = jeu.getImageCarte(); // Récupérer l'image de la carte depuis JeuIG
-                }if (imageCarte != null) {
-                    g.drawImage(imageCarte, 0, 0, getWidth(), getHeight(), null);
-                }   
+                    if (imageCarte != null) {
+                        g.drawImage(imageCarte, 0, 0, getWidth(), getHeight(), null);
+                        jeu.getAvatar().rendu((Graphics2D) g); // Afficher les personnages sur la carte
+                    }
+                }
             }
         };
         // Charger les images

@@ -352,6 +352,10 @@ public class Jeu {
                 BJ.UpdateJoueur(baril.getIdSQL(), newX, newY, 10, baril.capturableGet());// Met à jour les coordonnées du Barril dans la base de données
             }
         } else {
+            System.out.println(this.gauche);
+            System.out.println(this.droite);
+            System.out.println(this.haut);
+            System.out.println(this.bas);
             System.out.println("Déplacement impossible dans la direction spécifiée");
         }
         return MapMod;

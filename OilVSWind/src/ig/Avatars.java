@@ -85,7 +85,7 @@ public class Avatars {
 
     public void miseAJour() {
         // Pixel de déplacement.
-        double vitesse = 1.0; // peut être à changer, je ne sais pas si c'est assez rapide
+        double vitesse = 20; // peut être à changer, je ne sais pas si c'est assez rapide
 
         // Mettre à jour la position du personnage en fonction des touches pressées.
         if (this.haut) {
