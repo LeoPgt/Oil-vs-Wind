@@ -152,7 +152,7 @@ public class Avatars {
 
     }
     
-        public void miseAJourBarilJaune() {
+    public void miseAJourBarilJaune() {
         // Pixel de déplacement.
         double vitesse = 20; // peut être à changer, je ne sais pas si c'est assez rapide
 

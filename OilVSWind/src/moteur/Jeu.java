@@ -307,64 +307,70 @@ public class Jeu {
     * @return la matrice modifié avec le déplacement du jouable
     */   
         
-    public Carte MiseAJour(Jouable J, Carte Bouclage) {
-        Carte MapMod = new Carte(Bouclage.getLargeur(), Bouclage.getHauteur());
+public Carte MiseAJour(Jouable J, Carte Bouclage) {
+    Carte MapMod = new Carte(Bouclage.getLargeur(), Bouclage.getHauteur());
 
-        for (int i = 0; i < Bouclage.getLargeur(); i++) {
-            for (int j = 0; j < Bouclage.getHauteur(); j++) {
-                MapMod.setMatrice(i, j, new Cases(i, j));
-                Cases bouclageCase = Bouclage.getMatrice()[i][j];
-                MapMod.getMatrice()[i][j].setMur(bouclageCase.getMur());
-                MapMod.getMatrice()[i][j].setListeBonus(new ArrayList<>(bouclageCase.getListeBonus()));
-                MapMod.getMatrice()[i][j].setListeJouable(new ArrayList<>(bouclageCase.getListeJouable()));
-            }
+    for (int i = 0; i < Bouclage.getLargeur(); i++) {
+        for (int j = 0; j < Bouclage.getHauteur(); j++) {
+            MapMod.setMatrice(i, j, new Cases(i, j));
+            Cases bouclageCase = Bouclage.getMatrice()[i][j];
+            MapMod.getMatrice()[i][j].setMur(bouclageCase.getMur());
+            MapMod.getMatrice()[i][j].setListeBonus(new ArrayList<>(bouclageCase.getListeBonus()));
+            MapMod.getMatrice()[i][j].setListeJouable(new ArrayList<>(bouclageCase.getListeJouable()));
+        }
+    }
+    
+    int x = J.getX();
+    int y = J.getY();
+
+    if (deplacementEstPossible(J)) {
+        int newX = x;
+        int newY = y;
+
+        if (this.gauche) {
+            newX = x - 1;
+        } else if (this.droite) {
+            newX = x + 1;
+        } else if (this.haut) {
+            newY = y - 1;
+        } else if (this.bas) {
+            newY = y + 1;
+        }
+
+        Element caseDestination = laCaseDeCoordonnees(newX, newY);
+
+        if (caseDestination == null) {
+            System.out.println("Erreur : La case de destination est introuvable");
+            return MapMod;
         }
         
-        int x = J.getX();
-        int y = J.getY();
-
-        if (deplacementEstPossible(J)) {
-            int newX = x;
-            int newY = y;
-
-            if (this.gauche) {
-                newX = x - 1;
-            } else if (this.droite) {
-                newX = x + 1;
-            } else if (this.haut) {
-                newY = y - 1;
-            } else if (this.bas) {
-                newY = y + 1;
-            }
-
-            Element caseDestination = laCaseDeCoordonnees(newX, newY);
-
-            if (caseDestination == null) {
-                System.out.println("Erreur : La case de destination est introuvable");
-                return MapMod;
-            }
-
-            MapMod.getMatrice()[x][y].getListeJouable().remove(J);
-            MapMod.getMatrice()[newX][newY].addJouable(J);
-            J.setX(newX);
-            J.setY(newY);
-
-            if (J instanceof Runner) {
-                Runner runner = (Runner) J;
-                BJ.UpdateJoueur(runner.getIdSQL(), newX, newY, runner.getVitesse(), false); // Met à jour les coordonnées du Runner dans la base de données
-            } else if (J instanceof Baril) {
-                Baril baril = (Baril) J;
-                BJ.UpdateJoueur(baril.getIdSQL(), newX, newY, 10, baril.capturableGet());// Met à jour les coordonnées du Barril dans la base de données
-            }
-        } else {
-            System.out.println(this.gauche);
-            System.out.println(this.droite);
-            System.out.println(this.haut);
-            System.out.println(this.bas);
-            System.out.println("Déplacement impossible dans la direction spécifiée");
+        // Vérification si la case de destination est un mur
+        if (caseDestination instanceof Mur) {
+            System.out.println("Déplacement impossible : la case de destination est un mur");
+            return MapMod;
         }
-        return MapMod;
+
+        MapMod.getMatrice()[x][y].getListeJouable().remove(J);
+        MapMod.getMatrice()[newX][newY].addJouable(J);
+        J.setX(newX);
+        J.setY(newY);
+
+        if (J instanceof Runner) {
+            Runner runner = (Runner) J;
+            BJ.UpdateJoueur(runner.getIdSQL(), newX, newY, runner.getVitesse(), false); // Met à jour les coordonnées du Runner dans la base de données
+        } else if (J instanceof Baril) {
+            Baril baril = (Baril) J;
+            BJ.UpdateJoueur(baril.getIdSQL(), newX, newY, 10, baril.capturableGet());// Met à jour les coordonnées du Barril dans la base de données
+        }
+    } else {
+        System.out.println(this.gauche);
+        System.out.println(this.droite);
+        System.out.println(this.haut);
+        System.out.println(this.bas);
+        System.out.println("Déplacement impossible dans la direction spécifiée");
     }
+    return MapMod;
+}
 
    
 // Méthode pour vérifier si tous les barils ont été capturés
