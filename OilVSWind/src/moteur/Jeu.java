@@ -227,11 +227,11 @@ public class Jeu {
             return false;
         } else {
             if(caseCourante.isMur()) {
-                return collision(J, caseCourante.getMur());
+                return collisionBloquante(J, caseCourante.getMur());
             } else if(!caseCourante.getListeBonus().isEmpty()) {
-                return collision(J, caseCourante.getListeBonus().get(0));
+                return collisionBloquante(J, caseCourante.getListeBonus().get(0));
             } else {
-                return collision(J, caseCourante.getListeJouable().get(0));
+                return collisionBloquante(J, caseCourante.getListeJouable().get(0));
             }
         }
     }
@@ -241,7 +241,7 @@ public class Jeu {
     * @version 3
     * @return un boolean de si oui ou non ils sont rentrés en collision
     */  
-    public boolean collision(Element A, Element B){ 
+    public boolean collisionBloquante(Element A, Element B){ 
         if (A instanceof Runner && B instanceof Baril) { 
             // Collision entre le Runner et un Baril
             Baril baril = (Baril) B;
@@ -255,11 +255,11 @@ public class Jeu {
                 // Suppression du baril de la listeJouable de la Cases
                 CarteMoteur.getMatrice()[baril.getX()][baril.getY()].getListeJouable().remove(baril);
 
-                return true; //Collision détecté = Runner attrape baril
+                return false; //Collision non bloquante pour le déplacement = Runner attrape baril
             }
         } else if (A instanceof Runner && B instanceof Mur) { 
             // Collision entre le Runner et un Mur
-            return true; // Collision détectée
+            return true; // Collision bloquante pour le déplacement
        } else if (A instanceof Runner && B instanceof Bonus) {
             // Collision entre le Runner et un Bonus
             Bonus bonus = (Bonus) B;
@@ -272,11 +272,16 @@ public class Jeu {
                 // Supprimer le Bonus de la listeJouable de la Case correspondante
                 CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
 
-                return true; // Collision détectée = Le runner attrape bonus
+                return false; // Collision non bloquante = Le runner attrape bonus
             }
-        } else if (A instanceof Baril && (B instanceof Runner || B instanceof Mur || B instanceof Baril)) {
-            // Collision entre un Baril et Runner ou Mur ou Baril
-            return true; // Collision détectée
+        } else if (A instanceof Baril && B instanceof Baril){
+            // Collision entre un Baril et Baril
+            return false ; // Collision non bloquante pour le déplacement
+        } else if (A instanceof Baril && B instanceof Mur){
+            // Collision entre un Baril et Mur 
+            return true ; // Collision bloquante
+        } else if (A instanceof Baril && B instanceof Runner){
+            return collisionBloquante(B, A);
         } else if (A instanceof Baril && B instanceof Bonus) {
             // Collision entre un Baril et un Bonus
             Baril baril = (Baril) A;
@@ -288,11 +293,11 @@ public class Jeu {
                 // Supprimer le Bonus de la listeJouable de la Case correspondante
                 CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
 
-                return true; // Collision détectée = Le baril a attrapé un bonus
+                return false; // Collision non bloquante = Le baril a attrapé un bonus
             }
         } else if (!(A instanceof Runner) && !(A instanceof Baril)) {
             // Si A n'est ni un Runner ni un Baril, on échange les rôles de A et B
-            return collision(B, A);
+            return collisionBloquante(B, A);
         }
         return false; // Aucune collision détectée
     }
