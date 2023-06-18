@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sql;
+package Archives;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import moteur.Baril;
 import moteur.Runner;
-import outils.OutilsJDBC;
 
 /**
  *
@@ -21,7 +20,7 @@ public class Insert_OVSW {
 
         try {
 
-            Connection connexion = DriverManager.getConnection("jdbc:mariadb://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind", "etudiant", "YTDTvj9TR3CDYCmP");
+            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/2022-2023_s2_vs1_tp1_OilvSWind", "etudiant", "YTDTvj9TR3CDYCmP");
 
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ? )");
             requete.setInt(1, 1000);

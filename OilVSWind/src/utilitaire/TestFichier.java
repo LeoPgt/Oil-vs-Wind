@@ -2,19 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package ig;
+package utilitaire;
+import moteur.Carte;
 
 /**
  *
- * @author rmorel
+ * @author manal.benaissa
  */
-public class InterfaceMenuTest {
+public class TestFichier {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       Carte c = new Carte(25,40);
+
+       Fichier F = new Fichier("src/resource/carte.txt");
+       F.lireFichier();
+       System.out.println(F.getCarte().toString());
+       
     }
     
 }
