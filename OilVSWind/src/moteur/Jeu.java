@@ -3,11 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-import java.awt.Point;
+
 import utilitaire.*;
 import java.util.ArrayList;
 import sql.BDDJoueur; // lien SQL
-
 /**
  *
  * @author mleconte
@@ -20,7 +19,7 @@ public class Jeu {
     public Runner runner;
     private ArrayList<Baril> barrilJoueur;
     private ArrayList<Jouable> listeJ; // Déclaration de listeJ
-    
+
     public Jeu () {
         
         //Initialiser Carte
@@ -34,39 +33,45 @@ public class Jeu {
         
         // Initialisation de barrilJoueur
         this.barrilJoueur = new ArrayList<>();
-        
+       
         //Ajouter Des Jouables
-        this.BJ = new BDDJoueur();
-        this.BJ.SelectJoueur();
-        this.listeJ = this.BJ.getListeJoueurs();
- 
+//        this.BJ = new BDDJoueur();
+//        this.BJ.SelectJoueur();
+//        this.listeJ = this.BJ.getListeJoueurs();
+        this.listeJ = new ArrayList<Jouable>();
+        this.listeJ.add(new Runner(011, "runner", 120, 40, 1));
+        this.listeJ.add(new Baril(012, "baril1", 200, 100, true));
+        this.listeJ.add(new Baril(013, "baril2", 16, 9, true));
+        this.listeJ.add(new Baril(014, "baril3", 566, 845, true));
+          
         for(int i = 0; i < listeJ.size(); i++ ){
-            
-            int x_spot = this.CarteMoteur.getSpots().get(i).getX();
-            int y_spot = this.CarteMoteur.getSpots().get(i).getY();
-            
-            if(listeJ.get(i) instanceof Runner){
-                
-                this.runner = (Runner)listeJ.get(i);
-                
-                this.runner.setX(x_spot);
-                this.runner.setX(y_spot);
-                
-                //TODO : Faire le Update SQL pour changer coordonnee !
-                BJ.UpdateJoueur(runner.getIdSQL(), x_spot, y_spot, runner.getVitesse(), false); 
-                
-            }
-            else if(listeJ.get(i) instanceof Baril){
-                Baril B = (Baril)listeJ.get(i);
-                B.setX(x_spot);
-                B.setY(y_spot);
-                this.barrilJoueur.add(B);
-                
-                //TODO : Faire le Update SQL pour changer coordonnee !
-                BJ.UpdateJoueur(B.getIdSQL(), x_spot, y_spot, 10, B.capturableGet());
-            }
-        }    
+            if (i >= 0 && i < this.CarteMoteur.getSpots().size()) {
+                int x_spot = this.CarteMoteur.getSpots().get(i).getX();
+                int y_spot = this.CarteMoteur.getSpots().get(i).getY();
+
+                if(listeJ.get(i) instanceof Runner){
+                    this.runner = (Runner)listeJ.get(i);
+
+                    this.runner.setX(x_spot);
+                    this.runner.setY(y_spot);
+
+                    //Pour l'instant la sql est en commentaire car soucis dessus
+//                   BJ.UpdateJoueur(runner.getIdSQL(), x_spot, y_spot, runner.getVitesse(), false); 
+
+                }
+                else if(listeJ.get(i) instanceof Baril){
+                    
+                    Baril B = (Baril)listeJ.get(i);
+                    B.setX(x_spot);
+                    B.setY(y_spot);
+                    this.barrilJoueur.add(B);
+
+                    //J'ai mis en commentaire cette ligne car elle faisait tout bug
+                    //BJ.UpdateJoueur(B.getIdSQL(), x_spot, y_spot, 10, B.capturableGet());
+                }
+            }    
         }
+    }
     
     public ArrayList<Jouable> getListeJoueurs() {
         return BJ.getListeJoueurs();
@@ -114,6 +119,10 @@ public class Jeu {
     public boolean isBas() {
         return bas;
     }
+    
+    public Runner getRunner(){
+        return this.runner;
+    }
 
     public ArrayList<Baril> getBarrilJoueur() {
         return barrilJoueur;
@@ -152,77 +161,27 @@ public class Jeu {
     }
   
   // Ici On crée une array list des Elements qui sont autour de A
-  public ArrayList<Element> caseAutour(Element A) {
+    public ArrayList<Element> caseAutour(Element A) {
         ArrayList<Element> alentour = new ArrayList<>();
 
         int x = A.getX();
         int y = A.getY();
 
-        for (int i = x - 1; i <= x + 1; i++) {
-            for (int j = y - 1; j <= y + 1; j++) {
-                 if (i == x && j == y) {
-                // On ne fait rien car ce sont les coordonnées de l'élément A
-                } else {
-                    Element caseVoisine = laCaseDeCoordonnees(i, j);
-                    if (caseVoisine != null) {
-                        alentour.add(caseVoisine); // Ajoute l'élément lui-même
-                    }
-                }
+        int[][] directions = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}}; // gauche, droite, haut, bas
+
+        for (int[] dir : directions) {
+            int i = x + dir[0];
+            int j = y + dir[1];
+            Element caseVoisine = laCaseDeCoordonnees(i, j);
+            if (caseVoisine != null) {
+                alentour.add(caseVoisine);
             }
         }
-    return alentour;
+
+        return alentour;
     }
   
-     /**
-     * Ce programme permet de gérer toutes les collisions
-     * @version 3
-     * @return un boolean de si oui ou non ils sont rentrés en collision
-     */  
-  public boolean collision(Element A, Element B){ // throws SQLException // LIEN SQL
-    ArrayList<Element> casesAutourA = caseAutour(A);
 
-    if (casesAutourA.isEmpty()) {
-        return false; // Aucune collision possible car aucune case autour de A
-    }
-    if (A instanceof Runner && B instanceof Baril && casesAutourA.contains(B)) { // Si A est une instance de Runner et Si B est une instance de Baril et si CaseAutour de A contient B)
-        // Collision entre le Runner et un Baril
-        Baril baril = (Baril) B;
-        if (baril.capturableGet()) {
-            baril.capturableSet(false);
-            BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); // lien SQL
-            return true; //Collision détecté = Runner attrape baril
-        }
-    } else if (A instanceof Runner && B instanceof Mur && casesAutourA.contains(B)) { 
-        // Collision entre le Runner et un Mur
-        return true; // Collision détectée
-    } else if (A instanceof Runner && B instanceof Bonus && casesAutourA.contains(B)) {
-        // Collision entre le Runner et un Bonus
-        Bonus bonus = (Bonus) B;
-        Runner runner = (Runner) A;
-        if (bonus.capturableGet()) {
-            bonus.capturableSet(false);
-            runner.setVitesse(); // le bonus s'applique sur le Runner
-            BJ.UpdateJoueur(runner.getIdSQL(), runner.getX(), runner.getY(), runner.getVitesse(), false); // lien SQL
-            return true; // Collision détectée = Le runner attrape bonus
-        }
-    } else if (A instanceof Baril && (B instanceof Runner || B instanceof Mur || B instanceof Baril)&& casesAutourA.contains(B)) {
-        // Collision entre un Baril et Runner ou Mur ou Baril
-        return true; // Collision détectée
-    } else if (A instanceof Baril && B instanceof Bonus && casesAutourA.contains(B)) {
-        // Collision entre un Baril et un Bonus
-        Baril baril = (Baril) A;
-        Bonus bonus = (Bonus) B;
-        if (bonus.capturableGet()) {
-            bonus.capturableSet(false);
-            BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); 
-            return true; // Collision détectée = Le baril a attrapé un bonus
-        }
-    } else if (!(A instanceof Runner) && !(A instanceof Baril)) {
-        // Si A n'est ni un Runner ni un Baril, on échange les rôles de A et B
-        return collision(B, A);
-    }
-    return false; // Aucune collision détectée
-}
 
     /**
      * Verification si le déplacement est possible pour un jouable 
@@ -231,75 +190,164 @@ public class Jeu {
      * * @return des true ou false suivant si c'est possible ou pas 
      */ 
   
-public boolean deplacementEstPossible(Jouable J) {
-    int x = J.getX();
-    int y = J.getY();
+    public boolean deplacementEstPossible(Jouable J) {
+        int x = J.getX();
+        int y = J.getY();
 
-    if (x >= 0 && x < CarteMoteur.getLargeur() && y >= 0 && y < CarteMoteur.getHauteur()) {
-        if (this.gauche) {
-            if (x - 1 >= 0 && CarteMoteur.getMatrice()[x - 1][y].isMur() == false) {
-                return true;
+        Cases caseCourante;
+
+        if (x >= 0 && x < CarteMoteur.getLargeur() && y >= 0 && y < CarteMoteur.getHauteur()) {
+            if (this.gauche) {
+                if (x - 1 >= 0) {
+                    caseCourante = CarteMoteur.getMatrice()[x - 1][y];
+                    return checkCollision(J, caseCourante);
+                }
+            } else if (this.droite) {
+                if (x + 1 < CarteMoteur.getLargeur()) {
+                    caseCourante = CarteMoteur.getMatrice()[x + 1][y];
+                    return checkCollision(J, caseCourante);
+                }
+            } else if (this.haut) {
+                if (y - 1 >= 0) {
+                    caseCourante = CarteMoteur.getMatrice()[x][y - 1];
+                    return checkCollision(J, caseCourante);
+                }
+            } else if (this.bas) {
+                if (y + 1 < CarteMoteur.getHauteur()) {
+                    caseCourante = CarteMoteur.getMatrice()[x][y + 1];
+                    return checkCollision(J, caseCourante);
+                }
             }
-        } else if (this.droite) {
-            if (x + 1 < CarteMoteur.getLargeur() && CarteMoteur.getMatrice()[x + 1][y].isMur() == false) {
-                return true;
-            }
-        } else if (this.haut) {
-            if (y - 1 >= 0 && CarteMoteur.getMatrice()[x][y - 1].isMur() == false) {
-                return true;
-            }
-        } else if (this.bas) {
-            if (y + 1 < CarteMoteur.getHauteur() && CarteMoteur.getMatrice()[x][y + 1].isMur() == false) {
-                return true;
+        }
+        return false;
+    }
+
+    private boolean checkCollision(Jouable J, Cases caseCourante) {
+        if(!caseCourante.isMur() && caseCourante.getListeBonus().isEmpty() && caseCourante.getListeJouable().isEmpty()) {
+            return false;
+        } else {
+            if(caseCourante.isMur()) {
+                return collisionBloquante(J, caseCourante.getMur());
+            } else if(!caseCourante.getListeBonus().isEmpty()) {
+                return collisionBloquante(J, caseCourante.getListeBonus().get(0));
+            } else {
+                return collisionBloquante(J, caseCourante.getListeJouable().get(0));
             }
         }
     }
-    return false;
-}
+    
+    /**
+    * Ce programme permet de gérer toutes les collisions
+    * @version 3
+    * @return un boolean de si oui ou non ils sont rentrés en collision
+    */  
+    public boolean collisionBloquante(Element A, Element B){ 
+        if (A instanceof Runner && B instanceof Baril) { 
+            // Collision entre le Runner et un Baril
+            Baril baril = (Baril) B;
+            if (baril.capturableGet()) {
+                baril.capturableSet(false);
+                BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); // lien SQL
+
+                // Suppression du baril du ArrayList barrilJoueur
+                barrilJoueur.remove(baril);
+
+                // Suppression du baril de la listeJouable de la Cases
+                CarteMoteur.getMatrice()[baril.getX()][baril.getY()].getListeJouable().remove(baril);
+
+                return false; //Collision non bloquante pour le déplacement = Runner attrape baril
+            }
+        } else if (A instanceof Runner && B instanceof Mur) { 
+            // Collision entre le Runner et un Mur
+            return true; // Collision bloquante pour le déplacement
+       } else if (A instanceof Runner && B instanceof Bonus) {
+            // Collision entre le Runner et un Bonus
+            Bonus bonus = (Bonus) B;
+            Runner runner = (Runner) A;
+            if (bonus.capturableGet()) {
+                bonus.capturableSet(false);
+                runner.setVitesse(); // le bonus s'applique sur le Runner
+                BJ.UpdateJoueur(runner.getIdSQL(), runner.getX(), runner.getY(), runner.getVitesse(), false); // lien SQL
+
+                // Supprimer le Bonus de la listeJouable de la Case correspondante
+                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
+
+                return false; // Collision non bloquante = Le runner attrape bonus
+            }
+        } else if (A instanceof Baril && B instanceof Baril){
+            // Collision entre un Baril et Baril
+            return false ; // Collision non bloquante pour le déplacement
+        } else if (A instanceof Baril && B instanceof Mur){
+            // Collision entre un Baril et Mur 
+            return true ; // Collision bloquante
+        } else if (A instanceof Baril && B instanceof Runner){
+            return collisionBloquante(B, A);
+        } else if (A instanceof Baril && B instanceof Bonus) {
+            // Collision entre un Baril et un Bonus
+            Baril baril = (Baril) A;
+            Bonus bonus = (Bonus) B;
+            if (bonus.capturableGet()) {
+                bonus.capturableSet(false);
+                BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); 
+                
+                // Supprimer le Bonus de la listeJouable de la Case correspondante
+                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
+
+                return false; // Collision non bloquante = Le baril a attrapé un bonus
+            }
+        } else if (!(A instanceof Runner) && !(A instanceof Baril)) {
+            // Si A n'est ni un Runner ni un Baril, on échange les rôles de A et B
+            return collisionBloquante(B, A);
+        }
+        return false; // Aucune collision détectée
+    }
     /**
     * Déplace le jouable sur la carte suivant les infos qu'il obtient du programme le déplacement est possible
     * @version 3
     * @return la matrice modifié avec le déplacement du jouable
     */   
         
-public Carte MiseAJour(Jouable J, Carte Bouclage) {
-    Carte MapMod = new Carte(Bouclage.getLargeur(), Bouclage.getHauteur());
+    public Carte MiseAJour(Jouable J, Carte Bouclage) {
+        Carte MapMod = new Carte(Bouclage.getLargeur(), Bouclage.getHauteur());
 
-    for (int i = 0; i < Bouclage.getLargeur(); i++) {
-        for (int j = 0; j < Bouclage.getHauteur(); j++) {
-            MapMod.setMatrice(i, j, new Cases(i, j));
-            Cases bouclageCase = Bouclage.getMatrice()[i][j];
-            MapMod.getMatrice()[i][j].setMur(bouclageCase.getMur());
-            MapMod.getMatrice()[i][j].setListeBonus(new ArrayList<>(bouclageCase.getListeBonus()));
-            MapMod.getMatrice()[i][j].setListeJouable(new ArrayList<>(bouclageCase.getListeJouable()));
+        for (int i = 0; i < Bouclage.getLargeur(); i++) {
+            for (int j = 0; j < Bouclage.getHauteur(); j++) {
+                MapMod.setMatrice(i, j, new Cases(i, j));
+                Cases bouclageCase = Bouclage.getMatrice()[i][j];
+                MapMod.getMatrice()[i][j].setMur(bouclageCase.getMur());
+                MapMod.getMatrice()[i][j].setListeBonus(new ArrayList<>(bouclageCase.getListeBonus()));
+                MapMod.getMatrice()[i][j].setListeJouable(new ArrayList<>(bouclageCase.getListeJouable()));
+            }
         }
-    }
+        
+        int x = J.getX();
+        int y = J.getY();
 
-    int x = J.getX();
-    int y = J.getY();
+        if (deplacementEstPossible(J)) {
+            int newX = x;
+            int newY = y;
 
-    if (deplacementEstPossible(J)) {
-        int newX = x;
-        int newY = y;
+            if (this.gauche) {
+                newX = x - 1;
+            } else if (this.droite) {
+                newX = x + 1;
+            } else if (this.haut) {
+                newY = y - 1;
+            } else if (this.bas) {
+                newY = y + 1;
+            }
 
-        if (this.gauche) {
-            newX = x - 1;
-        } else if (this.droite) {
-            newX = x + 1;
-        } else if (this.haut) {
-            newY = y - 1;
-        } else if (this.bas) {
-            newY = y + 1;
-        }
+            Element caseDestination = laCaseDeCoordonnees(newX, newY);
 
-        Element caseDestination = laCaseDeCoordonnees(newX, newY);
+            if (caseDestination == null) {
+                System.out.println("Erreur : La case de destination est introuvable");
+                return MapMod;
+            }
 
-        if (caseDestination == null || !collision(J, caseDestination)) {
             MapMod.getMatrice()[x][y].getListeJouable().remove(J);
             MapMod.getMatrice()[newX][newY].addJouable(J);
             J.setX(newX);
             J.setY(newY);
-
 
             if (J instanceof Runner) {
                 Runner runner = (Runner) J;
@@ -309,18 +357,18 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
                 BJ.UpdateJoueur(baril.getIdSQL(), newX, newY, 10, baril.capturableGet());// Met à jour les coordonnées du Barril dans la base de données
             }
         } else {
-            System.out.println("Déplacement impossible : collision détectée");
+            System.out.println(this.gauche);
+            System.out.println(this.droite);
+            System.out.println(this.haut);
+            System.out.println(this.bas);
+            System.out.println("Déplacement impossible dans la direction spécifiée");
         }
-    } else {
-        System.out.println("Déplacement impossible dans la direction spécifiée");
+        return MapMod;
     }
 
-    System.out.println(MapMod.toString());
-    return MapMod;
-}
    
-//     Méthode pour vérifier si tous les barils ont été capturés
-    private boolean tousBarilsCaptures() {
+// Méthode pour vérifier si tous les barils ont été capturés
+    public boolean tousBarilsCaptures() {
         Cases[][] matrice = CarteMoteur.getMatrice();
 
         for (int i = 0; i < matrice.length; i++) {
@@ -339,7 +387,7 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
     public boolean partieMoteurV2() {
         boolean jeuTermine = false;
         // Boucle de jeu
-        while (jeuTermine = false) {
+        while (jeuTermine == false) {
             // Vérification si tous les barils ont été capturés
             if (tousBarilsCaptures()) {
                 jeuTermine = true;

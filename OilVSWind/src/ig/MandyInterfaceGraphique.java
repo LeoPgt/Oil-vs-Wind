@@ -2,6 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package ig;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import moteur.*;
+
 
 public class MandyInterfaceGraphique extends JFrame implements ActionListener, KeyListener {
     private Jeu jeu;
@@ -75,7 +78,7 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
       
-        this.framebuffer = new BufferedImage(2000, 1200, BufferedImage.TYPE_INT_ARGB);
+        this.framebuffer = new BufferedImage(1200, 800, BufferedImage.TYPE_INT_ARGB);
         this.jLabel1.setIcon(new ImageIcon(framebuffer));
         this.contexte = this.framebuffer.createGraphics();
 
@@ -108,20 +111,16 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
         if (e.getSource() == buttonJoueur) {
             String pseudo = JOptionPane.showInputDialog("Entrez votre pseudo");
 
-            if (jeu.getListeJoueurs().isEmpty()) {
-                Runner runner = new Runner(0, pseudo, 0, 0, 0);
-                jeu.InsertJoueur(runner, pseudo);
-            } else {
-                Baril baril = new Baril(0, pseudo, 0, 0, false);
-                jeu.InsertJoueur(baril, pseudo);
-            }
-
             buttonJoueur.setVisible(false);
             jeuCommence = true;
             repaint();
         } else if (jeuCommence) {
             jeu.partieMoteurV2();
-            repaint();
+            DessinerCarte(contexte);
+        
+            //Ca c'est juste pour appliquer le rendu()
+            this.jLabel1.repaint();
+            
             if (jeu.partieMoteurV2()) {
                 timer.stop();
             }
@@ -176,7 +175,10 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
     private void DessinerCarte(Graphics g) {
         int largeurCase = getWidth() / jeu.getCarteMoteur().getLargeur();
         int hauteurCase = getHeight() / jeu.getCarteMoteur().getHauteur();
-
+        
+        // Ajouter la ligne de débogage ici
+        System.out.println("Width: " + getWidth() + ", Height: " + getHeight());
+        
         for (int i = 0; i < jeu.getCarteMoteur().getLargeur(); i++) {
             for (int j = 0; j < jeu.getCarteMoteur().getHauteur(); j++) {
                 Element element = jeu.laCaseDeCoordonnees(i, j);
@@ -185,8 +187,9 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
                     g.drawImage(briqueMurImage, i * largeurCase, j * hauteurCase, largeurCase, hauteurCase, null);
                 } else if (element instanceof Runner) { // Dessiner l'image du runner à la position correspondante
                     g.drawImage(runnerImage, jeu.runner.getX() * largeurCase, jeu.runner.getY() * hauteurCase, largeurCase, hauteurCase, null);
-                } else if (element instanceof Baril baril) {
-                    int index = jeu.getBarrilJoueur().indexOf(baril);
+                } else if (element instanceof Baril) {
+                    Baril baril_element = (Baril)element;
+                    int index = jeu.getBarrilJoueur().indexOf(baril_element); 
                     switch (index) {
                         case 0:
                             g.drawImage(baril1Image, jeu.getBarrilJoueur().get(index).getX() * largeurCase, jeu.getBarrilJoueur().get(index).getY()  * hauteurCase, largeurCase, hauteurCase, null); // dessiner l'image du barril à la position correspondante
@@ -206,7 +209,7 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
             }
         }
     }
-    
+
     private void dessinerSpots(Graphics g) throws IOException {
         int largeurCase = getWidth() / jeu.getCarteMoteur().getLargeur();
         int hauteurCase = getHeight() / jeu.getCarteMoteur().getHauteur();

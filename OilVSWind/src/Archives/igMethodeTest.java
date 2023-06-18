@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package ig;
+package Archives;
 
+import Archives.igMethode;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
