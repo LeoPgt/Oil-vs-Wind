@@ -88,9 +88,9 @@ public class JeuIG {
 
     public void miseAJour() {
         this.avatar.miseAJourRunner();
-        //this.avatar.miseAJourBarilRouge();
-        //this.avatar.miseAJourBarilBleu();
-        //this.avatar.miseAJourBarilJaune();
+        this.avatar.miseAJourBarilRouge();
+        this.avatar.miseAJourBarilBleu();
+        this.avatar.miseAJourBarilJaune();
     }
 
     public void rendu(Graphics2D contexte) {
