@@ -61,7 +61,7 @@ public class DisplayBisTest {
     };
     
     private static final int[][] CHARACTER_POSITIONS = {
-        {2, 2}, // Position du personnage
+        {8, 19}, // Position du personnage
         {5, 5},  // Position du baril rouge
         {8, 8},  // Position du baril jaune
         {12, 12}  // Position du baril bleu
@@ -142,22 +142,22 @@ public class DisplayBisTest {
     
             characterSprites = new BufferedImage[NUM_CHARACTER_SPRITES];
             try {
-                characterSprites[0] = ImageIO.read(new File("perso.png")); // Chargement du sprite du personnage
+                characterSprites[0] = ImageIO.read(new File("src/resource/perso.png")); // Chargement du sprite du personnage
             } catch (IOException ex) {
                 Logger.getLogger(DisplayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                characterSprites[1] = ImageIO.read(new File("baril_rouge.png")); // Chargement du sprite du baril rouge
+                characterSprites[1] = ImageIO.read(new File("src/resource/baril_rouge.png")); // Chargement du sprite du baril rouge
             } catch (IOException ex) {
                 Logger.getLogger(DisplayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                characterSprites[2] = ImageIO.read(new File("baril_jaune.png")); // Chargement du sprite du du baril jaune
+                characterSprites[2] = ImageIO.read(new File("src/resource/baril_jaune.png")); // Chargement du sprite du du baril jaune
             } catch (IOException ex) {
                 Logger.getLogger(DisplayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                characterSprites[3] = ImageIO.read(new File("baril_bleu.png")); // Chargement du sprite du du baril bleu
+                characterSprites[3] = ImageIO.read(new File("src/resource/baril_bleu.png")); // Chargement du sprite du du baril bleu
             } catch (IOException ex) {
                 Logger.getLogger(DisplayBisTest.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -145,20 +145,20 @@ public class Jeu {
  // Méthode qui retourne l'élément à la position (x, y)
     public Element laCaseDeCoordonnees(int x, int y) {
         Cases c = CarteMoteur.getMatrice()[x][y];
-        
-        if (this.isCasesVide(x, y)){
-            return null;
+
+        if (this.isCasesVide(x, y)) {
+            return null; // La case est vide, il n'y a aucun élément
         }
-        if (c.isMur()){
-            return c.getMur();
+        if (c.isMur()) {
+            return c.getMur(); // La case contient un mur
         }
-        if(!c.getListeJouable().isEmpty()){
-            return c.getListeJouable().get(0);
+        if (!c.getListeJouable().isEmpty()) {
+            return c.getListeJouable().get(0); // La case contient un jouable
         }
-        if(!c.getListeBonus().isEmpty()){
-            return c.getListeBonus().get(0);
+        if (!c.getListeBonus().isEmpty()) {
+            return c.getListeBonus().get(0); // La case contient un bonus
         }
-        return null;
+        return null; // La case ne contient aucun élément
     }
   
   // Ici On crée une array list des Elements qui sont autour de A
@@ -194,47 +194,62 @@ public class Jeu {
     public boolean deplacementEstPossible(Jouable J) {
         int x = J.getX();
         int y = J.getY();
-
-        Cases caseCourante;
-
-        if (x >= 0 && x < CarteMoteur.getLargeur() && y >= 0 && y < CarteMoteur.getHauteur()) {
-            if (this.gauche) {
-                if (x - 1 >= 0) {
-                    caseCourante = CarteMoteur.getMatrice()[x - 1][y];
-                    return checkCollision(J, caseCourante);
+        System.out.println(this.gauche);
+        if (this.gauche) {
+            if (x - 1 >= 0) {
+                if (caseAutour(J).isEmpty()) {
+                    return true; // Déplacement possible vers la gauche (aucun élément autour)
+                } else {
+                    Element caseDestination = laCaseDeCoordonnees(x - 1, y);
+                    if (caseDestination != null) {
+                        return collisionBloquante(J, caseDestination); // Traiter la collision avec la case de destination
+                    } else {
+                        return true; // Déplacement possible vers la gauche
+                    }
                 }
-            } else if (this.droite) {
-                if (x + 1 < CarteMoteur.getLargeur()) {
-                    caseCourante = CarteMoteur.getMatrice()[x + 1][y];
-                    return checkCollision(J, caseCourante);
+            }
+        } else if (this.droite) {
+            if (x + 1 < CarteMoteur.getLargeur()) {
+                if (caseAutour(J).isEmpty()) {
+                    return true; // Déplacement possible vers la droite (aucun élément autour)
+                } else {
+                    Element caseDestination = laCaseDeCoordonnees(x + 1, y);
+                    if (caseDestination != null) {
+                        return collisionBloquante(J, caseDestination); // Traiter la collision avec la case de destination
+                    } else {
+                        return true; // Déplacement possible vers la droite
+                    }
                 }
-            } else if (this.haut) {
-                if (y - 1 >= 0) {
-                    caseCourante = CarteMoteur.getMatrice()[x][y - 1];
-                    return checkCollision(J, caseCourante);
+            }
+        } else if (this.haut) {
+            if (y - 1 >= 0) {
+                if (caseAutour(J).isEmpty()) {
+                    return true; // Déplacement possible vers le haut (aucun élément autour)
+                } else {
+                    Element caseDestination = laCaseDeCoordonnees(x, y - 1);
+                    if (caseDestination != null) {
+                        return collisionBloquante(J, caseDestination); // Traiter la collision avec la case de destination
+                    } else {
+                        return true; // Déplacement possible vers le haut
+                    }
                 }
-            } else if (this.bas) {
-                if (y + 1 < CarteMoteur.getHauteur()) {
-                    caseCourante = CarteMoteur.getMatrice()[x][y + 1];
-                    return checkCollision(J, caseCourante);
+            }
+        } else if (this.bas) {
+            if (y + 1 < CarteMoteur.getHauteur()) {
+                if (caseAutour(J).isEmpty()) {
+                    return true; // Déplacement possible vers le bas (aucun élément autour)
+                } else {
+                    Element caseDestination = laCaseDeCoordonnees(x, y + 1);
+                    if (caseDestination != null) {
+                        return collisionBloquante(J, caseDestination); // Traiter la collision avec la case de destination
+                    } else {
+                        return true; // Déplacement possible vers le bas
+                    }
                 }
             }
         }
-        return false;
-    }
 
-    private boolean checkCollision(Jouable J, Cases caseCourante) {
-        if(!caseCourante.isMur() && caseCourante.getListeBonus().isEmpty() && caseCourante.getListeJouable().isEmpty()) {
-            return false;
-        } else {
-            if(caseCourante.isMur()) {
-                return collisionBloquante(J, caseCourante.getMur());
-            } else if(!caseCourante.getListeBonus().isEmpty()) {
-                return collisionBloquante(J, caseCourante.getListeBonus().get(0));
-            } else {
-                return collisionBloquante(J, caseCourante.getListeJouable().get(0));
-            }
-        }
+        return false; // Aucune direction de déplacement spécifiée ou coordonnées invalides
     }
     
     /**
@@ -302,6 +317,7 @@ public class Jeu {
         }
         return false; // Aucune collision détectée
     }
+    
     /**
     * Déplace le jouable sur la carte suivant les infos qu'il obtient du programme le déplacement est possible
     * @version 3
@@ -355,7 +371,11 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
         MapMod.getMatrice()[newX][newY].addJouable(J);
         J.setX(newX);
         J.setY(newY);
-
+        
+        // Mettre à jour les coordonnées du personnage dans la carte moteur
+        CarteMoteur.getMatrice()[x][y].getListeJouable().remove(J);
+        CarteMoteur.getMatrice()[newX][newY].addJouable(J);
+        
         if (J instanceof Runner) {
             Runner runner = (Runner) J;
             BJ.UpdateJoueur(runner.getIdSQL(), newX, newY, runner.getVitesse(), false); // Met à jour les coordonnées du Runner dans la base de données
@@ -364,16 +384,11 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
             BJ.UpdateJoueur(baril.getIdSQL(), newX, newY, 10, baril.capturableGet());// Met à jour les coordonnées du Barril dans la base de données
         }
     } else {
-        System.out.println(this.gauche);
-        System.out.println(this.droite);
-        System.out.println(this.haut);
-        System.out.println(this.bas);
         System.out.println("Déplacement impossible dans la direction spécifiée");
     }
     return MapMod;
 }
 
-   
 // Méthode pour vérifier si tous les barils ont été capturés
     public boolean tousBarilsCaptures() {
         Cases[][] matrice = CarteMoteur.getMatrice();
