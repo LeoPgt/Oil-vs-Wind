@@ -23,9 +23,14 @@ public class JeuIG {
     private Jeu JeuMoteur;
     private BufferedImage carteImage; // Ajout d'une variable pour stocker l'image de la carte
     private boolean jeuCommence = false;
+    private int largeurCase; //MANAL : Tu vas avoir besoin de ces deux là souvent !
+    private int hauteurCase;
     
-    public JeuIG(Jeu J) {
+    public JeuIG(Jeu J, int largeurJeu, int hauteurJeu) {
         this.JeuMoteur = J;
+        this.largeurCase = largeurJeu/JeuMoteur.getCarteMoteur().getLargeur();
+        this.hauteurCase = hauteurJeu/JeuMoteur.getCarteMoteur().getHauteur();
+        
         // Charger les images
         try {
             spotImage = ImageIO.read(new File("src/resource/brique_spot.PNG"));
@@ -35,7 +40,7 @@ public class JeuIG {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.avatar = new Avatars(this.JeuMoteur);
+        this.avatar = new Avatars(this.JeuMoteur, this.largeurCase, this.hauteurCase);
         this.carteImage = DessinerCarte(); // Appel de DessinerCarte() et stockage de l'image de la carte
     }
     
@@ -47,13 +52,13 @@ public class JeuIG {
     }
   
     public final BufferedImage DessinerCarte() {
-        int largeurCase = 1216  / JeuMoteur.getCarteMoteur().getLargeur();
-        int hauteurCase = 865 / JeuMoteur.getCarteMoteur().getHauteur();
-        
+                
         // Ajout d'une ligne pour comprendre
         // System.out.println("Width: " + getWidth() + ", Height: " + getHeight());
+        int largeurJeu = this.largeurCase*JeuMoteur.getCarteMoteur().getLargeur();
+        int hauteurJeu = this.hauteurCase*JeuMoteur.getCarteMoteur().getHauteur();
         
-        BufferedImage imageCarte = new BufferedImage(1216, 865, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage imageCarte = new BufferedImage(largeurJeu, hauteurJeu, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = imageCarte.createGraphics();
 
         for (int i = 0; i < JeuMoteur.getCarteMoteur().getLargeur(); i++) {

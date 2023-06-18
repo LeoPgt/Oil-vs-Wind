@@ -33,14 +33,20 @@ public class Avatars {
     protected double xBarilJaune, yBarilJaune;
     protected double xBarilBleu, yBarilBleu;
     private boolean gauche, droite, bas, haut;
+    
+    private int largeurCase; 
+    private int hauteurCase;
 
-    public Avatars(Jeu J) {
+    public Avatars(Jeu J, int largeurCase, int hauteurCase) {
         this.jeuMoteur = J;
+        this.largeurCase = largeurCase;
+        this.hauteurCase = hauteurCase;
+        
         try {
-            this.spritePersonnage = ImageIO.read(new File("src/resource/perso.PNG"));
-            this.spriteBarilRouge = ImageIO.read(new File("src/resource/baril_rouge.PNG"));
-            this.spriteBarilJaune = ImageIO.read(new File("src/resource/baril_jaune.PNG"));
-            this.spriteBarilBleu =  ImageIO.read(new File("src/resource/baril_bleu.PNG"));
+            this.spritePersonnage = ImageIO.read(new File("src/resource/perso.png"));
+            this.spriteBarilRouge = ImageIO.read(new File("src/resource/baril_rouge.png"));
+            this.spriteBarilJaune = ImageIO.read(new File("src/resource/baril_jaune.png"));
+            this.spriteBarilBleu =  ImageIO.read(new File("src/resource/baril_bleu.png"));
        
         } catch (IOException ex) {
             Logger.getLogger(Avatars.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,14 +59,14 @@ public class Avatars {
         Runner personnage = J.getRunner();
         
         //MANAL : Et là tu vois, on se sert bien du moteur ! :)
-        this.xPersonnage = personnage.getX();
-        this.yPersonnage = personnage.getY();
-        this.xBarilRouge = baril_rouge.getX();
-        this.yBarilRouge = baril_rouge.getY();
-        this.xBarilJaune = baril_jaune.getX();
-        this.yBarilJaune = baril_jaune.getY();
-        this.xBarilBleu = baril_bleu.getX();
-        this.yBarilBleu = baril_bleu.getY(); 
+        this.xPersonnage = personnage.getX()*this.largeurCase;
+        this.yPersonnage = personnage.getY()*this.hauteurCase;
+        this.xBarilRouge = baril_rouge.getX()*this.largeurCase;
+        this.yBarilRouge = baril_rouge.getY()*this.hauteurCase;
+        this.xBarilJaune = baril_jaune.getX()*this.largeurCase;
+        this.yBarilJaune = baril_jaune.getY()*this.hauteurCase;
+        this.xBarilBleu = baril_bleu.getX()*this.largeurCase;
+        this.yBarilBleu = baril_bleu.getY()*this.hauteurCase; 
         this.gauche = false;
         this.droite = false;
         this.haut = false;
@@ -176,9 +182,9 @@ public class Avatars {
     }
         
     public void rendu(Graphics2D contexte) {
-        contexte.drawImage(this.spritePersonnage, (int) xPersonnage, (int) yPersonnage, null);
-        contexte.drawImage(this.spriteBarilRouge, (int) xBarilRouge, (int) yBarilRouge, null);
-        contexte.drawImage(this.spriteBarilJaune, (int) xBarilJaune, (int) yBarilJaune, null);
-        contexte.drawImage(this.spriteBarilBleu, (int) xBarilBleu, (int) yBarilBleu, null);
+        contexte.drawImage(this.spritePersonnage, (int) this.xPersonnage, (int) this.yPersonnage, null);
+        contexte.drawImage(this.spriteBarilRouge, (int) this.xBarilRouge, (int) this.yBarilRouge, null);
+        contexte.drawImage(this.spriteBarilJaune, (int) this.xBarilJaune, (int) this.yBarilJaune, null);
+        contexte.drawImage(this.spriteBarilBleu, (int) this.xBarilBleu, (int) this.yBarilBleu, null);
     }
 }

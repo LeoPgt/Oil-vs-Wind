@@ -33,6 +33,10 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
     private boolean jeuCommence;
     private BufferedImage imageCarte;
     
+    //Les dimensions du jeu
+    private int largeurJeu;
+    private int hauteurJeu;
+    
     //Les Listeners
     private EcouteurClavier keyL;
 
@@ -40,7 +44,9 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
         jeuCommence = false;
         // Initialisation de la fenêtre
         this.setTitle("OIL VS WIND");
-        this.setSize(1200, 800);
+        this.largeurJeu = 1200;
+        this.hauteurJeu = 800;
+        this.setSize(this.largeurJeu, this.hauteurJeu);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -68,14 +74,14 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
         }
         // Creation du jeu
         this.jeuMoteur = new Jeu();
-        this.jeu = new JeuIG(this.jeuMoteur); //MANAL : C'est ici que je fais le lien entre le coté moteur et l'IG précisément !
+        this.jeu = new JeuIG(this.jeuMoteur, this.largeurJeu, this.hauteurJeu); //MANAL : C'est ici que je fais le lien entre le coté moteur et l'IG précisément !
         
         //Ajout du listener ici
         this.keyL = new EcouteurClavier(jeu); //Of course on le met APRES avoir déclaré Jeu()....
         this.addKeyListener(this.keyL);
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
-        this.framebuffer = new BufferedImage(1200, 800, BufferedImage.TYPE_INT_ARGB);
+        this.framebuffer = new BufferedImage(this.largeurJeu, this.hauteurJeu, BufferedImage.TYPE_INT_ARGB);
         this.jLabel1.setIcon(new ImageIcon(framebuffer));
         this.contexte = this.framebuffer.createGraphics();
 
