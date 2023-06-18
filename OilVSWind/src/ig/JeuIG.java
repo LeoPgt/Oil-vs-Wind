@@ -47,14 +47,14 @@ public class JeuIG {
     public BufferedImage getImageCarte() {
         return carteImage;
     }
-    public Avatars getAvatar(){
-        return this.avatar;
+
+    public Avatars getAvatar() {
+        return avatar;
     }
   
+  
     public final BufferedImage DessinerCarte() {
-                
-        // Ajout d'une ligne pour comprendre
-        // System.out.println("Width: " + getWidth() + ", Height: " + getHeight());
+               
         int largeurJeu = this.largeurCase*JeuMoteur.getCarteMoteur().getLargeur();
         int hauteurJeu = this.hauteurCase*JeuMoteur.getCarteMoteur().getHauteur();
         
@@ -88,9 +88,9 @@ public class JeuIG {
 
     public void miseAJour() {
         this.avatar.miseAJourRunner();
-        this.avatar.miseAJourBarilRouge();
-        this.avatar.miseAJourBarilBleu();
-        this.avatar.miseAJourBarilJaune();
+        //this.avatar.miseAJourBarilRouge();
+        //this.avatar.miseAJourBarilBleu();
+        //this.avatar.miseAJourBarilJaune();
     }
 
     public void rendu(Graphics2D contexte) {

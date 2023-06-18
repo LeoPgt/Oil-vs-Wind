@@ -322,7 +322,7 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
     
     int x = J.getX();
     int y = J.getY();
-
+    System.out.println("Coordonnées avant le déplacement - x: " + x + ", y: " + y); // Ajout de l'instruction de débogage
     if (deplacementEstPossible(J)) {
         int newX = x;
         int newY = y;

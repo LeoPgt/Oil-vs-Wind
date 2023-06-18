@@ -183,8 +183,8 @@ public class Avatars {
         
     public void rendu(Graphics2D contexte) {
         contexte.drawImage(this.spritePersonnage, (int) this.xPersonnage, (int) this.yPersonnage, null);
-        contexte.drawImage(this.spriteBarilRouge, (int) this.xBarilRouge, (int) this.yBarilRouge, null);
-        contexte.drawImage(this.spriteBarilJaune, (int) this.xBarilJaune, (int) this.yBarilJaune, null);
-        contexte.drawImage(this.spriteBarilBleu, (int) this.xBarilBleu, (int) this.yBarilBleu, null);
+        //contexte.drawImage(this.spriteBarilRouge, (int) this.xBarilRouge, (int) this.yBarilRouge, null);
+        //contexte.drawImage(this.spriteBarilJaune, (int) this.xBarilJaune, (int) this.yBarilJaune, null);
+        //contexte.drawImage(this.spriteBarilBleu, (int) this.xBarilBleu, (int) this.yBarilBleu, null);
     }
 }

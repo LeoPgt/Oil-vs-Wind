@@ -76,6 +76,9 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
         this.jeuMoteur = new Jeu();
         this.jeu = new JeuIG(this.jeuMoteur, this.largeurJeu, this.hauteurJeu); //MANAL : C'est ici que je fais le lien entre le coté moteur et l'IG précisément !
         
+        // pour que la fenêtre de jeu a le focus pour recevoir les événements clavier
+        this.setFocusable(true);
+        
         //Ajout du listener ici
         this.keyL = new EcouteurClavier(jeu); //Of course on le met APRES avoir déclaré Jeu()....
         this.addKeyListener(this.keyL);
