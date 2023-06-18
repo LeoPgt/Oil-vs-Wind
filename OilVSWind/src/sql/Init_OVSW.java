@@ -53,26 +53,7 @@ public class Init_OVSW {
             
             Statement statement = connexion.createStatement() ;
             
-//            statement.executeUpdate("DROP TABLE dresseurs");
-//            statement.executeUpdate("CREATE TABLE tp_jdbc.dresseurs ( "
-//                    + "pseudo VARCHAR(32) NOT NULL, "
-//                    + "email VARCHAR(64) NOT NULL, "
-//                    + "motDePasse VARCHAR(32) NOT NULL, "
-//                    + "latitude DOUBLE NOT NULL, "
-//                    + "longitude DOUBLE NOT NULL, "
-//                    + "derniereConnexion DATETIME NOT NULL, "
-//                    + "PRIMARY KEY (pseudo)) ENGINE = InnoDB");
-//           
-//            statement.executeUpdate("DROP TABLE pokemons");
-//            statement.executeUpdate("CREATE TABLE tp_jdbc.pokemons ( "
-//                    + "id INT NOT NULL AUTO_INCREMENT, "
-//                    + "espece VARCHAR(32) NOT NULL, "
-//                    + "latitude DOUBLE NOT NULL, "
-//                    + "longitude DOUBLE NOT NULL, "
-//                    + "visible BOOLEAN NOT NULL, "
-//                    + "creation DATETIME NOT NULL, "
-//                    + "proprietaire VARCHAR(32) NOT NULL, "
-//                    + "PRIMARY KEY (id)) ENGINE = InnoDB");
+
             
             statement.executeUpdate("DELETE FROM Joueur;");           
             
@@ -80,13 +61,13 @@ public class Init_OVSW {
                     + "VALUES ( 1, 'Joueur 1', 0, 0, 'joueur', 2, false)");
             
             statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
-                    + "VALUES ( 2, 'Joueur 1', 0, 0, 'baril', 2, false)");
+                    + "VALUES ( 2, 'Joueur 1', 0, 0, 'baril', 2, true)");
             
             statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
-                    + "VALUES ( 3, 'Joueur 1', 0, 0, 'baril', 2, false)");
+                    + "VALUES ( 3, 'Joueur 1', 0, 0, 'baril', 2, true)");
             
             statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
-                    + "VALUES ( 4, 'Joueur 1', 0, 0, 'baril', 2, false)");
+                    + "VALUES ( 4, 'Joueur 1', 0, 0, 'baril', 2, true)");
            
             
             ResultSet resultat = statement.executeQuery("SELECT * FROM Joueur;");
