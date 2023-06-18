@@ -7,6 +7,7 @@ package ig;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,14 +37,14 @@ public class Avatars {
     public Avatars(Jeu J) {
         this.jeuMoteur = J;
         try {
-            this.spritePersonnage = ImageIO.read(getClass().getClassLoader().getResource("perso.png"));
-            this.spriteBarilRouge = ImageIO.read(getClass().getClassLoader().getResource("baril_rouge.png"));
-            this.spriteBarilJaune = ImageIO.read(getClass().getClassLoader().getResource("baril_jaune.png"));
-            this.spriteBarilBleu = ImageIO.read(getClass().getClassLoader().getResource("baril_bleu.png"));
+            this.spritePersonnage = ImageIO.read(new File("src/resource/perso.PNG"));
+            this.spriteBarilRouge = ImageIO.read(new File("src/resource/baril_rouge.PNG"));
+            this.spriteBarilJaune = ImageIO.read(new File("src/resource/baril_jaune.PNG"));
+            this.spriteBarilBleu =  ImageIO.read(new File("src/resource/baril_bleu.PNG"));
+       
         } catch (IOException ex) {
             Logger.getLogger(Avatars.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         //MANAL : Tu peux utiliser ton Jeu moteur là, pour capter les positions initiales de tes joueurs
         //MANAL : (Une arrayList pour les coordonnées de tes barils aurait été cool, ça aurait permis de juste faire une boucle ;)
         Baril baril_rouge = J.getBarrilJoueur().get(0);
@@ -83,16 +84,24 @@ public class Avatars {
     }
 
     public void miseAJour() {
-        this.xPersonnage = jeuMoteur.getRunner().getX();
-        this.yPersonnage = jeuMoteur.getRunner().getY();
-        this.xBarilRouge = jeuMoteur.getBarrilJoueur().get(0).getX();
-        this.yBarilRouge = jeuMoteur.getBarrilJoueur().get(0).getY();
-        this.xBarilJaune = jeuMoteur.getBarrilJoueur().get(1).getX();
-        this.yBarilJaune = jeuMoteur.getBarrilJoueur().get(1).getY();
-        this.xBarilBleu = jeuMoteur.getBarrilJoueur().get(2).getX();
-        this.yBarilBleu = jeuMoteur.getBarrilJoueur().get(2).getY();
-    }
+        // Pixel de déplacement.
+        double vitesse = 1.0; // peut être à changer, je ne sais pas si c'est assez rapide
 
+        // Mettre à jour la position du personnage en fonction des touches pressées.
+        if (this.haut) {
+            this.yPersonnage -= vitesse;
+        }
+        if (this.bas) {
+            this.yPersonnage += vitesse;
+        }
+        if (this.droite) {
+            this.xPersonnage += vitesse;
+        }
+        if (this.gauche) {
+            this.xPersonnage -= vitesse;
+        }
+    }
+    
     public void rendu(Graphics2D contexte) {
         contexte.drawImage(this.spritePersonnage, (int) xPersonnage, (int) yPersonnage, null);
         contexte.drawImage(this.spriteBarilRouge, (int) xBarilRouge, (int) yBarilRouge, null);

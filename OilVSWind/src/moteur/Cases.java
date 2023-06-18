@@ -30,6 +30,7 @@ public class Cases {
         
     }
 
+
     public ArrayList<Bonus> getListeBonus() {
         return listeBonus;
     }
@@ -84,7 +85,5 @@ public class Cases {
     public void addBonus(Bonus b){
         this.listeBonus.add(b);
     }
-    
-    
     
 }

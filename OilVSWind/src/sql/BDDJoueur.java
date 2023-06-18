@@ -73,14 +73,13 @@ public class BDDJoueur {
     }
     
     public void InsertJoueur(Jouable J, String pseudo) {
-        Connection connexion = null;
-        PreparedStatement requete = null;
         try {
-            connexion = SingletonJDBC.getInstance().getConnection();
+            Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
+            
             if(J instanceof Runner){
                 Runner runner = (Runner) J;
 
-                    requete = connexion.prepareStatement("INSERT INTO Joueur VALUES ( ?, ?, ?, ?, ?, ?)");
+                    PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES ( ?, ?, ?, ?, ?, ?)");
 
                     requete.setString(1, runner.getPseudo());
                     requete.setInt(2, runner.getX());
@@ -90,10 +89,13 @@ public class BDDJoueur {
                     requete.setBoolean(6, false); // Les Runners ne sont pas capturables
 
                     requete.executeUpdate();
+                    
+                    requete.close();
+                    connexion.close();
 
             } else {
                 Baril baril = (Baril) J;
-                    requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?)");
+                    PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?)");
 
                     requete.setString(1, baril.getPseudo()); 
                     requete.setInt(2, baril.getX());
@@ -103,30 +105,20 @@ public class BDDJoueur {
                     requete.setBoolean(6, baril.capturableGet());
 
                     requete.executeUpdate();
+                    
+                    requete.close();
+                    connexion.close();
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            // Fermeture des ressources
-            try {
-                if (requete != null) {
-                    requete.close();
-                }
-                if (connexion != null) {
-                    connexion.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
     
     public void UpdateJoueur(int ID, int x, int y, int vitesse, boolean capturable){
-        Connection connexion = null;
-        PreparedStatement requete = null;
             try {
-                connexion = SingletonJDBC.getInstance().getConnection();
-                requete = connexion.prepareStatement("UPDATE Joueur SET X = ?, Y = ?, VITESSE = ?, CAPTURABLE = ? WHERE ID = ?");
+                Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
+                PreparedStatement requete = connexion.prepareStatement("UPDATE Joueur SET X = ?, Y = ?, VITESSE = ?, CAPTURABLE = ? WHERE ID = ?");
                 requete.setInt(1, x);
                 requete.setInt(2, y);
                 requete.setInt(3, vitesse);
@@ -135,32 +127,25 @@ public class BDDJoueur {
 
                 requete.executeUpdate();
                 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } finally {
-            // Fermeture des ressources
-            try {
-                if (requete != null) {
-                    requete.close();
-                }
-                if (connexion != null) {
-                    connexion.close();
-                }
+                requete.close();
+                connexion.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }
     }
     
     public void DeleteJoueur(int ID){
-        try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
+        try {
+            Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
             PreparedStatement requete = connexion.prepareStatement("DELETE FROM Joueur WHERE ID = ?");
+            
             requete.setInt(1,ID);
 
             requete.executeUpdate();
             
             requete.close();
             connexion.close();
+            
         } catch (SQLException ex) {
                 ex.printStackTrace();
         }
