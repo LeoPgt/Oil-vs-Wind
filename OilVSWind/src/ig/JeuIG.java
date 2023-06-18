@@ -26,8 +26,11 @@ public class JeuIG {
     private int largeurCase; //MANAL : Tu vas avoir besoin de ces deux là souvent !
     private int hauteurCase;
     
-    public JeuIG(Jeu J, int largeurJeu, int hauteurJeu) {
+    private Graphics2D contexte;
+    
+    public JeuIG(Jeu J, int largeurJeu, int hauteurJeu, Graphics2D contexte) {
         this.JeuMoteur = J;
+        this.contexte = contexte;
         this.largeurCase = largeurJeu/JeuMoteur.getCarteMoteur().getLargeur();
         this.hauteurCase = hauteurJeu/JeuMoteur.getCarteMoteur().getHauteur();
         
@@ -76,11 +79,13 @@ public class JeuIG {
         for (int i = 0; i < JeuMoteur.getCarteMoteur().getSpots().size(); i++) {
             int x_spot = JeuMoteur.CarteMoteur.getSpots().get(i).getX();
             int y_spot = JeuMoteur.CarteMoteur.getSpots().get(i).getY();
+            //System.out.println(x_spot +"-"+ y_spot);
 
             // Dessiner l'image du spot à la position correspondante
             graphics.drawImage(spotImage, x_spot* largeurCase, y_spot * hauteurCase,largeurCase, hauteurCase, null);
         }
         
+    
         graphics.dispose();
         return imageCarte;
     }
@@ -88,12 +93,13 @@ public class JeuIG {
 
     public void miseAJour() {
         this.avatar.miseAJourRunner();
-        this.avatar.miseAJourBarilRouge();
-        this.avatar.miseAJourBarilBleu();
-        this.avatar.miseAJourBarilJaune();
+        //this.avatar.miseAJourBarilRouge();
+        //this.avatar.miseAJourBarilBleu();
+        //this.avatar.miseAJourBarilJaune();
     }
 
     public void rendu(Graphics2D contexte) {
+        this.DessinerCarte();
         this.avatar.rendu(contexte);
     }
 }

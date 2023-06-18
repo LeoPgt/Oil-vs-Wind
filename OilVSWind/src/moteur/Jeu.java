@@ -46,6 +46,7 @@ public class Jeu {
           
         for(int i = 0; i < listeJ.size(); i++ ){
             if (i >= 0 && i < this.CarteMoteur.getSpots().size()) {
+                
                 int x_spot = this.CarteMoteur.getSpots().get(i).getX();
                 int y_spot = this.CarteMoteur.getSpots().get(i).getY();
 

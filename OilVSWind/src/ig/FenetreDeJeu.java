@@ -74,27 +74,24 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
         }
         // Creation du jeu
         this.jeuMoteur = new Jeu();
-        this.jeu = new JeuIG(this.jeuMoteur, this.largeurJeu, this.hauteurJeu); //MANAL : C'est ici que je fais le lien entre le coté moteur et l'IG précisément !
+        this.jeu = new JeuIG(this.jeuMoteur, this.largeurJeu, this.hauteurJeu, this.contexte); //MANAL : C'est ici que je fais le lien entre le coté moteur et l'IG précisément !
         
         // pour que la fenêtre de jeu a le focus pour recevoir les événements clavier
         this.setFocusable(true);
         
         //Ajout du listener ici
-        this.keyL = new EcouteurClavier(jeu); //Of course on le met APRES avoir déclaré Jeu()....
+        this.keyL = new EcouteurClavier(jeu, jeuMoteur); //Of course on le met APRES avoir déclaré Jeu()....
         this.addKeyListener(this.keyL);
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
         this.framebuffer = new BufferedImage(this.largeurJeu, this.hauteurJeu, BufferedImage.TYPE_INT_ARGB);
         this.jLabel1.setIcon(new ImageIcon(framebuffer));
         this.contexte = this.framebuffer.createGraphics();
-
-        // Creation du Timer qui appelle this.actionPerformed() tous les 40 ms
-        this.timer = new Timer(40, this);
-        this.timer.start();
                
         // Configuration du bouton "Joueur"
         buttonJoueur = new JButton("Jouer");
         buttonJoueur.addActionListener(this);
+        
 
         // Ajout des composants à la fenêtre
         this.add(buttonJoueur, BorderLayout.SOUTH);
@@ -118,14 +115,23 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
             buttonJoueur.setVisible(false);
             jeuCommence = true;
             imageCarte = jeu.DessinerCarte(); // Chargez l'image de la carte
+            
+            // Creation du Timer qui appelle this.actionPerformed() tous les 40 ms
+            RepaintListener L = new RepaintListener(this.jeu, this.jeuMoteur, this.jLabel1, this.contexte);
+            this.timer = new Timer(40, L);
+            this.timer.start();
             repaint();
+            
          } else if (jeuCommence) {
             boolean jeuTermine = jeuMoteur.partieMoteurV2();
 
             // Mettre à jour les positions des personnages
-            jeu.miseAJour();
+            this.jeu.miseAJour();
+            this.jeu.rendu(contexte);
             // Redessiner l'affichage
-            repaint();
+        
+            //Ca c'est juste pour appliquer le rendu()...
+            this.jLabel1.repaint();
 
             // Vérifier si la partie est terminée
             if (jeuTermine) {

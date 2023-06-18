@@ -64,29 +64,34 @@ public class Avatars {
         this.xBarilRouge = baril_rouge.getX()*this.largeurCase;
         this.yBarilRouge = baril_rouge.getY()*this.hauteurCase;
         this.xBarilJaune = baril_jaune.getX()*this.largeurCase;
-        this.yBarilJaune = baril_jaune.getY()*this.hauteurCase;
-        this.xBarilBleu = baril_bleu.getX()*this.largeurCase;
-        this.yBarilBleu = baril_bleu.getY()*this.hauteurCase; 
+        this.yBarilJaune = (baril_jaune.getY()-1)*this.hauteurCase;
+        this.xBarilBleu = baril_bleu.getX()*this.largeurCase;  
+        this.yBarilBleu = (baril_bleu.getY()-1)*this.hauteurCase; 
         this.gauche = false;
         this.droite = false;
         this.haut = false;
         this.bas = false;
+        
     }
     
     public void setGauche(boolean gauche) {
         this.gauche = gauche;
+        this.miseAJourRunner();
     }
 
     public void setDroite(boolean droite) {
         this.droite = droite;
+        this.miseAJourRunner();
     }
 
     public void setBas(boolean bas) {
         this.bas = bas;
+        this.miseAJourRunner();
     }
 
     public void setHaut(boolean haut) {
         this.haut = haut;
+        this.miseAJourRunner();
     }
 
     public void miseAJourRunner() {
@@ -107,8 +112,9 @@ public class Avatars {
             this.xPersonnage -= vitesse;
         }
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
-        jeuMoteur.getRunner().setX((int) xPersonnage/30);
-        jeuMoteur.getRunner().setY((int) yPersonnage/32);
+        jeuMoteur.getRunner().setX((int) xPersonnage/this.largeurCase);
+        jeuMoteur.getRunner().setY((int) yPersonnage/this.hauteurCase);
+        System.out.println(jeuMoteur.getRunner().getX()+"-"+jeuMoteur.getRunner().getY());
 
     }
     
@@ -130,8 +136,8 @@ public class Avatars {
             this.xBarilRouge -= vitesse;
         }
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
-        jeuMoteur.getBarrilJoueur().get(0).setX((int) xBarilRouge/30);
-        jeuMoteur.getBarrilJoueur().get(0).setY((int) yBarilRouge/32);
+        jeuMoteur.getBarrilJoueur().get(0).setX((int) xBarilRouge/this.largeurCase);
+        jeuMoteur.getBarrilJoueur().get(0).setY((int) yBarilRouge/this.hauteurCase);
 
     }
         
@@ -153,8 +159,8 @@ public class Avatars {
             this.xBarilBleu -= vitesse;
         }
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
-        jeuMoteur.getBarrilJoueur().get(1).setX((int) xBarilBleu/30);
-        jeuMoteur.getBarrilJoueur().get(1).setY((int) yBarilBleu/32);
+        jeuMoteur.getBarrilJoueur().get(1).setX((int) xBarilBleu/this.largeurCase);
+        jeuMoteur.getBarrilJoueur().get(1).setY((int) yBarilBleu/this.hauteurCase);
 
     }
     
@@ -176,8 +182,8 @@ public class Avatars {
             this.xBarilJaune -= vitesse;
         }
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
-        jeuMoteur.getBarrilJoueur().get(2).setX((int) xBarilJaune/30);
-        jeuMoteur.getBarrilJoueur().get(2).setY((int) yBarilJaune/32);
+        jeuMoteur.getBarrilJoueur().get(2).setX((int) xBarilJaune/this.largeurCase);
+        jeuMoteur.getBarrilJoueur().get(2).setY((int) yBarilJaune/this.hauteurCase);
 
     }
         
