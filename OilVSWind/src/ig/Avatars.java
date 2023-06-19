@@ -100,16 +100,24 @@ public class Avatars {
 
         // Mettre à jour la position du personnage en fonction des touches pressées.
         if (this.haut) {
-            this.yPersonnage -= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getRunner())){
+                 this.yPersonnage -= vitesse;
+            }
         }
         if (this.bas) {
-            this.yPersonnage += vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getRunner())){
+                this.yPersonnage += vitesse;
+            }
         }
         if (this.droite) {
-            this.xPersonnage += vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getRunner())){
+                this.xPersonnage += vitesse;
+            }
         }
         if (this.gauche) {
-            this.xPersonnage -= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getRunner())){
+                this.xPersonnage -= vitesse;
+            }
         }
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
         jeuMoteur.getRunner().setX((int) xPersonnage/this.largeurCase);
