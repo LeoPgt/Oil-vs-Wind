@@ -74,13 +74,15 @@ public class Jeu {
         }
     }
     
-    public ArrayList<Jouable> getListeJoueurs() {
-        return BJ.getListeJoueurs();
-    }
     public void InsertJoueur(Jouable J, String pseudo) {
         BJ.InsertJoueur(J, pseudo);
         listeJ.add(J);
     }
+    
+    public ArrayList<Jouable> getListeJoueurs() {
+        return BJ.getListeJoueurs();
+    }
+
     public void setCarteMoteur(Carte CarteMoteur) {
         this.CarteMoteur = CarteMoteur;
     }

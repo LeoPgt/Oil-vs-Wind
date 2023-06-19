@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import moteur.*;
 
@@ -31,6 +32,37 @@ public class BDDJoueur {
         this.PASSWORD = "YTDTvj9TR3CDYCmP";
 
         this.listeJoueurs = new ArrayList<Jouable>();
+        
+        // ici je crée mes personnages dans ma base de donnée
+        try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
+            
+            Statement statement = connexion.createStatement() ;
+            
+            statement.executeUpdate("DELETE FROM Joueur;");           
+            
+            statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
+                    + "VALUES ( 1, 'Joueur 1', 0, 0, 'joueur', 2, false)");
+            
+            statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
+                    + "VALUES ( 2, 'Joueur 2', 0, 0, 'baril', 2, true)");
+            
+            statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
+                    + "VALUES ( 3, 'Joueur 3', 0, 0, 'baril', 2, true)");
+            
+            statement.executeUpdate("INSERT INTO Joueur (Id, pseudo, x, y, type, vitesse,capturable) "
+                    + "VALUES ( 4, 'Joueur 4', 0, 0, 'baril', 2, true)");
+           
+            
+            ResultSet resultat = statement.executeQuery("SELECT * FROM Joueur;");
+            
+               OutilsJDBC.afficherResultSet(resultat);
+            
+            statement.close();
+            connexion.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public ArrayList<Jouable> getListeJoueurs() {
@@ -54,7 +86,7 @@ public class BDDJoueur {
                 int vitesse = result.getInt("vitesse");
                 boolean capturable = result.getBoolean("capturable");
 
-                if (type.equals("runner")) {
+                if (type.equals("joueur")) {
                     Runner R = new Runner(ID, pseudo, x, y, vitesse);
                     this.listeJoueurs.add(R);
                 }
@@ -84,7 +116,7 @@ public class BDDJoueur {
                     requete.setString(1, runner.getPseudo());
                     requete.setInt(2, runner.getX());
                     requete.setInt(3, runner.getY());
-                    requete.setString(4, "runner");
+                    requete.setString(4, "joueur");
                     requete.setInt(5, runner.getVitesse());
                     requete.setBoolean(6, false); // Les Runners ne sont pas capturables
 
