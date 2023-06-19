@@ -135,14 +135,11 @@ public class JeuMoteur {
      
     public boolean isCasesVide(int x, int y){
         Cases c = CarteMoteur.getMatrice()[x][y];
-        if(c.isMur()){
-            return false;
-        }
-        else if(c.getListeJouable().isEmpty()){
+        if(c.isSol()){
             return true;
+        }else{ 
+            return false; //elle contient n'importe quel autre élément
         }
-        
-        return false;
     }
  
 
@@ -151,8 +148,7 @@ public class JeuMoteur {
         Cases c = CarteMoteur.getMatrice()[x][y];
 
         if (this.isCasesVide(x, y)) {
-            Element E = new Element(-1,-1);
-            return E; // La case est vide, il n'y a aucun élément
+            return c.getSol(); // La case est vide, c'est du sol
         }
         if (c.isMur()) {
             return c.getMur(); // La case contient un mur
@@ -163,7 +159,7 @@ public class JeuMoteur {
         if (!c.getListeBonus().isEmpty()) {
             return c.getListeBonus().get(0); // La case contient un bonus
         }
-        return null; // La case ne contient aucun élément
+        return null; // La case n'existe pas
     }
   
   // Ici On crée une array list des Elements qui sont autour de A
@@ -199,7 +195,7 @@ public class JeuMoteur {
     public boolean deplacementEstPossible(Jouable J) {
         int x = J.getX();
         int y = J.getY();
-        //System.out.println(this.gauche);
+        
         if (this.gauche) {
             if (x - 1 >= 0) {
                 if (caseAutour(J).isEmpty()) {
@@ -290,8 +286,8 @@ public class JeuMoteur {
                 runner.setVitesse(); // le bonus s'applique sur le Runner
                 BJ.UpdateJoueur(runner.getIdSQL(), runner.getX(), runner.getY(), runner.getVitesse(), false); // lien SQL
 
-                // Supprimer le Bonus de la listeJouable de la Case correspondante
-                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
+                // Supprimer le Bonus de la listeBonus de la Case correspondante
+                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeBonus().remove(bonus);
 
                 return true; // Collision non bloquante = Le runner attrape bonus
             }
@@ -324,8 +320,8 @@ public class JeuMoteur {
                 bonus.capturableSet(false);
                 BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); 
                 
-                // Supprimer le Bonus de la listeJouable de la Case correspondante
-                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
+                // Supprimer le Bonus de la listeBonus de la Case correspondante
+                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeBonus().remove(bonus);
 
                 return true; // Collision non bloquante = Le baril a attrapé un bonus
             }
@@ -383,21 +379,15 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
             return MapMod;
         }
 
-        //MapMod.getMatrice()[x][y].getListeJouable().remove(J);
-        //MapMod.getMatrice()[newX][newY].addJouable(J);
         J.setX(newX);
         J.setY(newY);
         
-        // Mettre à jour les coordonnées du personnage dans la carte moteur
-//        CarteMoteur.getMatrice()[x][y].getListeJouable().remove(J);
-//        CarteMoteur.getMatrice()[newX][newY].addJouable(J);
-        
         if (J instanceof Runner) {
             Runner runner = (Runner) J;
-           // BJ.UpdateJoueur(runner.getIdSQL(), newX, newY, runner.getVitesse(), false); // Met à jour les coordonnées du Runner dans la base de données
+            BJ.UpdateJoueur(runner.getIdSQL(), newX, newY, runner.getVitesse(), false); // Met à jour les coordonnées du Runner dans la base de données
         } else if (J instanceof Baril) {
             Baril baril = (Baril) J;
-           // BJ.UpdateJoueur(baril.getIdSQL(), newX, newY, 10, baril.capturableGet());// Met à jour les coordonnées du Barril dans la base de données
+            BJ.UpdateJoueur(baril.getIdSQL(), newX, newY, 10, baril.capturableGet());// Met à jour les coordonnées du Barril dans la base de données
         }
     } else {
         System.out.println("Déplacement impossible dans la direction spécifiée");
