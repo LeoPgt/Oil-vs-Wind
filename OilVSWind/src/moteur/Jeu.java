@@ -149,7 +149,7 @@ public class Jeu {
         Cases c = CarteMoteur.getMatrice()[x][y];
 
         if (this.isCasesVide(x, y)) {
-            return null; // La case est vide, il n'y a aucun élément
+            return null; // La case est vide, il n'y a aucun élément;
         }
         if (c.isMur()) {
             return c.getMur(); // La case contient un mur
@@ -287,8 +287,8 @@ public class Jeu {
                 runner.setVitesse(); // le bonus s'applique sur le Runner
                 BJ.UpdateJoueur(runner.getIdSQL(), runner.getX(), runner.getY(), runner.getVitesse(), false); // lien SQL
 
-                // Supprimer le Bonus de la listeJouable de la Case correspondante
-                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
+                // Supprimer le Bonus de la listeBonus de la Case correspondante
+                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeBonus().remove(bonus);
 
                 return true; // Collision non bloquante = Le runner attrape bonus
             }
@@ -321,8 +321,8 @@ public class Jeu {
                 bonus.capturableSet(false);
                 BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); 
                 
-                // Supprimer le Bonus de la listeJouable de la Case correspondante
-                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
+                // Supprimer le Bonus de la listeBonus de la Case correspondante
+                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeBonus().remove(bonus);
 
                 return true; // Collision non bloquante = Le baril a attrapé un bonus
             }
@@ -379,15 +379,10 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
             System.out.println("Déplacement impossible : la case de destination est un mur");
             return MapMod;
         }
-
-        MapMod.getMatrice()[x][y].getListeJouable().remove(J);
-        MapMod.getMatrice()[newX][newY].addJouable(J);
+        
         J.setX(newX);
         J.setY(newY);
         
-        // Mettre à jour les coordonnées du personnage dans la carte moteur
-        CarteMoteur.getMatrice()[x][y].getListeJouable().remove(J);
-        CarteMoteur.getMatrice()[newX][newY].addJouable(J);
         
         if (J instanceof Runner) {
             Runner runner = (Runner) J;
