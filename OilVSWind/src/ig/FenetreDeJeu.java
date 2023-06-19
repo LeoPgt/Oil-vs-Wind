@@ -44,8 +44,6 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
         jeuCommence = false;
         // Initialisation de la fenêtre
         this.setTitle("OIL VS WIND");
-        //this.largeurJeu = 1216;
-        //this.hauteurJeu = 865;
         this.largeurJeu = 1200;
         this.hauteurJeu = 800;
         this.setSize(this.largeurJeu, this.hauteurJeu);

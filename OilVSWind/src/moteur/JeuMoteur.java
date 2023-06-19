@@ -64,21 +64,16 @@ public class JeuMoteur {
                 }
                 else if(listeJ.get(i) instanceof Baril){
                     
-                    Baril B = (Baril)listeJ.get(i);
-                    B.setX(x_spot);
-                    B.setY(y_spot);
-                    this.barrilJoueur.add(B);
+                    Baril baril = (Baril)listeJ.get(i);
+                    baril.setX(x_spot);
+                    baril.setY(y_spot);
+                    this.barrilJoueur.add(baril);
 
                     //J'ai mis en commentaire cette ligne car elle faisait tout bug
-                    BJ.UpdateJoueur(B.getIdSQL(), x_spot, y_spot, 10, B.capturableGet());
+                    BJ.UpdateJoueur(baril.getIdSQL(), x_spot, y_spot, 10, baril.capturableGet());
                 }
             }    
         }
-    }
-    
-    public void InsertJoueur(Jouable J, String pseudo) {
-        BJ.InsertJoueur(J, pseudo);
-        listeJ.add(J);
     }
     
     public ArrayList<Jouable> getListeJoueurs() {
@@ -179,7 +174,6 @@ public class JeuMoteur {
                 alentour.add(caseVoisine);
             }
         }
-
         return alentour;
     }
   
@@ -202,10 +196,11 @@ public class JeuMoteur {
                     return true; // Déplacement possible vers la gauche (aucun élément autour)
                 } else {
                     Element caseDestination = laCaseDeCoordonnees(x - 1, y);
-                    if (caseDestination != null) {
-                        return collisionBloquante(J, caseDestination); // Traiter la collision avec la case de destination
+                    if (caseDestination == null) { //On ne trouve pas la case
+                        System.out.println("Erreur : La case de destination est introuvable");
+                        return false;
                     } else {
-                        return true; // Déplacement possible vers la gauche
+                        return collisionBloquante(J, caseDestination); // Traiter la collision
                     }
                 }
             }
@@ -215,10 +210,11 @@ public class JeuMoteur {
                     return true; // Déplacement possible vers la droite (aucun élément autour)
                 } else {
                     Element caseDestination = laCaseDeCoordonnees(x + 1, y);
-                    if (caseDestination != null) {
-                        return collisionBloquante(J, caseDestination); // Traiter la collision avec la case de destination
+                    if (caseDestination == null) { //On ne trouve pas la case
+                        System.out.println("Erreur : La case de destination est introuvable");
+                        return false;
                     } else {
-                        return true; // Déplacement possible vers la droite
+                        return collisionBloquante(J, caseDestination); // Traiter la collision
                     }
                 }
             }
@@ -228,10 +224,11 @@ public class JeuMoteur {
                     return true; // Déplacement possible vers le haut (aucun élément autour)
                 } else {
                     Element caseDestination = laCaseDeCoordonnees(x, y - 1);
-                    if (caseDestination != null) {
-                        return collisionBloquante(J, caseDestination); // Traiter la collision avec la case de destination
+                    if (caseDestination == null) { //On ne trouve pas la case
+                        System.out.println("Erreur : La case de destination est introuvable");
+                        return false;
                     } else {
-                        return true; // Déplacement possible vers le haut
+                        return collisionBloquante(J, caseDestination); // Traiter la collision
                     }
                 }
             }
@@ -241,10 +238,11 @@ public class JeuMoteur {
                     return true; // Déplacement possible vers le bas (aucun élément autour)
                 } else {
                     Element caseDestination = laCaseDeCoordonnees(x, y + 1);
-                    if (caseDestination != null) {
-                        return collisionBloquante(J, caseDestination); // Traiter la collision avec la case de destination
+                    if (caseDestination == null) { //On ne trouve pas la case
+                        System.out.println("Erreur : La case de destination est introuvable");
+                        return false;
                     } else {
-                        return true; // Déplacement possible vers le bas
+                        return collisionBloquante(J, caseDestination); // Traiter la collision
                     }
                 }
             }
@@ -277,7 +275,10 @@ public class JeuMoteur {
         } else if (J instanceof Runner && B instanceof Mur) { 
             // Collision entre le Runner et un Mur
             return false; // Collision bloquante pour le déplacement
-       } else if (J instanceof Runner && B instanceof Bonus) {
+        } else if (J instanceof Runner && B instanceof Sol) { 
+            // Collision entre le Runner et une brique Sol
+            return true; // Collision non bloquante pour le déplacement
+        } else if (J instanceof Runner && B instanceof Bonus) {
             // Collision entre le Runner et un Bonus
             Bonus bonus = (Bonus) B;
             Runner runner = (Runner) J;
@@ -294,6 +295,9 @@ public class JeuMoteur {
         } else if (J instanceof Baril && B instanceof Baril){
             // Collision entre un Baril et Baril
             return true ; // Collision non bloquante pour le déplacement
+        } else if (J instanceof Baril && B instanceof Sol) { 
+            // Collision entre un Baril et une brique Sol
+            return true; // Collision non bloquante pour le déplacement
         } else if (J instanceof Baril && B instanceof Mur){
             // Collision entre un Baril et Mur 
             return false ; // Collision bloquante
@@ -350,8 +354,11 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
     
     int x = J.getX();
     int y = J.getY();
+    
     System.out.println("Coordonnées avant le déplacement - x: " + x + ", y: " + y); // Ajout de l'instruction de débogage
+    
     System.out.println(deplacementEstPossible(J));
+    
     if (deplacementEstPossible(J)) {
         int newX = x;
         int newY = y;
@@ -367,17 +374,6 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
         }
 
         Element caseDestination = laCaseDeCoordonnees(newX, newY);
-
-        if (caseDestination == null) { //TODO : Corriger ça ! on est bien dans une bonne case !
-            System.out.println("Erreur : La case de destination est introuvable");
-            return MapMod;
-        }
-        
-        // Vérification si la case de destination est un mur
-        if (caseDestination instanceof Mur) {
-            System.out.println("Déplacement impossible : la case de destination est un mur");
-            return MapMod;
-        }
 
         J.setX(newX);
         J.setY(newY);
@@ -397,19 +393,20 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
 
 // Méthode pour vérifier si tous les barils ont été capturés
     public boolean tousBarilsCaptures() {
-        Cases[][] matrice = CarteMoteur.getMatrice();
-
-        for (int i = 0; i < matrice.length; i++) {
-            for (int j = 0; j < matrice[i].length; j++) {
-                ArrayList<Jouable> jouables = matrice[i][j].getListeJouable();
-                for (Jouable jouable : jouables) {
-                    if (jouable instanceof Baril) {
+        Cases c = CarteMoteur.getMatrice()[0][0];
+    
+        for (int i = 0; i < CarteMoteur.getLargeur(); i++) {
+            for (int j = 0; j < CarteMoteur.getHauteur(); j++) {
+                for (Object obj : c.getListeJouable()) {
+                    if (obj instanceof Baril) {
                         return false; // Il reste au moins un baril non capturé
                     }
                 }
             }
         }
+        
         return true; // Tous les barils ont été capturés
+        
     }
     
     public boolean partieMoteurV2() {
@@ -417,7 +414,7 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
         // Boucle de jeu
         if (this.jeuTermine == false) {
             // Vérification si tous les barils ont été capturés
-            if (tousBarilsCaptures()) {
+            if (tousBarilsCaptures()== true) {
                 this.jeuTermine = true;
             }
 
