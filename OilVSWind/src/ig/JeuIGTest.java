@@ -32,7 +32,7 @@ public class JeuIGTest {
                 Graphics2D g2d = (Graphics2D) g;
                 
                 // Création d'un objet Jeu
-                Jeu jeuMoteur = new Jeu();
+                JeuMoteur jeuMoteur = new JeuMoteur();
                 
                 // Création d'un objet JeuIG
                 JeuIG jeuIG = new JeuIG(jeuMoteur,30,32,g2d);

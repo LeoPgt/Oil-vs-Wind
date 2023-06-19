@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
-import moteur.Jeu;
+import moteur.JeuMoteur;
 
 /**
  *
@@ -17,12 +17,12 @@ import moteur.Jeu;
 public class RepaintListener implements ActionListener{
     
     private JeuIG jeu;
-    private Jeu jeuMoteur;
+    private JeuMoteur jeuMoteur;
     
     private Graphics2D contexte;
     private JLabel jLabel1;
 
-    public RepaintListener(JeuIG jeu, Jeu jeuMoteur, JLabel jLabel1, Graphics2D contexte) {
+    public RepaintListener(JeuIG jeu, JeuMoteur jeuMoteur, JLabel jLabel1, Graphics2D contexte) {
         this.jeu = jeu;
         this.jeuMoteur = jeuMoteur;
         this.jLabel1 = jLabel1;
@@ -33,7 +33,7 @@ public class RepaintListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-            boolean jeuTermine = jeuMoteur.partieMoteurV2();
+            //boolean jeuTermine = jeuMoteur.partieMoteurV2();
 
             // Mettre à jour les positions des personnages
             this.jeu.miseAJour();

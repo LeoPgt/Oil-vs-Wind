@@ -26,7 +26,7 @@ public class Avatars {
     private BufferedImage spriteBarilJaune;
     private BufferedImage spriteBarilBleu;
     
-    private Jeu jeuMoteur;
+    private JeuMoteur jeuMoteur;
     
     protected double xPersonnage, yPersonnage;
     protected double xBarilRouge, yBarilRouge;
@@ -37,7 +37,7 @@ public class Avatars {
     private int largeurCase; 
     private int hauteurCase;
 
-    public Avatars(Jeu J, int largeurCase, int hauteurCase) {
+    public Avatars(JeuMoteur J, int largeurCase, int hauteurCase) {
         this.jeuMoteur = J;
         this.largeurCase = largeurCase;
         this.hauteurCase = hauteurCase;
@@ -122,6 +122,11 @@ public class Avatars {
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
         jeuMoteur.getRunner().setX((int) xPersonnage/this.largeurCase);
         jeuMoteur.getRunner().setY((int) yPersonnage/this.hauteurCase);
+        
+        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        
+        this.xPersonnage = this.jeuMoteur.getRunner().getX()*this.largeurCase;
+        this.yPersonnage = this.jeuMoteur.getRunner().getY()*this.hauteurCase;
         System.out.println(jeuMoteur.getRunner().getX()+"-"+jeuMoteur.getRunner().getY());
 
     }

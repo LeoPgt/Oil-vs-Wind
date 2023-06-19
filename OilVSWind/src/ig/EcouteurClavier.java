@@ -16,9 +16,9 @@ import moteur.*;
 public class EcouteurClavier implements KeyListener {
     
     private JeuIG jeuIG;
-    private Jeu jeuMoteur;
+    private JeuMoteur jeuMoteur;
 
-    public EcouteurClavier(JeuIG jeuIG, Jeu jeuMoteur) {
+    public EcouteurClavier(JeuIG jeuIG, JeuMoteur jeuMoteur) {
         this.jeuIG = jeuIG;
         this.jeuMoteur = jeuMoteur;
     }

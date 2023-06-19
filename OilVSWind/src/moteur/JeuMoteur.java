@@ -11,7 +11,7 @@ import sql.BDDJoueur; // lien SQL
  *
  * @author mleconte
  */
-public class Jeu {
+public class JeuMoteur {
     
     private BDDJoueur BJ;// lien SQL
     protected boolean gauche, droite, haut, bas;
@@ -19,8 +19,9 @@ public class Jeu {
     public Runner runner;
     private ArrayList<Baril> barrilJoueur;
     private ArrayList<Jouable> listeJ; // Déclaration de listeJ
+    private boolean jeuTermine;
 
-    public Jeu () {
+    public JeuMoteur () {
         
         //Initialiser Carte
         Fichier F = new Fichier("src/resource/carte.txt");
@@ -30,6 +31,7 @@ public class Jeu {
         this.droite = false;
         this.haut = false;
         this.bas = false;
+        this.jeuTermine = false;
         
         // Initialisation de barrilJoueur
         this.barrilJoueur = new ArrayList<>();
@@ -149,7 +151,8 @@ public class Jeu {
         Cases c = CarteMoteur.getMatrice()[x][y];
 
         if (this.isCasesVide(x, y)) {
-            return null; // La case est vide, il n'y a aucun élément;
+            Element E = new Element(-1,-1);
+            return E; // La case est vide, il n'y a aucun élément
         }
         if (c.isMur()) {
             return c.getMur(); // La case contient un mur
@@ -196,7 +199,7 @@ public class Jeu {
     public boolean deplacementEstPossible(Jouable J) {
         int x = J.getX();
         int y = J.getY();
-        System.out.println(this.gauche);
+        //System.out.println(this.gauche);
         if (this.gauche) {
             if (x - 1 >= 0) {
                 if (caseAutour(J).isEmpty()) {
@@ -251,7 +254,7 @@ public class Jeu {
             }
         }
 
-        return false; // Aucune direction de déplacement spécifiée ou coordonnées invalides
+        return true; // Aucune direction de déplacement spécifiée ou coordonnées invalides
     }
     
     /**
@@ -287,8 +290,8 @@ public class Jeu {
                 runner.setVitesse(); // le bonus s'applique sur le Runner
                 BJ.UpdateJoueur(runner.getIdSQL(), runner.getX(), runner.getY(), runner.getVitesse(), false); // lien SQL
 
-                // Supprimer le Bonus de la listeBonus de la Case correspondante
-                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeBonus().remove(bonus);
+                // Supprimer le Bonus de la listeJouable de la Case correspondante
+                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
 
                 return true; // Collision non bloquante = Le runner attrape bonus
             }
@@ -321,8 +324,8 @@ public class Jeu {
                 bonus.capturableSet(false);
                 BJ.UpdateJoueur(baril.getIdSQL(), baril.getX(), baril.getY(), 10, baril.capturableGet()); 
                 
-                // Supprimer le Bonus de la listeBonus de la Case correspondante
-                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeBonus().remove(bonus);
+                // Supprimer le Bonus de la listeJouable de la Case correspondante
+                CarteMoteur.getMatrice()[bonus.getX()][bonus.getY()].getListeJouable().remove(bonus);
 
                 return true; // Collision non bloquante = Le baril a attrapé un bonus
             }
@@ -369,7 +372,7 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
 
         Element caseDestination = laCaseDeCoordonnees(newX, newY);
 
-        if (caseDestination == null) {
+        if (caseDestination == null) { //TODO : Corriger ça ! on est bien dans une bonne case !
             System.out.println("Erreur : La case de destination est introuvable");
             return MapMod;
         }
@@ -379,10 +382,15 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
             System.out.println("Déplacement impossible : la case de destination est un mur");
             return MapMod;
         }
-        
+
+        //MapMod.getMatrice()[x][y].getListeJouable().remove(J);
+        //MapMod.getMatrice()[newX][newY].addJouable(J);
         J.setX(newX);
         J.setY(newY);
         
+        // Mettre à jour les coordonnées du personnage dans la carte moteur
+//        CarteMoteur.getMatrice()[x][y].getListeJouable().remove(J);
+//        CarteMoteur.getMatrice()[newX][newY].addJouable(J);
         
         if (J instanceof Runner) {
             Runner runner = (Runner) J;
@@ -415,12 +423,12 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
     }
     
     public boolean partieMoteurV2() {
-        boolean jeuTermine = false;
+
         // Boucle de jeu
-        while (jeuTermine == false) {
+        if (this.jeuTermine == false) {
             // Vérification si tous les barils ont été capturés
             if (tousBarilsCaptures()) {
-                jeuTermine = true;
+                this.jeuTermine = true;
             }
 
             // Déplacement du Runner
