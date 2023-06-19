@@ -15,10 +15,12 @@ import moteur.*;
 
 public class EcouteurClavier implements KeyListener {
     
-    private JeuIG jeu;
+    private JeuIG jeuIG;
+    private Jeu jeuMoteur;
 
-    public EcouteurClavier(JeuIG jeu) {
-        this.jeu = jeu;
+    public EcouteurClavier(JeuIG jeuIG, Jeu jeuMoteur) {
+        this.jeuIG = jeuIG;
+        this.jeuMoteur = jeuMoteur;
     }
     @Override
     public void keyTyped(KeyEvent evt) {
@@ -28,16 +30,16 @@ public class EcouteurClavier implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                jeu.getAvatar().setHaut(true);
+                jeuIG.getAvatar().setHaut(true);
                 break;
             case KeyEvent.VK_DOWN:
-                jeu.getAvatar().setBas(true);
+                jeuIG.getAvatar().setBas(true);
                 break;
             case KeyEvent.VK_LEFT:
-                jeu.getAvatar().setGauche(true);
+                jeuIG.getAvatar().setGauche(true);
                 break;
             case KeyEvent.VK_RIGHT:
-                jeu.getAvatar().setDroite(true);
+                jeuIG.getAvatar().setDroite(true);
                 break;
         }
     }
@@ -46,16 +48,16 @@ public class EcouteurClavier implements KeyListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                jeu.getAvatar().setHaut(false);
+                jeuIG.getAvatar().setHaut(false);
                 break;
             case KeyEvent.VK_DOWN:
-                jeu.getAvatar().setBas(false);
+                jeuIG.getAvatar().setBas(false);
                 break;
             case KeyEvent.VK_LEFT:
-                jeu.getAvatar().setGauche(false);
+                jeuIG.getAvatar().setGauche(false);
                 break;
             case KeyEvent.VK_RIGHT:
-                jeu.getAvatar().setDroite(false);
+                jeuIG.getAvatar().setDroite(false);
                 break;
         }
     }

@@ -23,9 +23,17 @@ public class JeuIG {
     private Jeu JeuMoteur;
     private BufferedImage carteImage; // Ajout d'une variable pour stocker l'image de la carte
     private boolean jeuCommence = false;
+    private int largeurCase; //MANAL : Tu vas avoir besoin de ces deux là souvent !
+    private int hauteurCase;
     
-    public JeuIG(Jeu J) {
+    private Graphics2D contexte;
+    
+    public JeuIG(Jeu J, int largeurJeu, int hauteurJeu, Graphics2D contexte) {
         this.JeuMoteur = J;
+        this.contexte = contexte;
+        this.largeurCase = largeurJeu/JeuMoteur.getCarteMoteur().getLargeur();
+        this.hauteurCase = hauteurJeu/JeuMoteur.getCarteMoteur().getHauteur();
+        
         // Charger les images
         try {
             spotImage = ImageIO.read(new File("src/resource/brique_spot.PNG"));
@@ -35,25 +43,25 @@ public class JeuIG {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.avatar = new Avatars(this.JeuMoteur);
+        this.avatar = new Avatars(this.JeuMoteur, this.largeurCase, this.hauteurCase);
         this.carteImage = DessinerCarte(); // Appel de DessinerCarte() et stockage de l'image de la carte
     }
     
     public BufferedImage getImageCarte() {
         return carteImage;
     }
-    public Avatars getAvatar(){
-        return this.avatar;
+
+    public Avatars getAvatar() {
+        return avatar;
     }
   
+  
     public final BufferedImage DessinerCarte() {
-        int largeurCase = 1216  / JeuMoteur.getCarteMoteur().getLargeur();
-        int hauteurCase = 865 / JeuMoteur.getCarteMoteur().getHauteur();
+               
+        int largeurJeu = this.largeurCase*JeuMoteur.getCarteMoteur().getLargeur();
+        int hauteurJeu = this.hauteurCase*JeuMoteur.getCarteMoteur().getHauteur();
         
-        // Ajout d'une ligne pour comprendre
-        // System.out.println("Width: " + getWidth() + ", Height: " + getHeight());
-        
-        BufferedImage imageCarte = new BufferedImage(1216, 865, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage imageCarte = new BufferedImage(largeurJeu, hauteurJeu, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = imageCarte.createGraphics();
 
         for (int i = 0; i < JeuMoteur.getCarteMoteur().getLargeur(); i++) {
@@ -71,11 +79,13 @@ public class JeuIG {
         for (int i = 0; i < JeuMoteur.getCarteMoteur().getSpots().size(); i++) {
             int x_spot = JeuMoteur.CarteMoteur.getSpots().get(i).getX();
             int y_spot = JeuMoteur.CarteMoteur.getSpots().get(i).getY();
+            //System.out.println(x_spot +"-"+ y_spot);
 
             // Dessiner l'image du spot à la position correspondante
             graphics.drawImage(spotImage, x_spot* largeurCase, y_spot * hauteurCase,largeurCase, hauteurCase, null);
         }
         
+    
         graphics.dispose();
         return imageCarte;
     }
@@ -83,12 +93,13 @@ public class JeuIG {
 
     public void miseAJour() {
         this.avatar.miseAJourRunner();
-        this.avatar.miseAJourBarilRouge();
-        this.avatar.miseAJourBarilBleu();
-        this.avatar.miseAJourBarilJaune();
+        //this.avatar.miseAJourBarilRouge();
+        //this.avatar.miseAJourBarilBleu();
+        //this.avatar.miseAJourBarilJaune();
     }
 
     public void rendu(Graphics2D contexte) {
+        this.DessinerCarte();
         this.avatar.rendu(contexte);
     }
 }

@@ -35,7 +35,7 @@ public class JeuIGTest {
                 Jeu jeuMoteur = new Jeu();
                 
                 // Création d'un objet JeuIG
-                JeuIG jeuIG = new JeuIG(jeuMoteur);
+                JeuIG jeuIG = new JeuIG(jeuMoteur,30,32,g2d);
                 
                 // Obtention de l'image de la carte du JeuIG
                 BufferedImage carteImage = jeuIG.DessinerCarte();

@@ -25,7 +25,7 @@ public class AvatarsTest extends JPanel implements KeyListener {
 
     public AvatarsTest() {
         jeu = new Jeu();
-        avatars = new Avatars(jeu);
+        avatars = new Avatars(jeu,30, 32);
 
         JFrame frame = new JFrame();
         frame.setSize(800, 600);
