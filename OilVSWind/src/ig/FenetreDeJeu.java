@@ -22,6 +22,7 @@ import moteur.*;
  * @author mandy.leconte
  */
 public class FenetreDeJeu extends JFrame implements ActionListener{
+    
     private BufferedImage framebuffer;
     private BufferedImage backgroundImage;
     private Graphics2D contexte;
@@ -112,6 +113,7 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
          if (e.getSource() == buttonJoueur) {
             String pseudo = JOptionPane.showInputDialog("Entrez votre pseudo");
 
+// Par contre ici il manque une instruction pour récuperer le pseudo, l'associer à un joueur pour le temps de la partie.
             buttonJoueur.setVisible(false);
             jeuCommence = true;
             imageCarte = jeu.DessinerCarte(); // Chargez l'image de la carte

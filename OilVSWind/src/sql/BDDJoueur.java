@@ -107,36 +107,36 @@ public class BDDJoueur {
     
     public void InsertJoueur(Jouable J, String pseudo) {
         try {
-            Statement statement = connexion.createStatement() ;
-            PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES ( ?, ?, ?, ?, ?, ?)");
-            
-            if(J instanceof Runner){
+            Statement statement = connexion.createStatement();
+            PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur (pseudo, x, y, type, vitesse, capturable) VALUES (?, ?, ?, ?, ?, ?)");
+
+            if (J instanceof Runner) {
                 Runner runner = (Runner) J;
 
-                    requete.setString(1, runner.getPseudo());
-                    requete.setInt(2, runner.getX());
-                    requete.setInt(3, runner.getY());
-                    requete.setString(4, "joueur");
-                    requete.setInt(5, runner.getVitesse());
-                    requete.setBoolean(6, false); // Les Runners ne sont pas capturables
+                requete.setString(2, pseudo);
+                requete.setInt(3, runner.getX());
+                requete.setInt(4, runner.getY());
+                requete.setString(5, "joueur");
+                requete.setInt(6, runner.getVitesse());
+                requete.setBoolean(7, false); // Les Runners ne sont pas capturables
 
-                    requete.executeUpdate();
-                    
+                requete.executeUpdate();
+
             } else {
                 Baril baril = (Baril) J;
 
-                    requete.setString(1, baril.getPseudo()); 
-                    requete.setInt(2, baril.getX());
-                    requete.setInt(3, baril.getY());
-                    requete.setString(4, "baril");
-                    requete.setInt(5, 10); // Les Barils n'ont pas de vitesse attribué
-                    requete.setBoolean(6, baril.capturableGet());
+                requete.setString(2, pseudo);
+                requete.setInt(3, baril.getX());
+                requete.setInt(4, baril.getY());
+                requete.setString(5, "baril");
+                requete.setInt(6, 10); // Les Barils n'ont pas de vitesse attribuée
+                requete.setBoolean(7, baril.capturableGet());
 
-                    requete.executeUpdate();
-
+                requete.executeUpdate();
             }
+
             statement.close();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -178,3 +178,4 @@ public class BDDJoueur {
         }
     }
 }
+    

@@ -58,7 +58,6 @@ public class JeuMoteur {
                     this.runner.setX(x_spot);
                     this.runner.setY(y_spot);
 
-                    //Pour l'instant la sql est en commentaire car soucis dessus
                     BJ.UpdateJoueur(runner.getIdSQL(), x_spot, y_spot, runner.getVitesse(), false); 
 
                 }
@@ -69,7 +68,6 @@ public class JeuMoteur {
                     baril.setY(y_spot);
                     this.barrilJoueur.add(baril);
 
-                    //J'ai mis en commentaire cette ligne car elle faisait tout bug
                     BJ.UpdateJoueur(baril.getIdSQL(), x_spot, y_spot, 10, baril.capturableGet());
                 }
             }    
@@ -126,6 +124,14 @@ public class JeuMoteur {
 
     public ArrayList<Baril> getBarrilJoueur() {
         return barrilJoueur;
+        
+    }
+        public void setRunner(Runner runner) {
+        this.runner = runner;
+    }
+
+    public void ajouterBarilJoueur(Baril baril) {
+        barrilJoueur.add(baril);
     }
      
     public boolean isCasesVide(int x, int y){
@@ -393,10 +399,9 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
 
 // Méthode pour vérifier si tous les barils ont été capturés
     public boolean tousBarilsCaptures() {
-        Cases c = CarteMoteur.getMatrice()[0][0];
-    
         for (int i = 0; i < CarteMoteur.getLargeur(); i++) {
             for (int j = 0; j < CarteMoteur.getHauteur(); j++) {
+                Cases c = CarteMoteur.getMatrice()[i][j];
                 for (Object obj : c.getListeJouable()) {
                     if (obj instanceof Baril) {
                         return false; // Il reste au moins un baril non capturé
@@ -404,26 +409,23 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
                 }
             }
         }
-        
         return true; // Tous les barils ont été capturés
-        
     }
     
     public boolean partieMoteurV2() {
 
         // Boucle de jeu
         if (this.jeuTermine == false) {
-            // Vérification si tous les barils ont été capturés
-            if (tousBarilsCaptures()== true) {
-                this.jeuTermine = true;
-            }
-
             // Déplacement du Runner
             CarteMoteur = MiseAJour(runner, CarteMoteur);
 
             // Déplacement des Barils
             for (Baril baril : barrilJoueur) {
                 CarteMoteur = MiseAJour(baril, CarteMoteur);
+            }
+            // Vérification si tous les barils ont été capturés
+            if (tousBarilsCaptures()== true) {
+                this.jeuTermine = true;
             }
         }
         return jeuTermine;
