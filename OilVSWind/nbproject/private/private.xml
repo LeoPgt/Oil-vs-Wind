@@ -187,6 +187,9 @@
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeu.java</file>
         </group>
         <group>
+
+            <file>file:/Z:/Bureau/Oil-vs-Wind/OilVSWind/src/sql/BDDJoueur.java</file>
+
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/JeuIGTest.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/Init_OVSW.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Element.java</file>
@@ -204,6 +207,7 @@
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeu.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Decor.java</file>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Runner.java</file>
+
         </group>
         <group>
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/JeuIGTest.java</file>
