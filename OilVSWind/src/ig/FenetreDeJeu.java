@@ -27,7 +27,7 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
     private Graphics2D contexte;
     private JLabel jLabel1;
     private JeuIG jeu; 
-    private Jeu jeuMoteur;
+    private JeuMoteur jeuMoteur;
     private Timer timer;
     private JButton buttonJoueur;
     private boolean jeuCommence;
@@ -44,8 +44,8 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
         jeuCommence = false;
         // Initialisation de la fenêtre
         this.setTitle("OIL VS WIND");
-        this.largeurJeu = 1216;
-        this.hauteurJeu = 865;
+        this.largeurJeu = 1200;
+        this.hauteurJeu = 800;
         this.setSize(this.largeurJeu, this.hauteurJeu);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +73,7 @@ public class FenetreDeJeu extends JFrame implements ActionListener{
             e.printStackTrace();
         }
         // Creation du jeu
-        this.jeuMoteur = new Jeu();
+        this.jeuMoteur = new JeuMoteur();
         this.jeu = new JeuIG(this.jeuMoteur, this.largeurJeu, this.hauteurJeu, this.contexte); //MANAL : C'est ici que je fais le lien entre le coté moteur et l'IG précisément !
         
         // pour que la fenêtre de jeu a le focus pour recevoir les événements clavier

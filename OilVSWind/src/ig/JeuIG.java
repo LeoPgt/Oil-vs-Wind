@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import moteur.*;
 
 /**
- * C'est la classe Jeu mais coté INTERFACE GRAPHIQUE ! 
+ * C'est la classe JeuMoteur mais coté INTERFACE GRAPHIQUE ! 
  * L'idée c'est que dans les attributs, il y aura aussi le "jeu" mais coté Moteur, que vous allez mettre ausi à jour.
  *
  * @author mandy
@@ -20,7 +20,7 @@ public class JeuIG {
     private BufferedImage briqueSableImage;
     private BufferedImage spotImage;
     private Avatars avatar;
-    private Jeu JeuMoteur;
+    private JeuMoteur JeuMoteur;
     private BufferedImage carteImage; // Ajout d'une variable pour stocker l'image de la carte
     private boolean jeuCommence = false;
     private int largeurCase; //MANAL : Tu vas avoir besoin de ces deux là souvent !
@@ -28,7 +28,7 @@ public class JeuIG {
     
     private Graphics2D contexte;
     
-    public JeuIG(Jeu J, int largeurJeu, int hauteurJeu, Graphics2D contexte) {
+    public JeuIG(JeuMoteur J, int largeurJeu, int hauteurJeu, Graphics2D contexte) {
         this.JeuMoteur = J;
         this.contexte = contexte;
         this.largeurCase = largeurJeu/JeuMoteur.getCarteMoteur().getLargeur();

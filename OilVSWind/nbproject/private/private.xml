@@ -212,7 +212,27 @@
             <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeu.java</file>
         </group>
         <group>
+
             <file>file:/Z:/Bureau/Oil-vs-Wind/OilVSWind/src/sql/BDDJoueur.java</file>
+
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/JeuIGTest.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/Init_OVSW.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Element.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/JeuIG.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Cases.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Mur.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/BDDJoueur.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/SingletonJDBC.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/sql/OutilsJDBC.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Jeu.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/Avatars.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/Archives/DisplayBisTest.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeuGUI.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/RepaintListener.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/ig/FenetreDeJeu.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Decor.java</file>
+            <file>file:/Z:/Année%202/INFO/Oil-vs-Wind/OilVSWind/src/moteur/Runner.java</file>
+
         </group>
     </open-files>
 </project-private>

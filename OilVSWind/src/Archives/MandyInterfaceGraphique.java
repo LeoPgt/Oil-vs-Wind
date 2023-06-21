@@ -20,7 +20,7 @@ import moteur.*;
 
 
 public class MandyInterfaceGraphique extends JFrame implements ActionListener, KeyListener {
-    private Jeu jeu;
+    private JeuMoteur jeu;
     private BufferedImage backgroundImage;
     private BufferedImage briqueMurImage;
     private BufferedImage briqueSableImage;
@@ -83,7 +83,7 @@ public class MandyInterfaceGraphique extends JFrame implements ActionListener, K
         this.contexte = this.framebuffer.createGraphics();
 
         // Creation du jeu
-        this.jeu = new Jeu();
+        this.jeu = new JeuMoteur();
 
         // Configuration du bouton "Joueur"
         buttonJoueur = new JButton("Jouer");

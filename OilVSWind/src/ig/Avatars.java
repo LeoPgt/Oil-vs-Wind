@@ -26,7 +26,7 @@ public class Avatars {
     private BufferedImage spriteBarilJaune;
     private BufferedImage spriteBarilBleu;
     
-    private Jeu jeuMoteur;
+    private JeuMoteur jeuMoteur;
     
     protected double xPersonnage, yPersonnage;
     protected double xBarilRouge, yBarilRouge;
@@ -37,7 +37,7 @@ public class Avatars {
     private int largeurCase; 
     private int hauteurCase;
 
-    public Avatars(Jeu J, int largeurCase, int hauteurCase) {
+    public Avatars(JeuMoteur J, int largeurCase, int hauteurCase) {
         this.jeuMoteur = J;
         this.largeurCase = largeurCase;
         this.hauteurCase = hauteurCase;
@@ -52,13 +52,11 @@ public class Avatars {
             Logger.getLogger(Avatars.class.getName()).log(Level.SEVERE, null, ex);
         }
         //MANAL : Tu peux utiliser ton Jeu moteur là, pour capter les positions initiales de tes joueurs
-        //MANAL : (Une arrayList pour les coordonnées de tes barils aurait été cool, ça aurait permis de juste faire une boucle ;)
         Baril baril_rouge = J.getBarrilJoueur().get(0);
         Baril baril_bleu = J.getBarrilJoueur().get(1);
         Baril baril_jaune = J.getBarrilJoueur().get(2);
         Runner personnage = J.getRunner();
         
-        //MANAL : Et là tu vois, on se sert bien du moteur ! :)
         this.xPersonnage = personnage.getX()*this.largeurCase;
         this.yPersonnage = personnage.getY()*this.hauteurCase;
         this.xBarilRouge = baril_rouge.getX()*this.largeurCase;
@@ -77,21 +75,33 @@ public class Avatars {
     public void setGauche(boolean gauche) {
         this.gauche = gauche;
         this.miseAJourRunner();
+//        this.miseAJourBarilRouge();
+//        this.miseAJourBarilBleu();
+//        this.miseAJourBarilJaune();
     }
 
     public void setDroite(boolean droite) {
         this.droite = droite;
         this.miseAJourRunner();
+//        this.miseAJourBarilRouge();
+//        this.miseAJourBarilBleu();
+//        this.miseAJourBarilJaune();
     }
 
     public void setBas(boolean bas) {
         this.bas = bas;
         this.miseAJourRunner();
+//        this.miseAJourBarilRouge();
+//        this.miseAJourBarilBleu();
+//        this.miseAJourBarilJaune();
     }
 
     public void setHaut(boolean haut) {
         this.haut = haut;
         this.miseAJourRunner();
+//        this.miseAJourBarilRouge();
+//        this.miseAJourBarilBleu();
+//        this.miseAJourBarilJaune();
     }
 
     public void miseAJourRunner() {
@@ -122,6 +132,11 @@ public class Avatars {
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
         jeuMoteur.getRunner().setX((int) xPersonnage/this.largeurCase);
         jeuMoteur.getRunner().setY((int) yPersonnage/this.hauteurCase);
+        
+        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        
+        this.xPersonnage = this.jeuMoteur.getRunner().getX()*this.largeurCase;
+        this.yPersonnage = this.jeuMoteur.getRunner().getY()*this.hauteurCase;
         System.out.println(jeuMoteur.getRunner().getX()+"-"+jeuMoteur.getRunner().getY());
 
     }
@@ -132,20 +147,33 @@ public class Avatars {
 
         // Mettre à jour la position du personnage en fonction des touches pressées.
         if (this.haut) {
-            this.yBarilRouge -= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(0))){
+                this.yBarilRouge -= vitesse;
+            }
         }
         if (this.bas) {
-            this.yBarilRouge += vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(0))){
+                this.yBarilRouge += vitesse;
+            }
         }
         if (this.droite) {
-            this.xBarilRouge+= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(0))){
+                this.xBarilRouge+= vitesse;
+            }
         }
         if (this.gauche) {
-            this.xBarilRouge -= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(0))){
+                this.xBarilRouge -= vitesse;
+            }
         }
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
         jeuMoteur.getBarrilJoueur().get(0).setX((int) xBarilRouge/this.largeurCase);
         jeuMoteur.getBarrilJoueur().get(0).setY((int) yBarilRouge/this.hauteurCase);
+        
+        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        
+        this.xPersonnage = this.jeuMoteur.getBarrilJoueur().get(0).getX()*this.largeurCase;
+        this.yPersonnage = this.jeuMoteur.getBarrilJoueur().get(0).getY()*this.hauteurCase;
 
     }
         
@@ -155,20 +183,33 @@ public class Avatars {
 
         // Mettre à jour la position du personnage en fonction des touches pressées.
         if (this.haut) {
-            this.yBarilBleu -= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(1))){
+                this.yBarilBleu -= vitesse;
+            }
         }
         if (this.bas) {
-            this.yBarilBleu += vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(1))){
+                this.yBarilBleu += vitesse;
+            }
         }
         if (this.droite) {
-            this.xBarilBleu+= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(1))){
+                this.xBarilBleu+= vitesse;
+            }
         }
         if (this.gauche) {
-            this.xBarilBleu -= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(1))){
+                this.xBarilBleu -= vitesse;
+            }
         }
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
         jeuMoteur.getBarrilJoueur().get(1).setX((int) xBarilBleu/this.largeurCase);
         jeuMoteur.getBarrilJoueur().get(1).setY((int) yBarilBleu/this.hauteurCase);
+        
+        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        
+        this.xPersonnage = this.jeuMoteur.getBarrilJoueur().get(1).getX()*this.largeurCase;
+        this.yPersonnage = this.jeuMoteur.getBarrilJoueur().get(1).getY()*this.hauteurCase;
 
     }
     
@@ -178,20 +219,33 @@ public class Avatars {
 
         // Mettre à jour la position du personnage en fonction des touches pressées.
         if (this.haut) {
-            this.yBarilJaune -= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(2))){
+                this.yBarilJaune -= vitesse;
+            }
         }
         if (this.bas) {
-            this.yBarilJaune += vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(2))){
+                this.yBarilJaune += vitesse;
+            }
         }
         if (this.droite) {
-            this.xBarilJaune+= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(2))){
+                this.xBarilJaune+= vitesse;
+            }
         }
         if (this.gauche) {
-            this.xBarilJaune -= vitesse;
+            if (this.jeuMoteur.deplacementEstPossible(this.jeuMoteur.getBarrilJoueur().get(2))){
+                this.xBarilJaune -= vitesse;
+            }
         }
         // Mettre à jour les coordonnées du personnage dans la classe Jeu
         jeuMoteur.getBarrilJoueur().get(2).setX((int) xBarilJaune/this.largeurCase);
         jeuMoteur.getBarrilJoueur().get(2).setY((int) yBarilJaune/this.hauteurCase);
+        
+        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        
+        this.xPersonnage = this.jeuMoteur.getBarrilJoueur().get(2).getX()*this.largeurCase;
+        this.yPersonnage = this.jeuMoteur.getBarrilJoueur().get(2).getY()*this.hauteurCase;
 
     }
         

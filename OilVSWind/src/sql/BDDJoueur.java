@@ -23,7 +23,8 @@ public class BDDJoueur {
     private String CONNECTION_URL;
     private String USERNAME;
     private String PASSWORD;
-
+    private Connection connexion;
+    
     private ArrayList<Jouable> listeJoueurs;
 
     public BDDJoueur() {
@@ -34,7 +35,8 @@ public class BDDJoueur {
         this.listeJoueurs = new ArrayList<Jouable>();
         
         // ici je crée mes personnages dans ma base de donnée
-        try (Connection connexion = SingletonJDBC.getInstance().getConnection()) {
+        try {
+            this.connexion =  SingletonJDBC.getInstance().getConnection();
             
             Statement statement = connexion.createStatement() ;
             
@@ -55,10 +57,9 @@ public class BDDJoueur {
             
             ResultSet resultat = statement.executeQuery("SELECT * FROM Joueur;");
             
-               OutilsJDBC.afficherResultSet(resultat);
+            OutilsJDBC.afficherResultSet(resultat);
             
             statement.close();
-            connexion.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -72,10 +73,10 @@ public class BDDJoueur {
 
     public ArrayList<Jouable> SelectJoueur() {
         try {
-            Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
-            PreparedStatement requete = connexion.prepareStatement("SELECT * FROM Joueur");
-
-            ResultSet result = requete.executeQuery();
+            
+            Statement statement = connexion.createStatement() ;
+            ResultSet result = statement.executeQuery("SELECT * FROM Joueur;");
+            
             while (result.next()) {
                 // ID, pseudo, x, y, type, vitesse, capturable
                 int ID = result.getInt("id");
@@ -96,8 +97,8 @@ public class BDDJoueur {
                 }
 
             }
-            requete.close();
-            connexion.close();
+            statement.close();
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -106,12 +107,11 @@ public class BDDJoueur {
     
     public void InsertJoueur(Jouable J, String pseudo) {
         try {
-            Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
+            Statement statement = connexion.createStatement() ;
+            PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES ( ?, ?, ?, ?, ?, ?)");
             
             if(J instanceof Runner){
                 Runner runner = (Runner) J;
-
-                    PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES ( ?, ?, ?, ?, ?, ?)");
 
                     requete.setString(1, runner.getPseudo());
                     requete.setInt(2, runner.getX());
@@ -122,12 +122,8 @@ public class BDDJoueur {
 
                     requete.executeUpdate();
                     
-                    requete.close();
-                    connexion.close();
-
             } else {
                 Baril baril = (Baril) J;
-                    PreparedStatement requete = connexion.prepareStatement("INSERT INTO Joueur VALUES (?, ?, ?, ?, ?, ?)");
 
                     requete.setString(1, baril.getPseudo()); 
                     requete.setInt(2, baril.getX());
@@ -137,20 +133,20 @@ public class BDDJoueur {
                     requete.setBoolean(6, baril.capturableGet());
 
                     requete.executeUpdate();
-                    
-                    requete.close();
-                    connexion.close();
+
             }
+            statement.close();
             
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
+ 
     public void UpdateJoueur(int ID, int x, int y, int vitesse, boolean capturable){
             try {
-                Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
+                Statement statement = connexion.createStatement() ;
                 PreparedStatement requete = connexion.prepareStatement("UPDATE Joueur SET X = ?, Y = ?, VITESSE = ?, CAPTURABLE = ? WHERE ID = ?");
+                
                 requete.setInt(1, x);
                 requete.setInt(2, y);
                 requete.setInt(3, vitesse);
@@ -159,8 +155,8 @@ public class BDDJoueur {
 
                 requete.executeUpdate();
                 
-                requete.close();
-                connexion.close();
+                statement.close();
+
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -168,15 +164,14 @@ public class BDDJoueur {
     
     public void DeleteJoueur(int ID){
         try {
-            Connection connexion = DriverManager.getConnection(this.CONNECTION_URL, this.USERNAME, this.PASSWORD);
+            Statement statement = connexion.createStatement() ;
             PreparedStatement requete = connexion.prepareStatement("DELETE FROM Joueur WHERE ID = ?");
             
             requete.setInt(1,ID);
 
             requete.executeUpdate();
             
-            requete.close();
-            connexion.close();
+            statement.close();
             
         } catch (SQLException ex) {
                 ex.printStackTrace();

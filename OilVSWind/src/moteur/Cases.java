@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class Cases {
     
     private Mur mur;
+    private Sol sol;
     private ArrayList<Bonus> listeBonus;
     private ArrayList<Jouable> listeJouable;
     private int x;
@@ -25,6 +26,7 @@ public class Cases {
         this.y = y;
         
         this.mur = null;
+        this.sol = null;
         this.listeBonus = new ArrayList<Bonus>();
         this.listeJouable = new ArrayList<Jouable>();
         
@@ -46,6 +48,22 @@ public class Cases {
     public int getY() {
         return y;
     }
+
+    public Sol getSol() {
+        return sol;
+    }
+
+    public void setSol(Sol sol) {
+        this.sol = sol;
+    }
+    
+    public boolean isSol(){
+        if(this.sol == null){
+            return false;
+        }
+        return true;
+    }
+    
 
     public boolean isMur(){
         if(this.mur == null){

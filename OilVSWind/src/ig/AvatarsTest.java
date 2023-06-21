@@ -20,11 +20,11 @@ import moteur.*;
 // CA MARCHE
 public class AvatarsTest extends JPanel implements KeyListener {
 
-    private Jeu jeu;
+    private JeuMoteur jeu;
     private Avatars avatars;
 
     public AvatarsTest() {
-        jeu = new Jeu();
+        jeu = new JeuMoteur();
         avatars = new Avatars(jeu,30, 32);
 
         JFrame frame = new JFrame();
