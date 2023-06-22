@@ -36,6 +36,7 @@ public class Avatars {
     
     private int largeurCase; 
     private int hauteurCase;
+    private boolean jeuTermine;
 
     public Avatars(JeuMoteur J, int largeurCase, int hauteurCase) {
         this.jeuMoteur = J;
@@ -133,7 +134,7 @@ public class Avatars {
         jeuMoteur.getRunner().setX((int) xPersonnage/this.largeurCase);
         jeuMoteur.getRunner().setY((int) yPersonnage/this.hauteurCase);
         
-        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        this.jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
         
         this.xPersonnage = this.jeuMoteur.getRunner().getX()*this.largeurCase;
         this.yPersonnage = this.jeuMoteur.getRunner().getY()*this.hauteurCase;
@@ -170,7 +171,7 @@ public class Avatars {
         jeuMoteur.getBarrilJoueur().get(0).setX((int) xBarilRouge/this.largeurCase);
         jeuMoteur.getBarrilJoueur().get(0).setY((int) yBarilRouge/this.hauteurCase);
         
-        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        this.jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
         
         this.xPersonnage = this.jeuMoteur.getBarrilJoueur().get(0).getX()*this.largeurCase;
         this.yPersonnage = this.jeuMoteur.getBarrilJoueur().get(0).getY()*this.hauteurCase;
@@ -206,7 +207,7 @@ public class Avatars {
         jeuMoteur.getBarrilJoueur().get(1).setX((int) xBarilBleu/this.largeurCase);
         jeuMoteur.getBarrilJoueur().get(1).setY((int) yBarilBleu/this.hauteurCase);
         
-        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        this.jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
         
         this.xPersonnage = this.jeuMoteur.getBarrilJoueur().get(1).getX()*this.largeurCase;
         this.yPersonnage = this.jeuMoteur.getBarrilJoueur().get(1).getY()*this.hauteurCase;
@@ -242,7 +243,7 @@ public class Avatars {
         jeuMoteur.getBarrilJoueur().get(2).setX((int) xBarilJaune/this.largeurCase);
         jeuMoteur.getBarrilJoueur().get(2).setY((int) yBarilJaune/this.hauteurCase);
         
-        boolean jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
+        this.jeuTermine = jeuMoteur.partieMoteurV2(); //Calcul collision
         
         this.xPersonnage = this.jeuMoteur.getBarrilJoueur().get(2).getX()*this.largeurCase;
         this.yPersonnage = this.jeuMoteur.getBarrilJoueur().get(2).getY()*this.hauteurCase;

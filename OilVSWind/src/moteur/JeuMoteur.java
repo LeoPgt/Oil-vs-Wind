@@ -421,11 +421,11 @@ public Carte MiseAJour(Jouable J,Carte CarteMoteur) {
         // Boucle de jeu
         if (this.jeuTermine == false) {
             // Déplacement du Runner
-            MiseAJour(runner,CarteMoteur);
+            CarteMoteur = MiseAJour(runner,CarteMoteur);
 
             // Déplacement des Barils
             for (Baril baril : barrilJoueur) {
-                MiseAJour(baril,CarteMoteur);
+                CarteMoteur = MiseAJour(baril,CarteMoteur);
             }
             // Vérification si tous les barils ont été capturés
             if (tousBarilsCaptures()== true) {
