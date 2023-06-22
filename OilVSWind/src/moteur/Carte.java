@@ -3,77 +3,69 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-
-import java.util.ArrayList;
-import utilitaire.*;
-
 /**
- * Cette classe permet de créer une carte qui est une matrice où à l'intérieur de chaque case se trouve une liste d'élements
+ * Le but de cette classe sera de traduire la carte en termes de 0 = vide ,1 = joueur , 2 = obstacle, 3= moutonA , 4 = moutonB , 5 = moutonC
  * @author mleconte
  */
 public class Carte {
-    private int largeur;
-    private int hauteur;
-    private Cases[][] matrice; 
-    
-    private ArrayList<Coordonnee> Spots; //Les spots d'apparition
-    
-    public Carte (int largeur, int hauteur) {
-        
-        this.largeur = largeur;
-        this.hauteur = hauteur;
-        
-        this.matrice = new Cases[largeur][hauteur]; // Crée une matrice
-        this.Spots = new ArrayList<Coordonnee>();
-        
-    }
+    int size;
+    private int[][] matrice; 
 
-    public ArrayList<Coordonnee> getSpots() {
-        return Spots;
-    }
-
-    public int getLargeur() {
-        return largeur;
-    }
-
-    public int getHauteur() {
-        return hauteur;
-    }
-
-    public void setLargeur(int largeur) {
-        this.largeur = largeur;
-    }
-
-    public void setHauteur(int hauteur) {
-        this.hauteur = hauteur;
-    }
-   
-    
-    public Cases[][] getMatrice() {
+    public int[][] getMatrice() {
         return matrice;
     }
 
-    public void setMatrice(int i, int j, Cases valeur) {
+    public void setMatrice(int i, int j, int valeur) {
         this.matrice[i][j] = valeur;
     }
     
-    @Override
-    public String toString() {
-        String str = "";
-        for(int j = 0; j < hauteur; j++){
-            for(int i = 0; i< largeur; i++){
-                
-                if (this.matrice[i][j].isMur()){
-                    str += "2 ";
-                }
-                else{
-                    str += "0 ";
-                }
-
-            }
-            str += "\n";
-        }
-        return str;
+    public Carte (int size) {
+        this.size = size;
+        this.matrice = new int[size][size]; // Crée une matrice
+//        int nbrObstacle = 2;
+//        for (int k=0;k< nbrObstacle;k++){ // Placement des obstacles de manière aléatoires pour le moment productowner !
+//            int indexRandom = (int)(Math.random()*(matrice.length));
+//            int indexRandom2 = (int)(Math.random()*(matrice.length)); //Manal : Attention aux noms de variables pas claires. Mais ok !
+//            matrice[indexRandom][indexRandom2] = 2;
+//        }
+        // Déjà codé l'ajout des autres perso en attente pour faire les divers test !
+//        int Placer = 0;
+//        while (Placer != nbrPerso-1){
+//            for (int k=0; k<nbrPerso;k++ ){
+//                int index1Joueurk = (int)(Math.random()*(matrice.length));
+//                int index2Joueurk = (int)(Math.random()*(matrice.length));
+//                matrice[index1Joueurk][index2Joueurk]=1;
+//            }
+//            Placer++;
+//        }
+        this.matrice[0][0] = 1; // Initialise la position de départ du 1 (ce sera la place initial du joueur)
+        this.matrice[4][4] = 3;
     }
-    
+
+    public int getSize() {
+        return size;
+    }
+
+         //Manal : Idem, ça peut être dans un toString ça.
+    public void afficherMatriceV2(Carte Map){
+       int[][] carteMatricielle = Map.getMatrice();
+       for (int i = 0; i< carteMatricielle.length; i++){
+           for (int j=0; j< carteMatricielle[i].length;j++){
+               if(Map.getMatrice()[i][j]==1){
+                   System.out.print("1");
+               }
+               if(Map.getMatrice()[i][j]==2){
+                   System.out.print("2");
+               }
+                if(Map.getMatrice()[i][j]==0){
+                   System.out.print("0");               
+                }
+                if(Map.getMatrice()[i][j]==3){
+                   System.out.print("3");               
+                }                
+            }    
+           System.out.println();
+        }
+    }
 }
+    // Affichge Matrice Validée plein de conflit pour l'apparition de nouveau éléments

@@ -8,15 +8,22 @@ package moteur;
  *
  * @author rmorel
  */
-public class RunnerTest {
+public class JeuTest {
 
     /**
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Runner coureur = new Runner(4,1,1,2);
-        coureur.getX();
+        Carte Monde = new Carte();
+       // Jeu partie = new Jeu();
+        Carte Monde = new Carte(5);
+        Jeu partie = new Jeu(2);
+        System.out.println();
+        //partie.partie();
+ 
+ 
     }
     
 }
+

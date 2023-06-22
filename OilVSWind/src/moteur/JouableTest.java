@@ -14,8 +14,8 @@ public class JouableTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //Jouable test = new Jouable(1,3,2);
-        //System.out.print(test.getX());
+        Jouable test = new Jouable(1,3,2);
+        System.out.print(test.getX());
     }
     
 }

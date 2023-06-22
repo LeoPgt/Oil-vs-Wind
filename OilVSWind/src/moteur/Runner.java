@@ -3,32 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package moteur;
-
 /**
  *
  * @author rmorel
  */
 public class Runner extends Jouable{
-    private int vitesseRunner;
+   // un private avec l'élement distinguant le loup private int vitesse;
+    private int vitesseLoup;
     private boolean capturePossible;
-    private int idSQL;
-    
    // les coordonnées x,y seront différentes pour les spawns  
-    public Runner(int idSQL, String pseudo, int x, int y, int vitesseRunner){
-        super (pseudo, "runner", x , y); // le nom de Runner sera runner en terme de matrice.
-        this.vitesseRunner = vitesseRunner;
-        this.idSQL = idSQL;
+    // constructeur Règle loup
+    public Runner(int ID, int x, int y, int vitesseLoup){
+        super (ID, x , y);
+        this.vitesseLoup=vitesseLoup;
         // spawn a côté de l'éolienne à définir
-    }   
-    public int getIdSQL(){
-        return idSQL;
-    }
-    
-    public void setVitesse(){
-        this.vitesseRunner = vitesseRunner*2; // Augmente sa vitesse * 2 
+    }     
+    public void setVitesse(int newVitesse){
+        this.vitesseLoup = newVitesse;
     }
     public int getVitesse(){
-        return this.vitesseRunner;
+        return this.vitesseLoup;
     }
     public boolean capturePossibleGet() {
         return capturePossible;
@@ -36,8 +30,13 @@ public class Runner extends Jouable{
     public void CapturePossibleSet(boolean capturePossible) {
         this.capturePossible = capturePossible;
     }
-    // Le Runner ne peut capturer un baril s'il n'est pas sur la même case que la baril
+    // Le loup ne peut capture un bidon ssi il n'as pas déjà attrapé un bidon
    public void capturePossible (){
-       this.capturePossible = this.capturePossibleGet() == true;
+        if(this.capturePossibleGet() == true){
+          this.capturePossible = true;
+       }
+       else{
+           this.capturePossible= false;
+       }
    }        
 }

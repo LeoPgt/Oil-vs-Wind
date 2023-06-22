@@ -16,7 +16,7 @@ public class FenetreDeJeuGUI extends javax.swing.JFrame implements ActionListene
 
     private BufferedImage framebuffer;
     private Graphics2D contexte;
-    private JeuIG jeu;
+    private Jeu jeu;
     private Timer timer;
 
     /**
@@ -26,7 +26,7 @@ public class FenetreDeJeuGUI extends javax.swing.JFrame implements ActionListene
         initComponents();
 
         // Creation du jeu
-        //this.jeu = new JeuIG();
+        this.jeu = new Jeu();
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
         this.framebuffer = new BufferedImage(this.jLabel1.getWidth(), this.jLabel1.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -117,19 +117,19 @@ public class FenetreDeJeuGUI extends javax.swing.JFrame implements ActionListene
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            this.jeu.getAvatar().setDroite(true);
+            this.jeu.joueur.setDroite(true);
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            this.jeu.getAvatar().setGauche(true);
+            this.jeu.joueur.setGauche(true);
         }
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         if (evt.getKeyCode() == evt.VK_RIGHT) {
-            this.jeu.getAvatar().setDroite(false);
+            this.jeu.joueur.setDroite(false);
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
-            this.jeu.getAvatar().setGauche(false);
+            this.jeu.joueur.setGauche(false);
         }
     }//GEN-LAST:event_formKeyReleased
 
@@ -158,6 +158,38 @@ public class FenetreDeJeuGUI extends javax.swing.JFrame implements ActionListene
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FenetreDeJeuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
