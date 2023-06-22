@@ -383,9 +383,7 @@ public Carte MiseAJour(Jouable J,Carte CarteMoteur) {
 
         J.setX(newX);
         J.setY(newY);
-        
-        MapMod.getMatrice()[newX][newY].getListeJouable().remove(J);
-        MapMod.getMatrice()[newX][newY].getListeJouable().add(J);
+     
         
         if (J instanceof Runner) {
             Runner runner = (Runner) J;
