@@ -347,16 +347,16 @@ public class JeuMoteur {
     * @return la matrice modifié avec le déplacement du jouable
     */   
         
-public Carte MiseAJour(Jouable J, Carte Bouclage) {
-    Carte MapMod = new Carte(Bouclage.getLargeur(), Bouclage.getHauteur());
-
-    for (int i = 0; i < Bouclage.getLargeur(); i++) {
-        for (int j = 0; j < Bouclage.getHauteur(); j++) {
+public Carte MiseAJour(Jouable J,Carte CarteMoteur) {
+    Carte MapMod = new Carte(CarteMoteur.getLargeur(), CarteMoteur.getHauteur());
+    // une copie de la carteMoteur avec des références distinctes pour chaque case dans la matrice MapMod.
+    for (int i = 0; i < CarteMoteur.getLargeur(); i++) {
+        for (int j = 0; j < CarteMoteur.getHauteur(); j++) {
             MapMod.setMatrice(i, j, new Cases(i, j));
-            Cases bouclageCase = Bouclage.getMatrice()[i][j];
-            MapMod.getMatrice()[i][j].setMur(bouclageCase.getMur());
-            MapMod.getMatrice()[i][j].setListeBonus(new ArrayList<>(bouclageCase.getListeBonus()));
-            MapMod.getMatrice()[i][j].setListeJouable(new ArrayList<>(bouclageCase.getListeJouable()));
+            Cases carteMoteurCase = CarteMoteur.getMatrice()[i][j];
+            MapMod.getMatrice()[i][j].setMur(carteMoteurCase.getMur());
+            MapMod.getMatrice()[i][j].setListeBonus(new ArrayList<>(carteMoteurCase.getListeBonus()));
+            MapMod.getMatrice()[i][j].setListeJouable(new ArrayList<>(carteMoteurCase.getListeJouable()));
         }
     }
     
@@ -381,10 +381,11 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
             newY = y + 1;
         }
 
-        Element caseDestination = laCaseDeCoordonnees(newX, newY);
-
         J.setX(newX);
         J.setY(newY);
+        
+        MapMod.getMatrice()[newX][newY].getListeJouable().remove(J);
+        MapMod.getMatrice()[newX][newY].getListeJouable().add(J);
         
         if (J instanceof Runner) {
             Runner runner = (Runner) J;
@@ -393,6 +394,7 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
             Baril baril = (Baril) J;
             BJ.UpdateJoueur(baril.getIdSQL(), newX, newY, 10, baril.capturableGet());// Met à jour les coordonnées du Barril dans la base de données
         }
+        
     } else {
         System.out.println("Déplacement impossible dans la direction spécifiée");
     }
@@ -419,11 +421,11 @@ public Carte MiseAJour(Jouable J, Carte Bouclage) {
         // Boucle de jeu
         if (this.jeuTermine == false) {
             // Déplacement du Runner
-            CarteMoteur = MiseAJour(runner, CarteMoteur);
+            MiseAJour(runner,CarteMoteur);
 
             // Déplacement des Barils
             for (Baril baril : barrilJoueur) {
-                CarteMoteur = MiseAJour(baril, CarteMoteur);
+                MiseAJour(baril,CarteMoteur);
             }
             // Vérification si tous les barils ont été capturés
             if (tousBarilsCaptures()== true) {
