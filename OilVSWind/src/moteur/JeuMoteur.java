@@ -197,7 +197,7 @@ public class JeuMoteur {
         int y = J.getY();
         
         if (this.gauche) {
-            if (x - 1 >= 0) {
+            if (x - 1 > 0) {
                 if (caseAutour(J).isEmpty()) {
                     return true; // Déplacement possible vers la gauche (aucun élément autour)
                 } else {
@@ -225,7 +225,7 @@ public class JeuMoteur {
                 }
             }
         } else if (this.haut) {
-            if (y - 1 >= 0) {
+            if (y - 1 > 0) {
                 if (caseAutour(J).isEmpty()) {
                     return true; // Déplacement possible vers le haut (aucun élément autour)
                 } else {
@@ -252,9 +252,11 @@ public class JeuMoteur {
                     }
                 }
             }
+        } else if (x-1 <= 0 || x+1 >= CarteMoteur.getLargeur() || y-1 <= 0 || y-1 >= CarteMoteur.getHauteur() ){
+            return false; // coordonnées invalides
         }
-
-        return true; // Aucune direction de déplacement spécifiée ou coordonnées invalides
+        
+        return true; // Aucune direction de déplacement spécifiée 
     }
     
     /**
